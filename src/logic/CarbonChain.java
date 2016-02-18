@@ -2,10 +2,24 @@ package logic;
 
 public class CarbonChain {
 	
-	Carbon start = new Carbon();
-	Carbon x = new Carbon();
-	Carbon end = new Carbon();
 	
+	int lenght = 10;
+	
+	Carbon[] chain;
+	
+	void setLenght(int len){
+		lenght=len;
+	}
+	
+	CarbonChain(){
+		lenght = 0;
+	}
+	CarbonChain(int len){
+		lenght = len;
+		//System.out.println(lenght);
+		chain = new Carbon[lenght];
+		
+	}
 	
 
 }
