@@ -29,7 +29,8 @@ public class GlobalPanel extends JPanel {
 
 	private JPanel pnlSeekBar;
 	private JTextField textSeekQuery;
-	private static final int TEXT_SEEK_QUERY_WIDTH = 25;
+	private static final int TEXT_SEEK_QUERY_HEIGHT = 25;
+	private static final int SEEK_BAR_WIDTH = 300;
 	private JPanel pnlSeekBarSuggestions;
 
 	private JPanel pnlAction;
@@ -70,10 +71,8 @@ public class GlobalPanel extends JPanel {
 	
 	
 	private void updatePreferredSize(int width, int height) {
-		System.out.println(textSeekQuery.getPreferredSize());
-		textSeekQuery.setMaximumSize(new Dimension(width/4, TEXT_SEEK_QUERY_WIDTH));
-		pnlSeekBarSuggestions.setPreferredSize(
-				new Dimension(width/4, height-TEXT_SEEK_QUERY_WIDTH));
+		pnlSeekBar.setPreferredSize(
+				new Dimension(SEEK_BAR_WIDTH, height));
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 	}
 	
@@ -97,14 +96,14 @@ public class GlobalPanel extends JPanel {
 		pnlSeekBar.setLayout(new BoxLayout(pnlSeekBar, BoxLayout.PAGE_AXIS));
 		
 		textSeekQuery = new JTextField();
-		textSeekQuery.setPreferredSize(new Dimension(width/4, TEXT_SEEK_QUERY_WIDTH));
+		textSeekQuery.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
 		
 		pnlSeekBarSuggestions = new JPanel();
 		pnlSeekBarSuggestions.setOpaque(true);
 		pnlSeekBarSuggestions.setBackground(Color.GRAY);
 		pnlSeekBarSuggestions.setLayout(new GridLayout());
 		pnlSeekBarSuggestions.setPreferredSize(
-				new Dimension(width/4, height-TEXT_SEEK_QUERY_WIDTH));
+				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
 		
 		pnlSeekBar.add(textSeekQuery);
 		pnlSeekBar.add(pnlSeekBarSuggestions);
@@ -118,6 +117,24 @@ public class GlobalPanel extends JPanel {
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 		
 		pnlEquation = new JPanel();
+		pnlEquation.setLayout(new BoxLayout(pnlEquation, BoxLayout.LINE_AXIS));
+		
+		pnlReactants = new JPanel();
+		pnlReactants.setOpaque(true);
+		pnlReactants.setBackground(Color.RED);
+		pnlReactants.setPreferredSize(new Dimension(200, 500));
+		
+		btnReact = new JButton("React!");
+		
+		pnlProducts = new JPanel();
+		pnlProducts.setOpaque(true);
+		pnlProducts.setBackground(Color.RED);
+		pnlProducts.setPreferredSize(new Dimension(200, 500));
+		
+		pnlEquation.add(pnlReactants, BorderLayout.WEST);
+		pnlEquation.add(btnReact, BorderLayout.CENTER);
+		pnlEquation.add(pnlProducts, BorderLayout.EAST);
+		
 		
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
