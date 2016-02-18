@@ -1,5 +1,6 @@
 package GUI;
 
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Container;
@@ -7,8 +8,11 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.util.ArrayList;
@@ -18,34 +22,31 @@ import javax.swing.GroupLayout;
 import javax.swing.JButton;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
 public class GlobalPanel extends JPanel {
 
-	private static JButton ADD_REACTANT = new JButton("Add reactant");
+	private JPanel pnlSeekBar;
+	private JTextField textSeekQuery;
+	private static final int TEXT_SEEK_QUERY_WIDTH = 25;
+	private JPanel pnlSeekBarSuggestions;
+
+	private JPanel pnlAction;
+	private JPanel pnlViewCompoundBar;
+	private JPanel pnlEquation;
 	
-	private static class ReactantsPanel extends JPanel {
-		
-		private ArrayList<ReactantLabel> reactants = new ArrayList<>(4);
-		
-		ReactantsPanel() {
-			super();
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		}
-		
-		
-		void addReactant() {
-			add(new ReactantLabel());
-			revalidate();
-			validate();
-			
-		}
-	};
-	ReactantsPanel Reactants;
+	private JPanel pnlMenu;
+	private JButton btnAddReactant = new JButton("Add reactant");
 	
-	private static JButton REACT = new JButton("REACT");
 	
-	private static class ProductsPanel extends JPanel {
+	private JPanel pnlReactants;
+	private ArrayList<ReactantLabel> reactants;
+	
+	
+	private JButton btnReact = new JButton("REACT");
+	
+	private class ProductsPanel extends JPanel {
 		
 		private static final long serialVersionUID = 2L;
 		
@@ -64,74 +65,97 @@ public class GlobalPanel extends JPanel {
 			
 		}
 	};
-	ProductsPanel Products;
+	private JPanel pnlProducts;
+
 	
-	public GlobalPanel() {
+	
+	private void updatePreferredSize(int width, int height) {
+		System.out.println(textSeekQuery.getPreferredSize());
+		textSeekQuery.setMaximumSize(new Dimension(width/4, TEXT_SEEK_QUERY_WIDTH));
+		pnlSeekBarSuggestions.setPreferredSize(
+				new Dimension(width/4, height-TEXT_SEEK_QUERY_WIDTH));
+		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
+	}
+	
+	public GlobalPanel(int width, int height) {
 		
-		Reactants = new ReactantsPanel();
+		this.addComponentListener(new ComponentAdapter() {
 		
-		Products = new ProductsPanel();
-		
-		ADD_REACTANT.addMouseListener(new MouseListener() {
-
 			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) {
-					Reactants.addReactant();
-				}
-				else if(SwingUtilities.isRightMouseButton(e)) {
-					Products.addProduct("Qsno li e? Vaprosi?");
-				}
+			public void componentResized(ComponentEvent evt) {
+				Component c = (Component) evt.getSource();
+				invalidate();
+				updatePreferredSize(c.getSize().width, c.getSize().height);
+				validate();
 			}
-
-			@Override
-			public void mouseEntered(MouseEvent e) {}
-
-			@Override
-			public void mouseExited(MouseEvent e) {}
-
-			@Override
-			public void mousePressed(MouseEvent e) {}
-
-			@Override
-			public void mouseReleased(MouseEvent e) {}
 			
 		});
 		
+		this.setLayout(new BorderLayout());
 		
-		this.setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-
-		c.insets = new Insets(50, 50, 0, 0);
+		pnlSeekBar = new JPanel();
+		pnlSeekBar.setLayout(new BoxLayout(pnlSeekBar, BoxLayout.PAGE_AXIS));
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.5;
-		c.gridx = 0;
-		c.gridy = 0;
-		add(ADD_REACTANT, c);
+		textSeekQuery = new JTextField();
+		textSeekQuery.setPreferredSize(new Dimension(width/4, TEXT_SEEK_QUERY_WIDTH));
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.3;
-		c.gridx = 1;
-		c.gridy = 1;
-		add(Reactants, c);
-	
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.3;
-		c.gridx = 2;
-		c.gridy = 1;
-		add(REACT, c);
+		pnlSeekBarSuggestions = new JPanel();
+		pnlSeekBarSuggestions.setOpaque(true);
+		pnlSeekBarSuggestions.setBackground(Color.GRAY);
+		pnlSeekBarSuggestions.setLayout(new GridLayout());
+		pnlSeekBarSuggestions.setPreferredSize(
+				new Dimension(width/4, height-TEXT_SEEK_QUERY_WIDTH));
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 0.3;
-		c.gridx = 3;
-		c.gridy = 1;
-		add(Products, c);
+		pnlSeekBar.add(textSeekQuery);
+		pnlSeekBar.add(pnlSeekBarSuggestions);
+		
+		pnlAction = new JPanel();
+		pnlAction.setLayout(new BorderLayout());
+		
+		pnlViewCompoundBar = new JPanel();
+		pnlViewCompoundBar.setOpaque(true);
+		pnlViewCompoundBar.setBackground(Color.BLUE);
+		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
+		
+		pnlEquation = new JPanel();
+		
+		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
+		pnlAction.add(pnlEquation, BorderLayout.CENTER);
+		
+		this.add(pnlSeekBar, BorderLayout.WEST);
+		this.add(pnlAction, BorderLayout.CENTER);
+		this.invalidate();
+		
+		
 	}
 	
+	private void addReactant() {
+		
+		reactants.add(new ReactantLabel("LOLOLOLOLOOLOLSAHFKABSLDKGJBDLSAJGBLDASJGOLOL"));
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.weightx = 0.0;
+		c.gridy = reactants.size()-1;
+		pnlReactants.add(reactants.get(reactants.size()-1), c);
+		
+		pnlReactants.revalidate();
+	}
 	
-	
+	private void addProduct(String name) {
+		
+		reactants.add(new ReactantLabel(name));
+		
+		GridBagConstraints c = new GridBagConstraints();
+		c.weightx = 0.0;
+		c.gridy = reactants.size()-1;
+		pnlProducts.add(reactants.get(reactants.size()-1), c);
+		
+		pnlProducts.revalidate();
+		
+		System.out.println(pnlReactants.getSize());
+		System.out.println(pnlProducts.getSize());
+	}
+
 	
 
 }

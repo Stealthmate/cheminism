@@ -11,14 +11,23 @@ import javax.swing.SwingUtilities;
 
 public class ReactantLabel extends JLabel implements MouseListener {
 	
+	
 	public ReactantLabel() {
 		super("Empty");
-		setOpaque(true);
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 		invalidate();
 	}
 
+	public ReactantLabel(String name) {
+		super(name);
+		setOpaque(true);
+		setBackground(Color.YELLOW);
+		setHorizontalAlignment(JLabel.CENTER);
+		setVerticalAlignment(JLabel.CENTER);
+		invalidate();
+	}
+	
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
