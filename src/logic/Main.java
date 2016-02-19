@@ -1,10 +1,8 @@
 package logic;
 
 public class Main {
-	private static Carbon x;
-	private static Carbon c;
-	private static Carbon start;
 	private static CarbonChain per;
+	private static Carbon test;
 
 	public static void main(String [ ] args){
 		
@@ -12,8 +10,10 @@ public class Main {
 		x = new Carbon();
 		c = new Carbon();*/
 		
-		per = new CarbonChain(10);
+		//test = new Carbon();
 		
+		
+		per = new CarbonChain(1);
 		//per.setLenght(10);
 		
 		//per.chain[10].print('f');

@@ -1,18 +1,29 @@
 package logic;
+import java.util.*;
 
-public class Carbon {
+public class Carbon extends Atom{
+	
+	public ArrayList <Bond> bondNum; 
+	
+	Carbon(){
+		bondNum = new ArrayList<Bond>(4); // 4 bonds in total
+		for(int i = 0; i < 4; i++){
+			bondNum.add(new Bond()); // initialise bonds
+		}//set bonds to None Type
+		bondNum.get(0).setBond(BondTypes.None);
+		bondNum.get(1).setBond(BondTypes.None);
+		bondNum.get(2).setBond(BondTypes.None);
+		bondNum.get(3).setBond(BondTypes.None);
 		
-		public int numberOfBonds;
-		
-		Carbon next;
-		Carbon prev;
+	}
+		/*public int numberOfBonds;
 		
 		Carbon(){
 			numberOfBonds = 0;
 			System.out.println("int");
 		}
 		
-		public void connectNext(Carbon atom){
+		/*public void connectNext(Carbon atom){
 			this.next = atom;
 			numberOfBonds++;
 			if(numberOfBonds>4)
@@ -36,16 +47,13 @@ public class Carbon {
 			x = Start;
 			while(x!=null)
 			{
-				char s='d';
-				x.print(s);
+				//char s='d';
+				//x.print();
 				x=x.next;
-				s++;
+				//s++;
 			}
 		}
+	*/
 	
-	
-	public static void print(char z){
-		System.out.println(z);
-	}
 	
 }
