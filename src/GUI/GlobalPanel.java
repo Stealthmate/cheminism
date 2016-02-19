@@ -104,10 +104,14 @@ public class GlobalPanel extends JPanel {
 		
 		pnlSeekBarSuggestions = new JPanel();
 		pnlSeekBarSuggestions.setOpaque(true);
-		pnlSeekBarSuggestions.setBackground(Color.GRAY);
+		//pnlSeekBarSuggestions.setBackground(Color.GRAY);
 		pnlSeekBarSuggestions.setLayout(new GridLayout());
 		pnlSeekBarSuggestions.setPreferredSize(
 				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
+		
+		SuggestionEntry entry = new SuggestionEntry("Hello!");
+		pnlSeekBarSuggestions.add(entry);
+		
 		
 		pnlSeekBar.add(textSeekQuery);
 		pnlSeekBar.add(pnlSeekBarSuggestions);
