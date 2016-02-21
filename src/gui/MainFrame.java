@@ -1,14 +1,19 @@
-package GUI;
+package gui;
 
 import java.awt.Dimension;
+import java.awt.Font;
 import java.awt.Toolkit;
 
 import javax.swing.JFrame;
+
+import gui.mainscreen.GlobalPanel;
 
 public class MainFrame extends JFrame {
 
 	private static int WIDTH;
 	private static int HEIGHT;
+	
+	public static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 13);
 	
 	public static int getFrameWidth() {
 		return WIDTH;

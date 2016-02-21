@@ -1,4 +1,4 @@
-package GUI.structuredrawer;
+package gui.structuredrawer;
 
 import java.awt.Graphics2D;
 import java.awt.geom.Line2D;

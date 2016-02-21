@@ -1,4 +1,4 @@
-package GUI.structuredrawer;
+package gui.structuredrawer;
 
 import java.awt.geom.Point2D;
 

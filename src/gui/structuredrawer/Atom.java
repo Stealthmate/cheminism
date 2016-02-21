@@ -1,4 +1,4 @@
-package GUI.structuredrawer;
+package gui.structuredrawer;
 
 import java.awt.Font;
 import java.awt.FontMetrics;
@@ -6,12 +6,12 @@ import java.awt.Graphics2D;
 import java.awt.geom.Point2D;
 
 public class Atom {
-	
+
+	public static final Atom EMPTY = new Atom("");
 	public static final Atom H = new Atom("H");
 	public static final Atom C = new Atom("C");
 	public static final Atom O = new Atom("O");
 	public static final Atom OH = new Atom("OH");
-	public static final Atom EMPTY = new Atom("");
 	
 	
 	public final String name;

@@ -1,4 +1,4 @@
-package GUI;
+package gui.mainscreen;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import javax.swing.BoxLayout;
 import javax.swing.GroupLayout;
 import javax.swing.JButton;
+import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -48,30 +49,9 @@ public class GlobalPanel extends JPanel {
 	
 	
 	private JButton btnReact = new JButton("REACT");
-	
-	private class ProductsPanel extends JPanel {
-		
-		private static final long serialVersionUID = 2L;
-		
-		private ArrayList<JLabel> products = new ArrayList<>(4);
-		
-		ProductsPanel() {
-			super();
-			setLayout(new BoxLayout(this, BoxLayout.Y_AXIS));
-		}
-		
-		
-		public void addProduct(String name) {
-			add(new JLabel(name));
-			revalidate();
-			validate();
-			
-		}
-	};
+
 	private JPanel pnlProducts;
 
-	
-	
 	private void updatePreferredSize(int width, int height) {
 		pnlSeekBar.setPreferredSize(
 				new Dimension(SEEK_BAR_WIDTH, height));
@@ -123,46 +103,65 @@ public class GlobalPanel extends JPanel {
 		pnlViewCompoundBar.setOpaque(true);
 		pnlViewCompoundBar.setBackground(Color.BLUE);
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
-		
-		pnlEquation = new JPanel();
-		pnlEquation.setLayout(new BoxLayout(pnlEquation, BoxLayout.LINE_AXIS));
+
 		
 		pnlReactants = new JPanel();
 		pnlReactants.setLayout(new GridBagLayout());
 		
-		btnAddReactant = new JButton("+");
-		btnAddReactant.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) addReactant();
-			}
-		});
-		
-		btnRemoveReactant = new JButton("-");
+		reactants.add(new ReactantLabel("Reactant"));
+		reactants.add(new ReactantLabel("Reactant"));
+		reactants.add(new ReactantLabel("Reactant"));
 		
 		GridBagConstraints c = new GridBagConstraints();
-		c.weightx = 0.0;
-		c.gridx = 0;
-		c.gridy = 0;
-		c.anchor = GridBagConstraints.NORTHWEST;
-		pnlReactants.add(btnAddReactant, c);
+		
+		c.fill = GridBagConstraints.HORIZONTAL;
+		c.weightx = 1.0;
+		c.weighty = 0.0;
 		c.gridx = 1;
-		pnlReactants.add(btnRemoveReactant, c);
+		c.gridy = 1;
+		pnlReactants.add(reactants.get(0), c);
+		c.gridy = 2;
+		pnlReactants.add(reactants.get(1), c);
+		c.gridy = 3;
+		pnlReactants.add(reactants.get(2), c);
+
 		
 		pnlReactants.setOpaque(true);
 		pnlReactants.setBackground(Color.RED);
-		pnlReactants.setPreferredSize(new Dimension(200, 500));
 		
 		btnReact = new JButton("React!");
 		
 		pnlProducts = new JPanel();
 		pnlProducts.setOpaque(true);
 		pnlProducts.setBackground(Color.RED);
-		pnlProducts.setPreferredSize(new Dimension(200, 500));
 		
-		pnlEquation.add(pnlReactants, BorderLayout.WEST);
-		pnlEquation.add(btnReact, BorderLayout.CENTER);
-		pnlEquation.add(pnlProducts, BorderLayout.EAST);
+		
+		pnlEquation = new JPanel();
+		pnlEquation.setLayout(new GridBagLayout());
+		pnlEquation.setBackground(Color.cyan);
+		pnlEquation.setOpaque(true);
+		
+		c = new GridBagConstraints();
+		c.anchor = GridBagConstraints.FIRST_LINE_START;
+		c.weightx = 0.45;
+		c.weighty = 1.0;
+		c.gridx = 0;
+		c.fill = GridBagConstraints.BOTH;
+		pnlEquation.add(pnlReactants, c);
+		
+		c.ipadx = 0;
+		c.ipady = 0;
+		c.gridx = 1;
+		c.weightx = 0.1;
+		c.anchor = GridBagConstraints.CENTER;
+		c.fill = GridBagConstraints.NONE;
+		pnlEquation.add(btnReact, c);
+		
+		c.gridx = 2;
+		c.weightx = 0.5;
+		c.anchor = GridBagConstraints.LINE_END;
+		c.fill = GridBagConstraints.BOTH;
+		pnlEquation.add(pnlProducts, c);
 		
 		
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
@@ -175,19 +174,14 @@ public class GlobalPanel extends JPanel {
 		
 	}
 	
-	private void addReactant() {
+	private void removeReactant() {
 		
-		reactants.add(new ReactantLabel("LOLOLOLOLOOLOLSAHFKABSLDKGJBDLSAJGBLDASJGOLOL"));
+		if(reactants.size()<1) return;
 		
-		GridBagConstraints c = new GridBagConstraints();
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.gridx = 0;
-		c.gridwidth = 3;
-		c.gridy = reactants.size();
-		pnlReactants.add(reactants.get(reactants.size()-1), c);
+		pnlReactants.remove(reactants.get(reactants.size()-1));
+		reactants.remove(reactants.size()-1);
 		
-		revalidate();
+		updateUI();
 	}
 	
 	private void addProduct(String name) {
@@ -200,10 +194,7 @@ public class GlobalPanel extends JPanel {
 		c.gridy = reactants.size();
 		pnlProducts.add(reactants.get(reactants.size()-1), c);
 		
-		pnlProducts.revalidate();
-		
-		System.out.println(pnlReactants.getSize());
-		System.out.println(pnlProducts.getSize());
+		updateUI();
 	}
 
 	

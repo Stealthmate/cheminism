@@ -1,4 +1,4 @@
-package GUI;
+package gui.mainscreen;
 
 import java.awt.Graphics2D;
 import java.awt.Image;
@@ -7,19 +7,21 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
-import GUI.structuredrawer.StructureImageBuilder;
+import gui.MainFrame;
+import gui.structuredrawer.StructureImageBuilder;
 
 public class SuggestionEntry extends JLabel {
 	
 	private String name;
-	private Image thumbnail;
+	private BufferedImage thumbnail;
 	
 	public SuggestionEntry(String name) {
+		super(name);
 		this.name = name;
 		this.thumbnail = 
 				new BufferedImage(
-						MainFrame.getFrameWidth(), 
-						MainFrame.getFrameHeight(), 
+						300, 
+						100, 
 						BufferedImage.TYPE_INT_RGB);
 		
 		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
@@ -27,9 +29,7 @@ public class SuggestionEntry extends JLabel {
 		graphics.drawString("C", 20, 200);
 		graphics.drawString("C", 20 + graphics.getFont().getSize()*2, 200);
 		
-		
-		//this.setIcon(new ImageIcon(thumbnail));
-		this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
+		this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage(thumbnail)));
 		
 	}
 	
