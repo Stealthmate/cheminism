@@ -7,6 +7,8 @@ import java.awt.image.BufferedImage;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 
+import GUI.structuredrawer.StructureImageBuilder;
+
 public class SuggestionEntry extends JLabel {
 	
 	private String name;
