@@ -29,7 +29,7 @@ public class SuggestionEntry extends JLabel {
 		graphics.drawString("C", 20, 200);
 		graphics.drawString("C", 20 + graphics.getFont().getSize()*2, 200);
 		
-		this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage(thumbnail)));
+		this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
 		
 	}
 	

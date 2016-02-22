@@ -25,8 +25,8 @@ public class Bond {
 	public static final int DOUBLE = 2;
 	public static final int TRIPLE = 3;
 	
-	private static final int LENGTH = 20;
-	private static final float MULTI_LINE_OFFSET = 2;
+	public static final int LENGTH = 20;
+	public static final float MULTI_LINE_OFFSET = 2;
 	
 	public static Point2D draw(Graphics2D canvas, Point2D pos, Atom a1, Atom a2, Direction d, int type) {
 		

@@ -17,7 +17,6 @@ public class ReactionPanel extends JPanel {
 	private static final String REACT_BUTTON_NAME = "React";
 	
 	private JPanel pnlReactants;
-	private ArrayList<ReactantLabel> reactants;
 	private JButton btnReact;
 	private JPanel pnlProducts;
 	
@@ -28,8 +27,6 @@ public class ReactionPanel extends JPanel {
 	    
 		int rect_w = (d.width - btnw)/2;
 		int rect_h = d.height;
-		System.out.println(btnw + " " + btnh);
-		System.out.println(rect_w + " " + rect_h);
 		
 		pnlReactants.setBounds(new Rectangle(0, 0, rect_w, rect_h));
 		

@@ -14,6 +14,11 @@ import gui.MainFrame;
 
 public class StructureImageBuilder {
 
+	public static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
+	public static final int STROKE_WIDTH = 2;
+	public static final int IMAGE_SCALE_MULTIPLIER = 3;
+	public static final float CHAIN_LENGTH_MULT = 0.5774f;
+	
 	private static int img_w;
 	private static int img_h;
 
@@ -36,18 +41,30 @@ public class StructureImageBuilder {
 		FONT_SIZE_NUMBER = (1 / 3) * FONT_SIZE_LETTER;
 	}
 
-	public static Image buildFormulaImage(BufferedImage canvasimg) {
+	public static Image buildFormulaImage() {
 
 		setScale(MainFrame.getScreenWidth(), MainFrame.getScreenHeight());
 
+		int chain_length = 4;
+		int chain_height = 3;
+		int multx = (int) (chain_length * Bond.LENGTH * CHAIN_LENGTH_MULT * IMAGE_SCALE_MULTIPLIER);
+		int multy = (int) (chain_height * Bond.LENGTH * IMAGE_SCALE_MULTIPLIER * 0.666);
+		
+		BufferedImage canvasimg = 
+				new BufferedImage(
+						multx, 
+						multy, 
+						BufferedImage.TYPE_INT_RGB);
+		
 		canvas = canvasimg.createGraphics();
 		
+		//canvas.setPaint(Color.RED);
 		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 		canvas.setPaint(Color.BLACK);
-		canvas.setFont(new Font("Arial", Font.PLAIN, 20));
-		canvas.setStroke(new BasicStroke(2));
+		canvas.setFont(MAIN_FONT_DRAW);
+		canvas.setStroke(new BasicStroke(STROKE_WIDTH));
 		
-		Point2D start = new Point2D.Double(canvasimg.getWidth()/3, canvasimg.getHeight()/2 + 10);
+		Point2D start = new Point2D.Double(10, canvasimg.getHeight() - 30);
 		Point2D bond = start;
 
 		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.NE, Bond.SINGLE);
