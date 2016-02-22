@@ -6,11 +6,13 @@ import java.awt.Component;
 import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
 import java.awt.LayoutManager;
+import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.MouseAdapter;
@@ -27,22 +29,21 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingUtilities;
 
+import gui.MainFrame;
+import gui.mainscreen.reactionpanel.ReactantLabel;
+import gui.mainscreen.reactionpanel.ReactionPanel;
+
 public class GlobalPanel extends JPanel {
 
 	private JPanel pnlSeekBar;
 	private JTextField textSeekQuery;
-	private static final int TEXT_SEEK_QUERY_HEIGHT = 25;
+	private static final int TEXT_SEEK_QUERY_HEIGHT = 45;
 	private static final int SEEK_BAR_WIDTH = 300;
 	private JPanel pnlSeekBarSuggestions;
 
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
-	private JPanel pnlEquation;
-	
-	private JPanel pnlMenu;
-	private JButton btnAddReactant;
-	private JButton btnRemoveReactant;
-	
+	private ReactionPanel pnlEquation;
 	
 	private JPanel pnlReactants;
 	private ArrayList<ReactantLabel> reactants;
@@ -56,6 +57,12 @@ public class GlobalPanel extends JPanel {
 		pnlSeekBar.setPreferredSize(
 				new Dimension(SEEK_BAR_WIDTH, height));
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
+	}
+	
+	public void resizeLayout(Dimension d) {
+		pnlEquation.resizeLayout(new Dimension(
+				(int) (d.width - pnlSeekBarSuggestions.getBounds().getWidth()), 
+				(int) (d.height - pnlViewCompoundBar.getBounds().getHeight())));
 	}
 	
 	public GlobalPanel(int width, int height) {
@@ -81,6 +88,8 @@ public class GlobalPanel extends JPanel {
 		
 		textSeekQuery = new JTextField();
 		textSeekQuery.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
+		textSeekQuery.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
+		textSeekQuery.setFont(MainFrame.MAIN_FONT);
 		
 		pnlSeekBarSuggestions = new JPanel();
 		pnlSeekBarSuggestions.setOpaque(true);
@@ -88,6 +97,7 @@ public class GlobalPanel extends JPanel {
 		pnlSeekBarSuggestions.setLayout(new GridLayout());
 		pnlSeekBarSuggestions.setPreferredSize(
 				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
+		
 		
 		SuggestionEntry entry = new SuggestionEntry("Hello!");
 		pnlSeekBarSuggestions.add(entry);
@@ -104,69 +114,11 @@ public class GlobalPanel extends JPanel {
 		pnlViewCompoundBar.setBackground(Color.BLUE);
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 
-		
-		pnlReactants = new JPanel();
-		pnlReactants.setLayout(new GridBagLayout());
-		
-		reactants.add(new ReactantLabel("Reactants are here"));
-		reactants.add(new ReactantLabel("Reactants are here"));
-		reactants.add(new ReactantLabel("Reactants are here"));
-		
-		GridBagConstraints c = new GridBagConstraints();
-		
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.weighty = 0.0;
-		c.gridx = 1;
-		c.gridy = 1;
-		pnlReactants.add(reactants.get(0), c);
-		c.gridy = 2;
-		pnlReactants.add(reactants.get(1), c);
-		c.gridy = 3;
-		pnlReactants.add(reactants.get(2), c);
-
-		
-		pnlReactants.setOpaque(true);
-		pnlReactants.setBackground(Color.RED);
-		
-		btnReact = new JButton("React!");
-		
-		pnlProducts = new JPanel();
-		pnlProducts.setOpaque(true);
-		pnlProducts.setBackground(Color.RED);
-		
-		
-		pnlEquation = new JPanel();
-		pnlEquation.setLayout(new GridBagLayout());
-		pnlEquation.setBackground(Color.cyan);
-		pnlEquation.setOpaque(true);
-		
-		c = new GridBagConstraints();
-		c.anchor = GridBagConstraints.FIRST_LINE_START;
-		c.weightx = 0.45;
-		c.weighty = 1.0;
-		c.gridx = 0;
-		c.fill = GridBagConstraints.BOTH;
-		pnlEquation.add(pnlReactants, c);
-		
-		c.ipadx = 0;
-		c.ipady = 0;
-		c.gridx = 1;
-		c.weightx = 0.1;
-		c.anchor = GridBagConstraints.CENTER;
-		c.fill = GridBagConstraints.NONE;
-		pnlEquation.add(btnReact, c);
-		
-		c.gridx = 2;
-		c.weightx = 0.5;
-		c.anchor = GridBagConstraints.LINE_END;
-		c.fill = GridBagConstraints.BOTH;
-		pnlEquation.add(pnlProducts, c);
-		
+		pnlEquation = new ReactionPanel(4*width/5, 3*height/4);
 		
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
-		
+		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		this.add(pnlSeekBar, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
 		this.invalidate();

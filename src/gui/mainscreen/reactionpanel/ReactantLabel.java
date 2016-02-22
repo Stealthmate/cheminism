@@ -1,4 +1,4 @@
-package gui.mainscreen;
+package gui.mainscreen.reactionpanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -10,6 +10,7 @@ import java.awt.event.MouseListener;
 import java.awt.font.FontRenderContext;
 import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
+import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
@@ -18,6 +19,24 @@ import gui.MainFrame;
 
 public class ReactantLabel extends JLabel implements MouseListener {
 	
+	private static final long serialVersionUID = 7319066579363738370L;
+	private static final String LONGEST_NAME = "Reactant";
+	
+	
+	private BufferedImage structureImage;
+	private String name;
+
+	private void setup() {
+		setOpaque(true);
+		setBackground(Color.YELLOW);
+		setHorizontalAlignment(JLabel.CENTER);
+		setVerticalAlignment(JLabel.CENTER);
+		FontRenderContext frc = new FontRenderContext(null, true, true);
+		
+	    TextLayout layout = new TextLayout(LONGEST_NAME, MainFrame.MAIN_FONT, frc);
+	    
+	    
+	}
 	
 	public ReactantLabel() {
 		super("Empty");
@@ -28,15 +47,7 @@ public class ReactantLabel extends JLabel implements MouseListener {
 
 	public ReactantLabel(String name) {
 		super(name);
-		setOpaque(true);
-		setBackground(Color.YELLOW);
-		setHorizontalAlignment(JLabel.CENTER);
-		setVerticalAlignment(JLabel.CENTER);
-		FontRenderContext frc = new FontRenderContext(null, true, true);
-		
-	    TextLayout layout = new TextLayout("Reactants are here", MainFrame.MAIN_FONT, frc);
-	    Rectangle2D bounds = layout.getBounds();
-	    this.setPreferredSize(new Dimension((int)bounds.getWidth(), (int)bounds.getHeight() + 100));
+		setup();
 	    
 	    invalidate();
 	    

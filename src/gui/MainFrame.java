@@ -3,6 +3,8 @@ package gui;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Toolkit;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 import javax.swing.JFrame;
 
@@ -13,7 +15,9 @@ public class MainFrame extends JFrame {
 	private static int WIDTH;
 	private static int HEIGHT;
 	
-	public static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 13);
+	private static GlobalPanel pnlGlobal;
+	
+	public static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 15);
 	
 	public static int getFrameWidth() {
 		return WIDTH;
@@ -31,6 +35,9 @@ public class MainFrame extends JFrame {
 		return (int) Toolkit.getDefaultToolkit().getScreenSize().height;
 	}
 	
+	public void resizeLayout(Dimension d) {
+		pnlGlobal.resizeLayout(d);
+	}
 	
 	public MainFrame(int width, int height, String name) {
 		super(name);
@@ -39,9 +46,18 @@ public class MainFrame extends JFrame {
 		HEIGHT = height;
 		
 		setSize(new Dimension(width, height));
-		this.add(new GlobalPanel(width, height));
+		pnlGlobal = new GlobalPanel(width, height);
+		this.add(pnlGlobal);
 		this.invalidate();
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		this.addComponentListener(new ComponentAdapter() {
+			
+			@Override
+			public void componentResized(ComponentEvent e) {
+				resizeLayout(e.getComponent().getSize());
+			}
+			
+		});
 		
 		}
 	
