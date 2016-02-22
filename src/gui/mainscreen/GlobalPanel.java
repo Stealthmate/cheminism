@@ -50,8 +50,8 @@ public class GlobalPanel extends JPanel {
 	
 	private JButton btnReact = new JButton("REACT");
 
-	private JPanel pnlProducts;
-
+	private JPanel pnlProducts; 
+	
 	private void updatePreferredSize(int width, int height) {
 		pnlSeekBar.setPreferredSize(
 				new Dimension(SEEK_BAR_WIDTH, height));
@@ -108,9 +108,9 @@ public class GlobalPanel extends JPanel {
 		pnlReactants = new JPanel();
 		pnlReactants.setLayout(new GridBagLayout());
 		
-		reactants.add(new ReactantLabel("Reactant"));
-		reactants.add(new ReactantLabel("Reactant"));
-		reactants.add(new ReactantLabel("Reactant"));
+		reactants.add(new ReactantLabel("Reactants are here"));
+		reactants.add(new ReactantLabel("Reactants are here"));
+		reactants.add(new ReactantLabel("Reactants are here"));
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -173,30 +173,6 @@ public class GlobalPanel extends JPanel {
 		
 		
 	}
-	
-	private void removeReactant() {
-		
-		if(reactants.size()<1) return;
-		
-		pnlReactants.remove(reactants.get(reactants.size()-1));
-		reactants.remove(reactants.size()-1);
-		
-		updateUI();
-	}
-	
-	private void addProduct(String name) {
-		
-		reactants.add(new ReactantLabel(name));
-		
-		GridBagConstraints c = new GridBagConstraints();
-		c.gridx = 0;
-		c.gridwidth = 3;
-		c.gridy = reactants.size();
-		pnlProducts.add(reactants.get(reactants.size()-1), c);
-		
-		updateUI();
-	}
-
 	
 
 }
