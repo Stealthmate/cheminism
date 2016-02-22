@@ -5,20 +5,14 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
-import java.awt.event.ComponentListener;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
 import java.util.ArrayList;
-import java.util.EventListener;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
-import gui.MainFrame;
-
 public class ReactionPanel extends JPanel {
+
+	private static final long serialVersionUID = 1795331097827539882L;
 
 	private static final String REACT_BUTTON_NAME = "React";
 	
@@ -50,7 +44,10 @@ public class ReactionPanel extends JPanel {
 				rect_w, 
 				rect_h));
 		
-		System.out.println("Bounds" + pnlProducts.getBounds());
+		for(int i=0;i<=2;i++)
+			pnlReactants.getComponent(i).setPreferredSize(new Dimension(rect_w, rect_h/3));
+		pnlReactants.revalidate();
+		
 		
 		revalidate();
 	}
@@ -63,23 +60,8 @@ public class ReactionPanel extends JPanel {
 		
 		this.setLayout(null);
 		
-		this.addComponentListener(new ComponentAdapter() {
-			
-			@Override
-			public void componentResized(ComponentEvent e) {
-				//resizeLayout(new Dimension(e.getComponent().getSize().width, e.getComponent().getSize().height));
-			}
-			
-		});
-		
 		pnlReactants = new JPanel();
 		pnlReactants.setLayout(new GridBagLayout());
-		
-		reactants = new ArrayList<>();
-		
-		reactants.add(new ReactantLabel("Reactants are here"));
-		reactants.add(new ReactantLabel("Reactants are hereasd"));
-		reactants.add(new ReactantLabel("Reactants are hereasdfgasdasdh"));
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
@@ -88,17 +70,17 @@ public class ReactionPanel extends JPanel {
 		c.weighty = 0.0;
 		c.gridx = 1;
 		c.gridy = 1;
-		pnlReactants.add(reactants.get(0), c);
+		pnlReactants.add(new ReactantLabel(), c);
 		c.gridy = 2;
-		pnlReactants.add(reactants.get(1), c);
+		pnlReactants.add(new ReactantLabel(), c);
 		c.gridy = 3;
-		pnlReactants.add(reactants.get(2), c);
+		pnlReactants.add(new ReactantLabel(), c);
 
 		
 		pnlReactants.setOpaque(true);
 		pnlReactants.setBackground(Color.RED);
 		
-		btnReact = new JButton("React!");
+		btnReact = new JButton(REACT_BUTTON_NAME);
 		
 		pnlProducts = new JPanel();
 		pnlProducts.setOpaque(true);

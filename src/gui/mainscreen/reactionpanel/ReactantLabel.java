@@ -20,37 +20,30 @@ import gui.MainFrame;
 public class ReactantLabel extends JLabel implements MouseListener {
 	
 	private static final long serialVersionUID = 7319066579363738370L;
-	private static final String LONGEST_NAME = "Reactant";
-	
+	private static final String DEFAULT_NAME = "Reactant";
 	
 	private BufferedImage structureImage;
 	private String name;
 
-	private void setup() {
+	private void setup(Dimension d) {
 		setOpaque(true);
 		setBackground(Color.YELLOW);
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
-		FontRenderContext frc = new FontRenderContext(null, true, true);
 		
-	    TextLayout layout = new TextLayout(LONGEST_NAME, MainFrame.MAIN_FONT, frc);
-	    
-	    
+		if(d!=null) setSize(d);
 	}
 	
 	public ReactantLabel() {
-		super("Empty");
-		setHorizontalAlignment(JLabel.CENTER);
-		setVerticalAlignment(JLabel.CENTER);
+		super(DEFAULT_NAME);
+		setup(null);
 		invalidate();
 	}
 
-	public ReactantLabel(String name) {
-		super(name);
-		setup();
-	    
+	public ReactantLabel(Dimension d) {
+		super(DEFAULT_NAME);
+		setup(d);
 	    invalidate();
-	    
 	}
 	
 	@Override
