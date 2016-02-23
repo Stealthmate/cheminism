@@ -14,29 +14,35 @@ public class ReactionPanel extends JPanel {
 	private static final long serialVersionUID = 1795331097827539882L;
 
 	private static final String REACT_BUTTON_NAME = "React";
+	private static final int PADDING_X = 3;
+	private static final int PADDING_Y = 2;
+	private static final Dimension REACT_BUTTON_MINIMUM_SIZE = new Dimension(100, 30);
 	
 	private JPanel pnlReactants;
 	private JButton btnReact;
 	private JPanel pnlProducts;
 	
 	public void resizeLayout(Dimension d) {
-		System.out.println("Dim " + d);
-	    int btnw = (int) d.width/10;
-	    int btnh = (int) d.height/20;
-	    
-		int rect_w = (d.width - btnw)/2;
-		int rect_h = d.height;
 		
-		pnlReactants.setBounds(new Rectangle(0, 0, rect_w, rect_h));
+	    int btnw = (int) d.width/10;
+	    if (btnw < REACT_BUTTON_MINIMUM_SIZE.width) btnw = REACT_BUTTON_MINIMUM_SIZE.width;
+	    int btnh = (int) d.height/20;
+	    if (btnh < REACT_BUTTON_MINIMUM_SIZE.height) btnh = REACT_BUTTON_MINIMUM_SIZE.height;
+	    
+		int rect_w = (d.width - btnw)/2 - 5*PADDING_X;
+		int rect_h = d.height - PADDING_Y - PADDING_Y;
+		
+		pnlReactants.setBounds(new Rectangle(PADDING_X, PADDING_Y, rect_w, rect_h));
 		
 		btnReact.setBounds(new Rectangle(
-				(d.width-btnw)/2, 
+				rect_w + 2*PADDING_X, 
 				(d.height-btnh)/2,  
 				btnw, 
 				btnh));
 		
-		pnlProducts.setBounds(new Rectangle(rect_w + btnw, 
-				0, 
+		pnlProducts.setBounds(new Rectangle(
+				PADDING_X + rect_w + PADDING_X + btnw + PADDING_X, 
+				PADDING_Y, 
 				rect_w, 
 				rect_h));
 		
