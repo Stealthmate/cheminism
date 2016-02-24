@@ -1,4 +1,4 @@
-package gui.mainscreen;
+package gui.mainscreen.searchbar;
 
 import java.awt.Color;
 import java.awt.Graphics;
@@ -26,7 +26,7 @@ public class SuggestionEntry extends JLabel {
 		return now_highlighted;
 	}
 	
-	public static void setHighlighted(SuggestionEntry me) {
+	/*package-private*/ static void setHighlighted(SuggestionEntry me) {
 		if(now_highlighted != null) {
 			now_highlighted.isHighlighted = false;
 			now_highlighted.repaint();
