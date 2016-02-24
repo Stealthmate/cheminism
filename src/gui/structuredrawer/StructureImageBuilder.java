@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.RenderingHints;
 import java.awt.geom.Point2D;
 import java.awt.geom.Line2D;
 import java.awt.geom.Rectangle2D;
@@ -15,35 +16,14 @@ import gui.MainFrame;
 public class StructureImageBuilder {
 
 	public static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
+	
 	public static final int STROKE_WIDTH = 2;
 	public static final int IMAGE_SCALE_MULTIPLIER = 3;
 	public static final float CHAIN_LENGTH_MULT = 0.5774f;
-	
-	private static int img_w;
-	private static int img_h;
 
 	private static Graphics2D canvas;
 
-	private static int BOND_LINE_WIDTH;
-	private static int BOND_LINE_LENGTH;
-	private static int FONT_SIZE_LETTER;
-	private static int FONT_SIZE_NUMBER;
-	private static int SUBSCRIPT_OFFSET;
-
-
-	public static void setScale(int screen_width, int screen_height) {
-		img_w = screen_width / 5;
-		img_h = screen_height / 5;
-
-		BOND_LINE_LENGTH = 10;
-		BOND_LINE_WIDTH = 10;
-		FONT_SIZE_LETTER = BOND_LINE_WIDTH;
-		FONT_SIZE_NUMBER = (1 / 3) * FONT_SIZE_LETTER;
-	}
-
 	public static Image buildFormulaImage() {
-
-		setScale(MainFrame.getScreenWidth(), MainFrame.getScreenHeight());
 
 		int chain_length = 4;
 		int chain_height = 3;
@@ -57,8 +37,7 @@ public class StructureImageBuilder {
 						BufferedImage.TYPE_INT_RGB);
 		
 		canvas = canvasimg.createGraphics();
-		
-		//canvas.setPaint(Color.RED);
+		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 		canvas.setPaint(Color.BLACK);
 		canvas.setFont(MAIN_FONT_DRAW);
