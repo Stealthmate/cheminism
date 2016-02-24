@@ -4,9 +4,11 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
+import java.awt.Graphics;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
+import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 import java.awt.event.KeyAdapter;
@@ -18,8 +20,11 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.Border;
+import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
+import javax.swing.plaf.basic.BasicBorders;
 import javax.swing.text.BadLocationException;
 
 import gui.MainFrame;
@@ -135,9 +140,7 @@ public class GlobalPanel extends JPanel {
 	
 	private void populateSuggestions(String query) {
 		
-		System.out.println(pnlSeekBarSuggestions.getComponentCount());
 		pnlSeekBarSuggestions.removeAll();
-		System.out.println(pnlSeekBarSuggestions.getComponentCount());
 		pnlSeekBarSuggestions.revalidate();
 		pnlSeekBarSuggestions.repaint();
 		
@@ -159,6 +162,7 @@ public class GlobalPanel extends JPanel {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.0;
 		c.weighty = 0.0;
+		//c.insets = new Insets(1, 1, 1, 1);
 		
 		for(Substance s : substances) {
 			c.gridy++;

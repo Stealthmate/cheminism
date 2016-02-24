@@ -26,9 +26,20 @@ public class ReactantLabel extends JLabel {
 	
 	private BufferedImage structureImage;
 	private String name;
-	private boolean active;
+	private boolean isSelected;
 	
-	private static ReactantLabel active_now = null;
+	private static ReactantLabel now_selected = null;
+	
+	private static void selectMe(ReactantLabel me) {
+		if(now_selected != null) {
+			now_selected.isSelected = false;
+			now_selected.repaint();
+		}
+
+		now_selected = me;
+		me.isSelected = true;
+		me.repaint();
+	}
 
 	private void setup(Dimension d) {
 		
@@ -38,24 +49,14 @@ public class ReactantLabel extends JLabel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				
-				if(SwingUtilities.isLeftMouseButton(e)) {
-					if(active_now != null) {
-						active_now.active = false;
-						active_now.repaint();
-					}
-					active = true;
-					active_now = ReactantLabel.this;
-					repaint();
-				}
-				
+				selectMe(ReactantLabel.this);	
 			}
 		});
 		
 		if(d!=null) {
 			setSize(d);
 		}
-		active = false;
+		isSelected = false;
 	}
 	
 	public ReactantLabel() {
@@ -102,7 +103,7 @@ public class ReactantLabel extends JLabel {
 		g.setColor(Color.BLACK);
 		g.drawString(name, 5, 15);
 		g.draw(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
-		if(active) {
+		if(isSelected) {
 			g.setColor(new Color(0x3300AFFF, true));
 			g.fill(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
 		}
