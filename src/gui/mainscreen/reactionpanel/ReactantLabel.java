@@ -1,25 +1,18 @@
 package gui.mainscreen.reactionpanel;
 
-import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.awt.font.FontRenderContext;
-import java.awt.font.TextLayout;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
-import gui.MainFrame;
 import gui.structuredrawer.StructureImageBuilder;
 
 public class ReactantLabel extends JLabel implements MouseListener {
@@ -32,10 +25,6 @@ public class ReactantLabel extends JLabel implements MouseListener {
 	private String name;
 
 	private void setup(Dimension d) {
-		
-		Graphics2D g = (Graphics2D) structureImage.createGraphics();
-		//g.setPaint(Color.WHITE);
-		//g.fillRect(0, 0, 800, 600);
 		
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);

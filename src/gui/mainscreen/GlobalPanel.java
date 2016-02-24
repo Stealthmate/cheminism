@@ -3,38 +3,22 @@ package gui.mainscreen;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
-import java.awt.Container;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.Font;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.GridLayout;
-import java.awt.Insets;
-import java.awt.LayoutManager;
-import java.awt.Rectangle;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
-import javax.swing.GroupLayout;
-import javax.swing.JButton;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
 
 import gui.MainFrame;
-import gui.mainscreen.reactionpanel.ReactantLabel;
 import gui.mainscreen.reactionpanel.ReactionPanel;
 
 public class GlobalPanel extends JPanel {
 
+	private static final long serialVersionUID = -2037661004330652608L;
+	
 	private JPanel pnlSeekBar;
 	private JTextField textSeekQuery;
 	private static final int TEXT_SEEK_QUERY_HEIGHT = 45;
@@ -44,15 +28,7 @@ public class GlobalPanel extends JPanel {
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
 	private ReactionPanel pnlEquation;
-	
-	private JPanel pnlReactants;
-	private ArrayList<ReactantLabel> reactants;
-	
-	
-	private JButton btnReact = new JButton("REACT");
 
-	private JPanel pnlProducts; 
-	
 	private void updatePreferredSize(int width, int height) {
 		pnlSeekBar.setPreferredSize(
 				new Dimension(SEEK_BAR_WIDTH, height));
@@ -66,8 +42,6 @@ public class GlobalPanel extends JPanel {
 	}
 	
 	public GlobalPanel(int width, int height) {
-		
-		reactants = new ArrayList<>(4);
 		
 		this.addComponentListener(new ComponentAdapter() {
 		
@@ -93,7 +67,7 @@ public class GlobalPanel extends JPanel {
 		
 		pnlSeekBarSuggestions = new JPanel();
 		pnlSeekBarSuggestions.setOpaque(true);
-		//pnlSeekBarSuggestions.setBackground(Color.GRAY);
+		
 		pnlSeekBarSuggestions.setLayout(new GridLayout());
 		pnlSeekBarSuggestions.setPreferredSize(
 				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
