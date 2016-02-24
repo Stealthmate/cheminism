@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.awt.Insets;
 import java.awt.Rectangle;
 
 import javax.swing.JButton;
@@ -57,7 +58,7 @@ public class ReactionPanel extends JPanel {
 	public ReactionPanel(int parent_width, int parent_height) {
 		super();
 		
-		this.setBackground(Color.CYAN);
+		//this.setBackground(Color.CYAN);
 		this.setOpaque(true);
 		
 		this.setLayout(null);
@@ -67,20 +68,23 @@ public class ReactionPanel extends JPanel {
 		
 		GridBagConstraints c = new GridBagConstraints();
 		
-		c.fill = GridBagConstraints.HORIZONTAL;
+		c.fill = GridBagConstraints.BOTH;
+		c.insets = new Insets(PADDING_Y, PADDING_X, PADDING_Y/2, PADDING_X);
 		c.weightx = 1.0;
-		c.weighty = 0.0;
-		c.gridx = 1;
+		c.weighty = 1.0;
+		c.gridx = 0;
 		c.gridy = 1;
 		pnlReactants.add(new ReactantLabel(), c);
 		c.gridy = 2;
+		c.insets.top /= 2;
 		pnlReactants.add(new ReactantLabel(), c);
 		c.gridy = 3;
+		c.insets.bottom *= 2;
 		pnlReactants.add(new ReactantLabel(), c);
 
 		
 		pnlReactants.setOpaque(true);
-		pnlReactants.setBackground(Color.RED);
+		//pnlReactants.setBackground(Color.RED);
 		
 		btnReact = new JButton(REACT_BUTTON_NAME);
 		

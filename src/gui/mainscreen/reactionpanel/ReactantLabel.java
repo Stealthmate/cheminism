@@ -66,7 +66,7 @@ public class ReactantLabel extends JLabel implements MouseListener {
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics graphics) {
 		
 		int w1 = structureImage.getWidth();
 		int h1 = structureImage.getHeight();
@@ -75,9 +75,20 @@ public class ReactantLabel extends JLabel implements MouseListener {
 			h1 = h1*9/10;
 		}
 		
-		g.drawImage(structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH ), 0, 0, null);
+		Graphics2D g = (Graphics2D) graphics;
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		
+		int imgw = structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH ).getWidth(null);
+		int imgh = structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH ).getHeight(null);
+		int imgx = (int) ((getBounds().getWidth() - imgw)/2);
+		int imgy = (int) ((getBounds().getHeight() - imgh)/2);
+		
+		g.drawImage(structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH ), imgx, imgy, null);
 		g.setColor(Color.BLACK);
-		g.drawString(name, 3, 15);
+		g.draw(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
+		g.drawString(name, 5, 15);
 	}
 	
 	@Override
