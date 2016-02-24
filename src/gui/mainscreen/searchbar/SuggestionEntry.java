@@ -3,19 +3,14 @@ package gui.mainscreen.searchbar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-import javax.swing.border.LineBorder;
 
 public class SuggestionEntry extends JLabel {
-	
-	private static final int BORDER_WIDTH = 1;
 	
 	private String name;
 	private BufferedImage thumbnail;
@@ -69,7 +64,6 @@ public class SuggestionEntry extends JLabel {
 						100, 
 						BufferedImage.TYPE_INT_RGB);
 		
-		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
 		setBackground(Color.WHITE);
 		setOpaque(true);
 
