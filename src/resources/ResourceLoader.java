@@ -66,7 +66,7 @@ public class ResourceLoader {
 		ArrayList<Substance> matches = new ArrayList<>();
 		
 		for(Substance s : substances) {
-			if(s.getName().startsWith(query)) matches.add(s);
+			if(s.getName().toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
 		}
 		
 		return matches;

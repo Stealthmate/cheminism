@@ -20,6 +20,7 @@ import javax.swing.JComponent;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.SwingUtilities;
 import javax.swing.border.Border;
 import javax.swing.border.LineBorder;
 import javax.swing.event.DocumentEvent;
@@ -38,9 +39,9 @@ public class GlobalPanel extends JPanel {
 	
 	private JPanel pnlSeekBar;
 	private JTextField textSeekQuery;
-	private static final int TEXT_SEEK_QUERY_HEIGHT = 45;
+	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
 	private static final int SEEK_BAR_WIDTH = 300;
-	private JPanel pnlSeekBarSuggestions;
+	private JPanel pnlSuggestions;
 
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
@@ -104,19 +105,32 @@ public class GlobalPanel extends JPanel {
 				update(e);
 			}
 		});
+		
+		textSeekQuery.addKeyListener(new KeyAdapter() {
+			
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_ENTER : selectSuggestion(); break;
+				case KeyEvent.VK_DOWN : selectNextSuggestion(); break;
+				case KeyEvent.VK_UP : selectPreviousSuggestion(); break;
+				}
+			}
+			
+		});
+		
 		textSeekQuery.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
 		textSeekQuery.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
 		textSeekQuery.setFont(MainFrame.MAIN_FONT);
 		
-		pnlSeekBarSuggestions = new JPanel();
+		pnlSuggestions = new JPanel();
 		
-		pnlSeekBarSuggestions.setLayout(new GridBagLayout());
-		pnlSeekBarSuggestions.setPreferredSize(
+		pnlSuggestions.setLayout(new GridBagLayout());
+		pnlSuggestions.setPreferredSize(
 				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
 		
-		
 		pnlSeekBar.add(textSeekQuery);
-		pnlSeekBar.add(pnlSeekBarSuggestions);
+		pnlSeekBar.add(pnlSuggestions);
 		
 		pnlAction = new JPanel();
 		pnlAction.setLayout(new BorderLayout());
@@ -140,9 +154,10 @@ public class GlobalPanel extends JPanel {
 	
 	private void populateSuggestions(String query) {
 		
-		pnlSeekBarSuggestions.removeAll();
-		pnlSeekBarSuggestions.revalidate();
-		pnlSeekBarSuggestions.repaint();
+		SuggestionEntry.setHighlighted(null);
+		pnlSuggestions.removeAll();
+		pnlSuggestions.revalidate();
+		pnlSuggestions.repaint();
 		
 		if(query.length() == 0) return;
 		
@@ -155,7 +170,7 @@ public class GlobalPanel extends JPanel {
 		
 		JPanel dummy = new JPanel();
 		dummy.setOpaque(false);
-		pnlSeekBarSuggestions.add(dummy, c);
+		pnlSuggestions.add(dummy, c);
 		
 		c.gridx = 0;
 		c.gridy = -1;
@@ -167,10 +182,64 @@ public class GlobalPanel extends JPanel {
 		for(Substance s : substances) {
 			c.gridy++;
 			SuggestionEntry entry = new SuggestionEntry(s.getName());
-			pnlSeekBarSuggestions.add(entry, c);
-			pnlSeekBarSuggestions.revalidate();
+			pnlSuggestions.add(entry, c);
+			pnlSuggestions.revalidate();
 		}
 	}
 	
+	private void selectSuggestion() {
+		if(SuggestionEntry.getHighlighted() != null) {
+			System.out.println("To be implemented");
+		}
+	}
+	
+	private void selectNextSuggestion() {
+		if(SuggestionEntry.getHighlighted() == null) {
+			if(pnlSuggestions.getComponentCount() > 0)
+				SuggestionEntry.setHighlighted(
+						(SuggestionEntry)pnlSuggestions.getComponent(1));
+			return;
+		}
+	
+		for(int i=1;i<=pnlSuggestions.getComponentCount() - 1; i++) {
+			if(pnlSuggestions.getComponent(i) == SuggestionEntry.getHighlighted()) {
+				if(i < pnlSuggestions.getComponentCount() - 1) {
+					SuggestionEntry.setHighlighted(
+							(SuggestionEntry) pnlSuggestions.getComponent(i+1));
+					return;
+				}
+				
+				else {
+					SuggestionEntry.setHighlighted(
+							(SuggestionEntry) pnlSuggestions.getComponent(1));
+					return;
+				}
+			}
+		}
+	}
+	
+	private void selectPreviousSuggestion() {
+		if(SuggestionEntry.getHighlighted() == null && pnlSuggestions.getComponentCount() > 0) {
+			SuggestionEntry.setHighlighted(
+					(SuggestionEntry)pnlSuggestions.getComponent(
+							pnlSuggestions.getComponentCount()-1));
+			return;
+		}
+		
+		for(int i=1;i<=pnlSuggestions.getComponentCount() - 1; i++) {
+			if(pnlSuggestions.getComponent(i) == SuggestionEntry.getHighlighted()) {
+				if(i > 1) {
+					SuggestionEntry.setHighlighted(
+							(SuggestionEntry)pnlSuggestions.getComponent(i-1));
+				return;
+				}
+				else if (i == 1 && pnlSuggestions.getComponentCount() > 0) {
+					SuggestionEntry.setHighlighted(
+							(SuggestionEntry)pnlSuggestions.getComponent(pnlSuggestions.getComponentCount()-1));
+					return;
+				}
+			}
+		}
+	}
 
 }

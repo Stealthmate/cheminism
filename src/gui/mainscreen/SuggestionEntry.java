@@ -22,15 +22,21 @@ public class SuggestionEntry extends JLabel {
 	
 	private static SuggestionEntry now_highlighted = null;
 	
-	private static void highlightMe(SuggestionEntry me) {
+	public static SuggestionEntry getHighlighted() {
+		return now_highlighted;
+	}
+	
+	public static void setHighlighted(SuggestionEntry me) {
 		if(now_highlighted != null) {
 			now_highlighted.isHighlighted = false;
 			now_highlighted.repaint();
 		}
 
 		now_highlighted = me;
-		me.isHighlighted = true;
-		me.repaint();
+		if(me != null) {
+			me.isHighlighted = true;
+			me.repaint();
+		}
 	}
 	
 	public SuggestionEntry(String name) {
@@ -51,13 +57,12 @@ public class SuggestionEntry extends JLabel {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				highlightMe(SuggestionEntry.this);
+				setHighlighted(SuggestionEntry.this);
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				isHighlighted = false;
-				repaint();
+				setHighlighted(null);
 			}
 			
 		});

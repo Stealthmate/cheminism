@@ -35,10 +35,12 @@ public class ReactantLabel extends JLabel {
 			now_selected.isSelected = false;
 			now_selected.repaint();
 		}
-
+		
 		now_selected = me;
-		me.isSelected = true;
-		me.repaint();
+		if(me != null) {
+			me.isSelected = true;
+			me.repaint();
+		}
 	}
 
 	private void setup(Dimension d) {
@@ -49,7 +51,8 @@ public class ReactantLabel extends JLabel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				selectMe(ReactantLabel.this);	
+				if(SwingUtilities.isLeftMouseButton(e)) selectMe(ReactantLabel.this);
+				else if(SwingUtilities.isRightMouseButton(e)) selectMe(null);
 			}
 		});
 		
