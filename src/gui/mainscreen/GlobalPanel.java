@@ -104,15 +104,10 @@ public class GlobalPanel extends JPanel {
 		textSeekQuery.setFont(MainFrame.MAIN_FONT);
 		
 		pnlSeekBarSuggestions = new JPanel();
-		pnlSeekBarSuggestions.setOpaque(true);
-		pnlSeekBarSuggestions.setBackground(Color.BLACK);
 		
 		pnlSeekBarSuggestions.setLayout(new GridBagLayout());
 		pnlSeekBarSuggestions.setPreferredSize(
 				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
-		
-		
-		SuggestionEntry entry = new SuggestionEntry("Hello!");
 		
 		
 		pnlSeekBar.add(textSeekQuery);

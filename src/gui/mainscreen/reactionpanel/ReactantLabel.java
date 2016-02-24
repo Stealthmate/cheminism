@@ -1,21 +1,24 @@
 package gui.mainscreen.reactionpanel;
 
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
+import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.net.SocketTimeoutException;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import gui.structuredrawer.StructureImageBuilder;
 
-public class ReactantLabel extends JLabel implements MouseListener {
+public class ReactantLabel extends JLabel {
 	
 	private static final long serialVersionUID = 7319066579363738370L;
 	private static final String DEFAULT_NAME = "Reactant";
@@ -23,15 +26,36 @@ public class ReactantLabel extends JLabel implements MouseListener {
 	
 	private BufferedImage structureImage;
 	private String name;
+	private boolean active;
+	
+	private static ReactantLabel active_now = null;
 
 	private void setup(Dimension d) {
 		
 		setHorizontalAlignment(JLabel.CENTER);
 		setVerticalAlignment(JLabel.CENTER);
 		
+		this.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mousePressed(MouseEvent e) {
+				
+				if(SwingUtilities.isLeftMouseButton(e)) {
+					if(active_now != null) {
+						active_now.active = false;
+						active_now.repaint();
+					}
+					active = true;
+					active_now = ReactantLabel.this;
+					repaint();
+				}
+				
+			}
+		});
+		
 		if(d!=null) {
 			setSize(d);
 		}
+		active = false;
 	}
 	
 	public ReactantLabel() {
@@ -76,31 +100,13 @@ public class ReactantLabel extends JLabel implements MouseListener {
 		
 		g.drawImage(structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH ), imgx, imgy, null);
 		g.setColor(Color.BLACK);
-		g.draw(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
 		g.drawString(name, 5, 15);
-	}
-	
-	@Override
-	public void mouseClicked(MouseEvent e) {
-		
-		if(SwingUtilities.isRightMouseButton(e)) {
-			//TODO Add Popup menu Builder
+		g.draw(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
+		if(active) {
+			g.setColor(new Color(0x3300AFFF, true));
+			g.fill(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
 		}
 		
 	}
-
-	@Override
-	public void mouseEntered(MouseEvent e) {}
-
-	@Override
-	public void mouseExited(MouseEvent e) {}
-
-	@Override
-	public void mousePressed(MouseEvent e) {}
-
-	@Override
-	public void mouseReleased(MouseEvent e) {}
-	
-	
 
 }
