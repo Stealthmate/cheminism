@@ -1,5 +1,6 @@
 package gui.mainscreen;
 
+import java.awt.Color;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.image.BufferedImage;
@@ -25,11 +26,9 @@ public class SuggestionEntry extends JLabel {
 						BufferedImage.TYPE_INT_RGB);
 		
 		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
-		
-		graphics.drawString("C", 20, 200);
-		graphics.drawString("C", 20 + graphics.getFont().getSize()*2, 200);
-		
-		this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
+		this.setBackground(Color.RED);
+		this.setOpaque(true);
+		//this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
 		
 	}
 	
