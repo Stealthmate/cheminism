@@ -124,9 +124,9 @@ public class SuggestionsPanel extends JPanel {
 		}
 	}
 	
-	private void selectSuggestion() {
+	/*package-private*/ void selectSuggestion() {
 		if(SuggestionEntry.getHighlighted() != null) {
-			System.out.println("Not yet implemented");
+			SuggestionEntry.getHighlighted().select();
 		}
 	}
 	

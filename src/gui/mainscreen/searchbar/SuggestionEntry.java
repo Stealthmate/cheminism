@@ -10,6 +10,7 @@ import java.awt.image.BufferedImage;
 
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
+import javax.swing.SwingUtilities;
 import javax.swing.border.LineBorder;
 
 public class SuggestionEntry extends JLabel {
@@ -41,18 +42,6 @@ public class SuggestionEntry extends JLabel {
 	
 	public SuggestionEntry(String name) {
 		super(name);
-		this.name = name;
-		this.isHighlighted = false;
-		this.thumbnail = 
-				new BufferedImage(
-						300, 
-						100, 
-						BufferedImage.TYPE_INT_RGB);
-		
-		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
-		setBackground(Color.WHITE);
-		setOpaque(true);
-
 		this.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -65,11 +54,30 @@ public class SuggestionEntry extends JLabel {
 				setHighlighted(null);
 			}
 			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(SwingUtilities.isLeftMouseButton(e)) select();
+			}
+			
 		});
 		
-		//setBorder(new LineBorder(Color.BLACK, BORDER_WIDTH));
-		//this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
+		this.name = name;
+		this.isHighlighted = false;
+		this.thumbnail = 
+				new BufferedImage(
+						300, 
+						100, 
+						BufferedImage.TYPE_INT_RGB);
 		
+		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
+		setBackground(Color.WHITE);
+		setOpaque(true);
+
+		
+	}
+	
+	/*package-private*/ void select() {
+		System.out.println("Not yet implemented");
 	}
 	
 	@Override
