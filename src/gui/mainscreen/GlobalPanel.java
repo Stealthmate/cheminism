@@ -61,8 +61,8 @@ public class GlobalPanel extends JPanel {
 	
 	public void resizeLayout(Dimension d) {
 		pnlEquation.resizeLayout(new Dimension(
-				(int) (d.width - pnlSeekBarSuggestions.getBounds().getWidth()), 
-				(int) (d.height - pnlViewCompoundBar.getBounds().getHeight())));
+				(int) (pnlEquation.getBounds().getWidth()), 
+				(int) (pnlEquation.getBounds().getHeight())));
 	}
 	
 	public GlobalPanel(int width, int height) {

@@ -15,7 +15,7 @@ public class ReactionPanel extends JPanel {
 
 	private static final String REACT_BUTTON_NAME = "React";
 	private static final int PADDING_X = 3;
-	private static final int PADDING_Y = 2;
+	private static final int PADDING_Y = 3;
 	private static final Dimension REACT_BUTTON_MINIMUM_SIZE = new Dimension(100, 30);
 	
 	private JPanel pnlReactants;
@@ -29,7 +29,7 @@ public class ReactionPanel extends JPanel {
 	    int btnh = (int) d.height/20;
 	    if (btnh < REACT_BUTTON_MINIMUM_SIZE.height) btnh = REACT_BUTTON_MINIMUM_SIZE.height;
 	    
-		int rect_w = (d.width - btnw)/2 - 5*PADDING_X;
+		int rect_w = (d.width - btnw)/2 - 2*PADDING_X;
 		int rect_h = d.height - PADDING_Y - PADDING_Y;
 		
 		pnlReactants.setBounds(new Rectangle(PADDING_X, PADDING_Y, rect_w, rect_h));
@@ -57,7 +57,7 @@ public class ReactionPanel extends JPanel {
 	public ReactionPanel(int parent_width, int parent_height) {
 		super();
 		
-		this.setBackground(Color.cyan);
+		this.setBackground(Color.CYAN);
 		this.setOpaque(true);
 		
 		this.setLayout(null);
