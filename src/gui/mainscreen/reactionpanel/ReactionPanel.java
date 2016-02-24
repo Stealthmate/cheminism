@@ -58,7 +58,6 @@ public class ReactionPanel extends JPanel {
 	public ReactionPanel(int parent_width, int parent_height) {
 		super();
 		
-		//this.setBackground(Color.CYAN);
 		this.setOpaque(true);
 		
 		this.setLayout(null);
