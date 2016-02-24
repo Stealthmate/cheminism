@@ -82,7 +82,6 @@ public class Bond {
 						PMath.multiply(normal, MULTI_LINE_OFFSET)));
 		
 		normal = new Point2D.Double(-d.direction.getY(), d.direction.getX());
-		System.out.println(normal);
 		
 		Line2D bondline2 = new Line2D.Float(
 				PMath.add(
@@ -103,8 +102,46 @@ public class Bond {
 	}
 	
 	private static Point2D drawTriple(Graphics2D canvas, Point2D pos, Atom a1, Atom a2, Direction d) {
-		//TODO
-		return null;
+		
+		Point2D start = PMath.add(
+				pos, 
+				PMath.multiply(
+						d.direction, 
+						a1.getSize(canvas.getFontMetrics())));
+		
+		Point2D end = PMath.add(start, PMath.multiply(d.direction, LENGTH));
+		
+		Line2D bondline = new Line2D.Float(start, end);
+		
+		Point2D normal = new Point2D.Double(d.direction.getY(), -d.direction.getX());
+		
+		Line2D bondline1 = new Line2D.Float(
+				PMath.add(
+						start, 
+						PMath.multiply(normal, 2*MULTI_LINE_OFFSET)), 
+				PMath.add(
+						end,
+						PMath.multiply(normal, 2*MULTI_LINE_OFFSET)));
+		
+		normal = new Point2D.Double(-d.direction.getY(), d.direction.getX());
+		
+		Line2D bondline2 = new Line2D.Float(
+				PMath.add(
+						start, 
+						PMath.multiply(normal, 2*MULTI_LINE_OFFSET)), 
+				PMath.add(
+						end,
+						PMath.multiply(normal, 2*MULTI_LINE_OFFSET)));
+		
+		canvas.draw(bondline);
+		canvas.draw(bondline1);
+		canvas.draw(bondline2);
+		
+		return PMath.add(
+				end, 
+				PMath.multiply(
+						d.direction, 
+						a2.getSize(canvas.getFontMetrics())));
 	}
 	
 }
