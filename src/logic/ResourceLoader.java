@@ -17,7 +17,6 @@ public class ResourceLoader {
 	
 	private static final String SUBSTANCES_DELIMITER = " ";
 	
-	private static ArrayList<Substance> substances = new ArrayList<>();
 	private static ArrayList<Reaction> reactions = new ArrayList<>();
 	
 	private static void loadSubstances() {
@@ -25,7 +24,7 @@ public class ResourceLoader {
 			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
 			int i = 0;
 			for(String line : lines) {
-				substances.add(new Substance(line, i));
+				Substance.substances.add(new Substance(line, i));
 				i++;
 			}
 		} catch (FileNotFoundException e) {
@@ -60,7 +59,7 @@ public class ResourceLoader {
 	public static ArrayList<Substance> getSubstanceListMatching(String query) {
 		ArrayList<Substance> matches = new ArrayList<>();
 		
-		for(Substance s : substances) {
+		for(Substance s : Substance.substances) {
 			if(s.getName().toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
 		}
 		

@@ -14,6 +14,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import gui.structuredrawer.StructureImageBuilder;
+import logic.Substance;
 
 public class ReactantLabel extends JLabel {
 	
@@ -26,6 +27,10 @@ public class ReactantLabel extends JLabel {
 	private boolean isSelected;
 	
 	private static ReactantLabel now_selected = null;
+	
+	public static ReactantLabel getSelected() {
+		return now_selected;
+	}
 	
 	private static void selectMe(ReactantLabel me) {
 		if(now_selected != null) {
@@ -64,7 +69,7 @@ public class ReactantLabel extends JLabel {
 		this.name = DEFAULT_NAME;
 		structureImage = new BufferedImage(
 				IMAGE_SIZE.width, IMAGE_SIZE.height, BufferedImage.TYPE_INT_RGB);
-		structureImage = (BufferedImage) StructureImageBuilder.buildFormulaImage();
+		structureImage = (BufferedImage) StructureImageBuilder.buildFormulaImage(null);
 		
 		setup(null);
 		invalidate();
@@ -109,5 +114,10 @@ public class ReactantLabel extends JLabel {
 		}
 		
 	}
-
+	
+	public void setSubstance(Substance s) {
+		System.out.println("wto");
+		this.structureImage = (BufferedImage) StructureImageBuilder.buildFormulaImage(s);
+		this.repaint();
+	}
 }

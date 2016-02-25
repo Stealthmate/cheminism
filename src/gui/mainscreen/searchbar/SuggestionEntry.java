@@ -10,29 +10,24 @@ import java.awt.image.BufferedImage;
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import gui.mainscreen.reactionpanel.ReactantLabel;
+import logic.Substance;
+
 public class SuggestionEntry extends JLabel {
 	
 	private String name;
 	private BufferedImage thumbnail;
 	private boolean isHighlighted;
 	
-	private static SuggestionEntry now_highlighted = null;
 	
-	public static SuggestionEntry getHighlighted() {
-		return now_highlighted;
+	/*package-private*/ void highlight() {
+		isHighlighted = true;
+		repaint();
 	}
 	
-	/*package-private*/ static void setHighlighted(SuggestionEntry me) {
-		if(now_highlighted != null) {
-			now_highlighted.isHighlighted = false;
-			now_highlighted.repaint();
-		}
-
-		now_highlighted = me;
-		if(me != null) {
-			me.isHighlighted = true;
-			me.repaint();
-		}
+	/*package-private*/ void unhighlight() {
+		isHighlighted = false;
+		repaint();
 	}
 	
 	public SuggestionEntry(String name) {
@@ -41,12 +36,12 @@ public class SuggestionEntry extends JLabel {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setHighlighted(SuggestionEntry.this);
+				highlight();
 			}
 			
 			@Override
 			public void mouseExited(MouseEvent e) {
-				setHighlighted(null);
+				unhighlight();
 			}
 			
 			@Override
@@ -71,7 +66,11 @@ public class SuggestionEntry extends JLabel {
 	}
 	
 	/*package-private*/ void select() {
-		System.out.println("Not yet implemented");
+		if(ReactantLabel.getSelected() != null) {
+			ReactantLabel rl = ReactantLabel.getSelected();
+			rl.setSubstance(Substance.getSubstanceFromName(getText()));
+		}
+		unhighlight();
 	}
 	
 	@Override

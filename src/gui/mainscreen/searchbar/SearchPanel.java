@@ -9,12 +9,14 @@ import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 import gui.MainFrame;
+import gui.mainscreen.SubstanceInfoPanel;
 import logic.ResourceLoader;
 import logic.Substance;
 
@@ -25,50 +27,54 @@ public class SearchPanel extends JPanel {
 	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
 	public static final int SEEK_BAR_WIDTH = 300;
 	
-	private JPanel pnlList;
 	private JTextField txtSearch;
+	private SearchView pnlSuggestions;
+	
+	private class SearchListener implements DocumentListener {
+		
+		private void update(DocumentEvent e) {
+			try {
+				pnlSuggestions.generateSuggestions(e.getDocument().getText(0, e.getDocument().getLength()));
+			} catch (BadLocationException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+		}
+		
+		@Override
+		public void removeUpdate(DocumentEvent e) {
+			update(e);
+		}
+		
+		@Override
+		public void insertUpdate(DocumentEvent e) {
+			update(e);
+		}
+		
+		@Override
+		public void changedUpdate(DocumentEvent e) {
+			update(e);
+		}
+	}
+	
+	private SearchListener SUGGESTIONS_LISTENER;
 	
 	public SearchPanel(int width, int height) {
-		pnlList = new JPanel();
 		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
 		txtSearch = new JTextField();
-		txtSearch.getDocument().addDocumentListener(new DocumentListener() {
-			
-			private void update(DocumentEvent e) {
-				try {
-					populateSuggestions(e.getDocument().getText(0, e.getDocument().getLength()));
-				} catch (BadLocationException e1) {
-					// TODO Auto-generated catch block
-					e1.printStackTrace();
-				}
-			}
-			
-			@Override
-			public void removeUpdate(DocumentEvent e) {
-				update(e);
-			}
-			
-			@Override
-			public void insertUpdate(DocumentEvent e) {
-				update(e);
-			}
-			
-			@Override
-			public void changedUpdate(DocumentEvent e) {
-				update(e);
-			}
-		});
+		SUGGESTIONS_LISTENER = new SearchListener();
+		txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
 		
 		txtSearch.addKeyListener(new KeyAdapter() {
 			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()) {
-				case KeyEvent.VK_ENTER : selectSuggestion(); break;
-				case KeyEvent.VK_DOWN : selectNextSuggestion(); break;
-				case KeyEvent.VK_UP : selectPreviousSuggestion(); break;
+				case KeyEvent.VK_ENTER : pnlSuggestions.selectHighlighted(); break;
+				case KeyEvent.VK_DOWN : pnlSuggestions.highlightNext();; break;
+				case KeyEvent.VK_UP : pnlSuggestions.highlightPrevious();; break;
 				}
 			}
 			
@@ -78,110 +84,20 @@ public class SearchPanel extends JPanel {
 		txtSearch.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
 		txtSearch.setFont(MainFrame.MAIN_FONT);
 		
-		pnlList = new JPanel();
 		
-		pnlList.setLayout(new GridBagLayout());
-		pnlList.setPreferredSize(
-				new Dimension(width/5, height-TEXT_SEEK_QUERY_HEIGHT));
+		pnlSuggestions = new SearchView();
 		
 		this.add(txtSearch);
-		this.add(pnlList);
+		this.add(pnlSuggestions);
 		
-	}
-	
-	
-	private void populateSuggestions(String query) {
-		
-		SuggestionEntry.setHighlighted(null);
-		pnlList.removeAll();
-		pnlList.revalidate();
-		pnlList.repaint();
-		
-		if(query.length() == 0) return;
-		
-		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
-
-		GridBagConstraints c = new GridBagConstraints();
-		c.weighty = 1.0;
-		c.gridy = 100;
-		c.fill = GridBagConstraints.VERTICAL;
-		
-		JPanel dummy = new JPanel();
-		dummy.setOpaque(false);
-		pnlList.add(dummy, c);
-		
-		c.gridx = 0;
-		c.gridy = -1;
-		c.fill = GridBagConstraints.HORIZONTAL;
-		c.weightx = 1.0;
-		c.weighty = 0.0;
-		
-		for(Substance s : substances) {
-			c.gridy++;
-			SuggestionEntry entry = new SuggestionEntry(s.getName());
-			pnlList.add(entry, c);
-			pnlList.revalidate();
-		}
 	}
 	
 	/*package-private*/ void selectSuggestion() {
-		if(SuggestionEntry.getHighlighted() != null) {
-			SuggestionEntry.getHighlighted().select();
-		}
-	}
-	
-	private void selectNextSuggestion() {
-		
-		int n = pnlList.getComponentCount();
-		
-		if(SuggestionEntry.getHighlighted() == null) {
-			if(n > 0)
-				SuggestionEntry.setHighlighted(
-						(SuggestionEntry)pnlList.getComponent(1));
-			return;
-		}
-	
-		for(int i=1;i<=n - 1; i++) {
-			if(pnlList.getComponent(i) == SuggestionEntry.getHighlighted()) {
-				if(i < n - 1) {
-					SuggestionEntry.setHighlighted(
-							(SuggestionEntry) pnlList.getComponent(i+1));
-					return;
-				}
-				
-				else {
-					SuggestionEntry.setHighlighted(
-							(SuggestionEntry) pnlList.getComponent(1));
-					return;
-				}
-			}
-		}
-	}
-	
-	private void selectPreviousSuggestion() {
-		
-		int n = pnlList.getComponentCount();
-		
-		if(SuggestionEntry.getHighlighted() == null && n > 0) {
-			SuggestionEntry.setHighlighted(
-					(SuggestionEntry)pnlList.getComponent(
-							n-1));
-			return;
-		}
-		
-		for(int i=1;i<=n - 1; i++) {
-			if(pnlList.getComponent(i) == SuggestionEntry.getHighlighted()) {
-				if(i > 1) {
-					SuggestionEntry.setHighlighted(
-							(SuggestionEntry)pnlList.getComponent(i-1));
-				return;
-				}
-				else if (i == 1 && pnlList.getComponentCount() > 0) {
-					SuggestionEntry.setHighlighted(
-							(SuggestionEntry)pnlList.getComponent(n-1));
-					return;
-				}
-			}
+		String result = pnlSuggestions.selectHighlighted();
+		if(result != null) {
+			txtSearch.getDocument().removeDocumentListener(SUGGESTIONS_LISTENER);
+			txtSearch.setText(result);
+			txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
 		}
 	}
 }
