@@ -10,10 +10,24 @@ public class Main {
 		x = new Carbon();
 		c = new Carbon();*/
 		
-		//test = new Carbon();
+		test = new Carbon();
+		
+		per = new CarbonChain(6);
+		
+		per.getCarbonOnPos(6).printBonds();
+		
+		per.extendCarbonChain(4);
+		
+		per.getCarbonOnPos(10).printBonds();
+		
+		/*per.addCarbonAtEnd();
+		
+		per.getCarbonOnPos(6).printBonds();
+		per.getCarbonOnPos(7).printBonds();*/
+		
+		//per.scanChain();
 		
 		
-		per = new CarbonChain(5);
 		//per.setLenght(10);
 		
 		//per.chain[10].print('f');

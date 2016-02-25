@@ -14,7 +14,17 @@ public class Carbon extends Atom{
 		bondNum.get(1).setBond(BondTypes.None);
 		bondNum.get(2).setBond(BondTypes.None);
 		bondNum.get(3).setBond(BondTypes.None);
+	}
+	
+	void add(Atom Additive){
 		
+	}
+	
+	void printBonds(){
+		System.out.println(bondNum.get(0).Bonds);
+		System.out.println(bondNum.get(1).Bonds);
+		System.out.println(bondNum.get(2).Bonds);
+		System.out.println(bondNum.get(3).Bonds+"\n");
 	}
 		/*public int numberOfBonds;
 		
