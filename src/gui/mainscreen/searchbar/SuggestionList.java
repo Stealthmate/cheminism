@@ -5,6 +5,7 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import javax.swing.JLabel;
@@ -30,7 +31,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 	}
 
 	private ArrayList<SuggestionEntry> entries;
-	private int current_page = 0;
+	private int current_page = -1;
 	
 	public SuggestionList() {
 		super();
@@ -43,7 +44,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	private void showPage(int pg) {
 		this.removeAll();
-		
+		System.out.println(pg);
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1.0;
 		c.gridy = 100;
@@ -68,16 +69,16 @@ public class SuggestionList extends JPanel implements Scrollable {
 	}
 	
 	private void showNextPage() {
-		if((current_page+1) * ENTRIES_PER_PAGE > entries.size()) {
-			current_page = 0;
+		if((current_page+1) * ENTRIES_PER_PAGE > entries.size()-1) {
+			current_page = -1;
 		}
 		current_page += 1;
 		showPage(current_page);
 	}
 	
 	private void showPreviousPage() {
-		if(current_page == 1) {
-			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE) + 1;
+		if(current_page == 0) {
+			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE);
 		}
 		current_page -= 1;
 		showPage(current_page);
@@ -89,14 +90,14 @@ public class SuggestionList extends JPanel implements Scrollable {
 		this.revalidate();
 		this.repaint();
 		entries.clear();
-		current_page = 0;
+		current_page = -1;
 		
 		if(query.length() == 0) return;
 		
 		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
 
-		for(Substance s : substances) {
-			SuggestionEntry entry = new SuggestionEntry(s.getName());
+		for(int i=0; i<=substances.size()-1;i++) {
+			SuggestionEntry entry = new SuggestionEntry(substances.get(i).getName(), i);
 			entries.add(entry);
 		}
 		
