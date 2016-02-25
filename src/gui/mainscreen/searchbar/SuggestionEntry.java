@@ -17,9 +17,6 @@ public class SuggestionEntry extends JLabel {
 	private boolean isHighlighted;
 	private int number;
 	
-	
-	
-	
 	/*package-private*/ void highlight() {
 		isHighlighted = true;
 		repaint();

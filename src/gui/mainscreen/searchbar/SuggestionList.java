@@ -97,7 +97,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
 
 		for(int i=0; i<=substances.size()-1;i++) {
-			SuggestionEntry entry = new SuggestionEntry(substances.get(i).getName(), i);
+			SuggestionEntry entry = new SuggestionEntry(substances.get(i).getName(), i+1);
 			entries.add(entry);
 		}
 		
