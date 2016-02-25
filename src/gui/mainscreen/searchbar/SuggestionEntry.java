@@ -2,16 +2,12 @@ package gui.mainscreen.searchbar;
 
 import java.awt.Color;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
-
-import gui.mainscreen.reactionpanel.ReactantLabel;
-import logic.Substance;
 
 public class SuggestionEntry extends JLabel {
 	

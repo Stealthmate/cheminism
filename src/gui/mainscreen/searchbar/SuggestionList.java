@@ -77,9 +77,8 @@ public class SuggestionList extends JPanel implements Scrollable {
 	/*package-private*/ String highlightNext() {
 		int n = this.getComponentCount();
 		
-		if(now_highlighted == null) {
-			if(n > 0)
-				setHighlighted((SuggestionEntry)this.getComponent(0));
+		if(now_highlighted == null && n > 0) {
+			setHighlighted((SuggestionEntry)this.getComponent(0));
 			return now_highlighted.getText();
 		}
 	
@@ -96,7 +95,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 				}
 			}
 		}
-		return "so wrong";
+		return "";
 	}
 	
 	/*package-private*/ String highlightPrevious() {
@@ -122,7 +121,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 			}
 		}
 		
-		return "so wrong";
+		return "";
 	}
 	
 	/*package-private*/ String selectHighlighted() {
@@ -143,7 +142,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	@Override
 	public Dimension getPreferredScrollableViewportSize() {
-		return new Dimension(getPreferredSize().width, 5 * new JLabel("a").getHeight());
+		return new Dimension(getPreferredSize().width, 250);
 	}
 
 	@Override

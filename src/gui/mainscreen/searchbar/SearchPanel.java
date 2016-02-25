@@ -1,28 +1,19 @@
 package gui.mainscreen.searchbar;
 
 import java.awt.Dimension;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.util.ArrayList;
-import java.util.EventListener;
 
 import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
-import javax.swing.event.EventListenerList;
 import javax.swing.text.BadLocationException;
 
 import gui.MainFrame;
 import gui.mainscreen.SubstanceInfoPanel;
 import gui.mainscreen.reactionpanel.ReactantLabel;
-import logic.ResourceLoader;
 import logic.Substance;
 
 public class SearchPanel extends JPanel {
@@ -112,7 +103,7 @@ public class SearchPanel extends JPanel {
 	}
 	
 	/*package-private*/ void selectSuggestion() {
-		String result = pnlSuggestions.selectHighlighted();
+		pnlSuggestions.selectHighlighted();
 		if(ReactantLabel.getSelected() != null) {
 			ReactantLabel rl = ReactantLabel.getSelected();
 			rl.setSubstance(Substance.getSubstanceFromName(txtSearch.getText()));
