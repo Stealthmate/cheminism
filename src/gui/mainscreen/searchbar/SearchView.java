@@ -1,11 +1,13 @@
 package gui.mainscreen.searchbar;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
 import java.util.ArrayList;
 
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
@@ -29,6 +31,9 @@ public class SearchView extends JPanel implements Scrollable {
 	public SearchView() {
 		super();
 		this.setLayout(new GridBagLayout());
+		this.setBackground(Color.RED);
+		this.setOpaque(true);
+		this.invalidate();
 	}
 	
 	/*package-private*/ void generateSuggestions(String query) {
@@ -48,7 +53,7 @@ public class SearchView extends JPanel implements Scrollable {
 		
 		JPanel dummy = new JPanel();
 		dummy.setOpaque(false);
-		this.add(dummy, c);
+		//this.add(dummy, c);
 		
 		c.gridx = 0;
 		c.gridy = -1;
@@ -64,52 +69,55 @@ public class SearchView extends JPanel implements Scrollable {
 		}
 	}
 	
-	/*package-private*/ void highlightNext() {
+	/*package-private*/ String highlightNext() {
 		int n = this.getComponentCount();
 		
 		if(now_highlighted == null) {
 			if(n > 0)
 				setHighlighted((SuggestionEntry)this.getComponent(1));
-			return;
+			return now_highlighted.getText();
 		}
 	
 		for(int i=1;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i < n - 1) {
 					setHighlighted((SuggestionEntry) this.getComponent(i+1));
-					return;
+					return now_highlighted.getText();
 				}
 				
 				else {
 					setHighlighted((SuggestionEntry) this.getComponent(1));
-					return;
+					return now_highlighted.getText();
 				}
 			}
 		}
+		return "so wrong";
 	}
 	
-	/*package-private*/ void highlightPrevious() {
+	/*package-private*/ String highlightPrevious() {
 		
 		int n = this.getComponentCount();
 		
 		if(now_highlighted == null && n > 0) {
 			setHighlighted((SuggestionEntry)this.getComponent(
 							n-1));
-			return;
+			return now_highlighted.getText();
 		}
 		
 		for(int i=1;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i > 1) {
 					setHighlighted((SuggestionEntry)this.getComponent(i-1));
-				return;
+					return now_highlighted.getText();
 				}
 				else if (i == 1 && this.getComponentCount() > 0) {
 					setHighlighted((SuggestionEntry)this.getComponent(n-1));
-					return;
+					return now_highlighted.getText();
 				}
 			}
 		}
+		
+		return "so wrong";
 	}
 	
 	/*package-private*/ String selectHighlighted() {
@@ -129,12 +137,12 @@ public class SearchView extends JPanel implements Scrollable {
 	
 	@Override
 	public Dimension getPreferredScrollableViewportSize() {
-		return getPreferredSize();
+		return new Dimension(getPreferredSize().width, 5 * new JLabel("a").getHeight());
 	}
 
 	@Override
 	public int getScrollableBlockIncrement(Rectangle arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
+		
 		return 0;
 	}
 
@@ -146,8 +154,7 @@ public class SearchView extends JPanel implements Scrollable {
 
 	@Override
 	public boolean getScrollableTracksViewportWidth() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
 	@Override

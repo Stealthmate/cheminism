@@ -8,6 +8,8 @@ import java.awt.event.KeyEvent;
 import java.util.ArrayList;
 
 import javax.swing.BoxLayout;
+import javax.swing.JComponent;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
@@ -69,12 +71,20 @@ public class SearchPanel extends JPanel {
 		
 		txtSearch.addKeyListener(new KeyAdapter() {
 			
+			private void updateText(String txt) {
+				if(txt != null) {
+					txtSearch.getDocument().removeDocumentListener(SUGGESTIONS_LISTENER);
+					txtSearch.setText(txt);
+					txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
+				}
+			}
+			
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()) {
-				case KeyEvent.VK_ENTER : pnlSuggestions.selectHighlighted(); break;
-				case KeyEvent.VK_DOWN : pnlSuggestions.highlightNext();; break;
-				case KeyEvent.VK_UP : pnlSuggestions.highlightPrevious();; break;
+				case KeyEvent.VK_ENTER : selectSuggestion(); break;
+				case KeyEvent.VK_DOWN : updateText(pnlSuggestions.highlightNext()); break;
+				case KeyEvent.VK_UP : updateText(pnlSuggestions.highlightPrevious()); break;
 				}
 			}
 			
@@ -89,15 +99,11 @@ public class SearchPanel extends JPanel {
 		
 		this.add(txtSearch);
 		this.add(pnlSuggestions);
+		this.add(new SubstanceInfoPanel());
 		
 	}
 	
-	/*package-private*/ void selectSuggestion() {
-		String result = pnlSuggestions.selectHighlighted();
-		if(result != null) {
-			txtSearch.getDocument().removeDocumentListener(SUGGESTIONS_LISTENER);
-			txtSearch.setText(result);
-			txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
-		}
+	private void selectSuggestion() {
+		
 	}
 }
