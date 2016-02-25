@@ -19,6 +19,8 @@ public class CarbonChain {
 				chain.get(i).bondNum.get(0).bondTo(chain.get(i+1));
 				chain.get(i).bondNum.get(1).bondTo(chain.get(i-1));
 				
+				System.out.println(i);
+				
 				chain.get(i).bondNum.get(0).setBond(BondTypes.Single);
 				chain.get(i).bondNum.get(1).setBond(BondTypes.Single);
 			}

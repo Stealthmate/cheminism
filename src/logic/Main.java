@@ -13,7 +13,7 @@ public class Main {
 		//test = new Carbon();
 		
 		
-		per = new CarbonChain(1);
+		per = new CarbonChain(5);
 		//per.setLenght(10);
 		
 		//per.chain[10].print('f');
