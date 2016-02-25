@@ -36,17 +36,14 @@ public class SuggestionEntry extends JLabel {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				highlight();
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				unhighlight();
+				((SuggestionList) SuggestionEntry.this.getParent())
+				.highlightMe(SuggestionEntry.this);
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) select();
+				if(SwingUtilities.isLeftMouseButton(e)) 
+					((SearchPanel)getParent().getParent()).selectSuggestion();
 			}
 			
 		});
@@ -63,14 +60,6 @@ public class SuggestionEntry extends JLabel {
 		setOpaque(true);
 
 		
-	}
-	
-	/*package-private*/ void select() {
-		if(ReactantLabel.getSelected() != null) {
-			ReactantLabel rl = ReactantLabel.getSelected();
-			rl.setSubstance(Substance.getSubstanceFromName(getText()));
-		}
-		unhighlight();
 	}
 	
 	@Override

@@ -14,7 +14,7 @@ import javax.swing.Scrollable;
 import logic.ResourceLoader;
 import logic.Substance;
 
-public class SearchView extends JPanel implements Scrollable {
+public class SuggestionList extends JPanel implements Scrollable {
 	
 	private static SuggestionEntry now_highlighted;
 	
@@ -28,7 +28,7 @@ public class SearchView extends JPanel implements Scrollable {
 	}
 	
 	
-	public SearchView() {
+	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
 		this.setBackground(Color.RED);
@@ -69,16 +69,21 @@ public class SearchView extends JPanel implements Scrollable {
 		}
 	}
 	
+	/*private-package*/  void highlightMe(SuggestionEntry se) {
+		setHighlighted(se);
+		((SearchPanel)getParent()).updateHighlight(se.getText());
+	}
+	
 	/*package-private*/ String highlightNext() {
 		int n = this.getComponentCount();
 		
 		if(now_highlighted == null) {
 			if(n > 0)
-				setHighlighted((SuggestionEntry)this.getComponent(1));
+				setHighlighted((SuggestionEntry)this.getComponent(0));
 			return now_highlighted.getText();
 		}
 	
-		for(int i=1;i<=n - 1; i++) {
+		for(int i=0;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i < n - 1) {
 					setHighlighted((SuggestionEntry) this.getComponent(i+1));
@@ -86,7 +91,7 @@ public class SearchView extends JPanel implements Scrollable {
 				}
 				
 				else {
-					setHighlighted((SuggestionEntry) this.getComponent(1));
+					setHighlighted((SuggestionEntry) this.getComponent(0));
 					return now_highlighted.getText();
 				}
 			}
@@ -104,13 +109,13 @@ public class SearchView extends JPanel implements Scrollable {
 			return now_highlighted.getText();
 		}
 		
-		for(int i=1;i<=n - 1; i++) {
+		for(int i=0;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
-				if(i > 1) {
+				if(i > 0) {
 					setHighlighted((SuggestionEntry)this.getComponent(i-1));
 					return now_highlighted.getText();
 				}
-				else if (i == 1 && this.getComponentCount() > 0) {
+				else if (i == 0 && this.getComponentCount() > 0) {
 					setHighlighted((SuggestionEntry)this.getComponent(n-1));
 					return now_highlighted.getText();
 				}
@@ -125,13 +130,14 @@ public class SearchView extends JPanel implements Scrollable {
 		String result = null;
 		
 		if(now_highlighted != null) {
-			now_highlighted.select();
+			now_highlighted.unhighlight();
 			result = now_highlighted.getText();
 		}
 		
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
+		
 		return result;
 	}
 	
