@@ -10,9 +10,13 @@ import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 
+import logic.CarbonChain;
+import logic.Substance;
+
 public class StructureImageBuilder {
 
 	public static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
+	public static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 60);
 	
 	public static final int STROKE_WIDTH = 2;
 	public static final int IMAGE_SCALE_MULTIPLIER = 3;
@@ -20,7 +24,17 @@ public class StructureImageBuilder {
 
 	private static Graphics2D canvas;
 
-	public static Image buildFormulaImage() {
+	public static BufferedImage buildFormulaImage(Substance s) {
+
+		System.out.println(s);
+		
+		if(s!= null) {
+			return buildInorganicImg(s);
+		}
+		else return buildOrganicImg();
+	}
+	
+	public static BufferedImage buildOrganicImg() {
 
 		int chain_length = 4;
 		int chain_height = 3;
@@ -54,6 +68,19 @@ public class StructureImageBuilder {
 		return canvasimg;
 	}
 
-	private StructureImageBuilder() {
+	private static BufferedImage buildInorganicImg(Substance s) {
+		
+		int multx = (int) (s.getName().length() * 10 * Bond.LENGTH * CHAIN_LENGTH_MULT * IMAGE_SCALE_MULTIPLIER);
+		int multy = (int) (100 * Bond.LENGTH * IMAGE_SCALE_MULTIPLIER * 0.666);
+		
+		BufferedImage canvasimg = new BufferedImage(500, 100, BufferedImage.TYPE_3BYTE_BGR);
+		Graphics2D canvas = canvasimg.createGraphics();
+		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
+		canvas.setColor(Color.BLACK);
+		canvas.setFont(MAIN_FONT_INORGANIC);
+		canvas.drawString(s.getName(), 1, 70);
+		
+		return canvasimg;
+		
 	}
 }

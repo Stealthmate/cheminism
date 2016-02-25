@@ -15,43 +15,33 @@ public class SuggestionEntry extends JLabel {
 	private String name;
 	private BufferedImage thumbnail;
 	private boolean isHighlighted;
+	private int number;
 	
-	private static SuggestionEntry now_highlighted = null;
-	
-	public static SuggestionEntry getHighlighted() {
-		return now_highlighted;
+	/*package-private*/ void highlight() {
+		isHighlighted = true;
+		repaint();
 	}
 	
-	/*package-private*/ static void setHighlighted(SuggestionEntry me) {
-		if(now_highlighted != null) {
-			now_highlighted.isHighlighted = false;
-			now_highlighted.repaint();
-		}
-
-		now_highlighted = me;
-		if(me != null) {
-			me.isHighlighted = true;
-			me.repaint();
-		}
+	/*package-private*/ void unhighlight() {
+		isHighlighted = false;
+		repaint();
 	}
 	
-	public SuggestionEntry(String name) {
+	public SuggestionEntry(String name, int number) {
 		super(name);
+		this.number = number;
 		this.addMouseListener(new MouseAdapter() {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				setHighlighted(SuggestionEntry.this);
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent e) {
-				setHighlighted(null);
+				((SuggestionList) SuggestionEntry.this.getParent())
+				.highlightMe(SuggestionEntry.this);
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) select();
+				if(SwingUtilities.isLeftMouseButton(e)) 
+					((SearchPanel)getParent().getParent().getParent().getParent()).selectSuggestion();
 			}
 			
 		});
@@ -70,18 +60,22 @@ public class SuggestionEntry extends JLabel {
 		
 	}
 	
-	/*package-private*/ void select() {
-		System.out.println("Not yet implemented");
-	}
-	
 	@Override
 	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+		
+		g.setColor(Color.WHITE);
+		g.fillRect(0,  0,  getWidth(), getHeight());
 		
 		if(isHighlighted) {
 			g.setColor(new Color(0x3300AFFF, true));
 			g.fillRect(0,  0,  getWidth(), getHeight());
 		}
+		
+		g.setColor(Color.BLACK);
+		String numstr = Integer.toString(number) + ". ";
+		int width = ((Graphics2D) g).getFontMetrics().stringWidth(numstr);
+		g.drawString(numstr, 1, getHeight());
+		g.drawString(getText(), 1+width, getHeight());
 	}
 	
 }
