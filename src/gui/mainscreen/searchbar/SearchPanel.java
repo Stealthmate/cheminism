@@ -6,6 +6,7 @@ import java.awt.event.KeyEvent;
 
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
@@ -93,7 +94,7 @@ public class SearchPanel extends JPanel {
 		pnlSuggestions = new SuggestionList();
 		
 		this.add(txtSearch);
-		this.add(pnlSuggestions);
+		this.add(new JScrollPane(pnlSuggestions));
 		this.add(new SubstanceInfoPanel());
 		
 	}

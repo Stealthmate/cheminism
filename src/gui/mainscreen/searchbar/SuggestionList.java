@@ -16,6 +16,8 @@ import logic.Substance;
 
 public class SuggestionList extends JPanel implements Scrollable {
 	
+	private static final int ENTRIES_PER_PAGE = 5;
+	
 	private static SuggestionEntry now_highlighted;
 	
 	private static void setHighlighted(SuggestionEntry se) {
@@ -26,7 +28,9 @@ public class SuggestionList extends JPanel implements Scrollable {
 		if(se != null) 
 			se.highlight();
 	}
-	
+
+	private ArrayList<SuggestionEntry> entries;
+	private int current_page = 0;
 	
 	public SuggestionList() {
 		super();
@@ -34,18 +38,12 @@ public class SuggestionList extends JPanel implements Scrollable {
 		this.setBackground(Color.RED);
 		this.setOpaque(true);
 		this.invalidate();
+		entries = new ArrayList<>(30);
 	}
 	
-	/*package-private*/ void generateSuggestions(String query) {
-		setHighlighted(null);
+	private void showPage(int pg) {
 		this.removeAll();
-		this.revalidate();
-		this.repaint();
 		
-		if(query.length() == 0) return;
-		
-		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
-
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1.0;
 		c.gridy = 100;
@@ -60,18 +58,54 @@ public class SuggestionList extends JPanel implements Scrollable {
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.0;
 		c.weighty = 0.0;
-		
-		for(Substance s : substances) {
+		for(int i = 0; i<=ENTRIES_PER_PAGE-1 && pg * ENTRIES_PER_PAGE + i <=entries.size()-1;i++) {
 			c.gridy++;
-			SuggestionEntry entry = new SuggestionEntry(s.getName());
-			this.add(entry, c);
-			this.revalidate();
+			this.add(entries.get(pg * ENTRIES_PER_PAGE + i), c);
 		}
+		
+		this.revalidate();
+		this.repaint();
+	}
+	
+	private void showNextPage() {
+		if((current_page+1) * ENTRIES_PER_PAGE > entries.size()) {
+			current_page = 0;
+		}
+		current_page += 1;
+		showPage(current_page);
+	}
+	
+	private void showPreviousPage() {
+		if(current_page == 1) {
+			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE) + 1;
+		}
+		current_page -= 1;
+		showPage(current_page);
+	}
+	
+	/*package-private*/ void generateSuggestions(String query) {
+		setHighlighted(null);
+		this.removeAll();
+		this.revalidate();
+		this.repaint();
+		entries.clear();
+		current_page = 0;
+		
+		if(query.length() == 0) return;
+		
+		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
+
+		for(Substance s : substances) {
+			SuggestionEntry entry = new SuggestionEntry(s.getName());
+			entries.add(entry);
+		}
+		
+		showNextPage();
 	}
 	
 	/*private-package*/  void highlightMe(SuggestionEntry se) {
 		setHighlighted(se);
-		((SearchPanel)getParent()).updateHighlight(se.getText());
+		((SearchPanel)getParent().getParent().getParent()).updateHighlight(se.getText());
 	}
 	
 	/*package-private*/ String highlightNext() {
@@ -82,7 +116,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 			return now_highlighted.getText();
 		}
 	
-		for(int i=0;i<=n - 1; i++) {
+		for(int i=0;i <= n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i < n - 1) {
 					setHighlighted((SuggestionEntry) this.getComponent(i+1));
@@ -90,6 +124,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 				}
 				
 				else {
+					showNextPage();
 					setHighlighted((SuggestionEntry) this.getComponent(0));
 					return now_highlighted.getText();
 				}
@@ -115,7 +150,8 @@ public class SuggestionList extends JPanel implements Scrollable {
 					return now_highlighted.getText();
 				}
 				else if (i == 0 && this.getComponentCount() > 0) {
-					setHighlighted((SuggestionEntry)this.getComponent(n-1));
+					showPreviousPage();
+					setHighlighted((SuggestionEntry)this.getComponent(this.getComponentCount()-1));
 					return now_highlighted.getText();
 				}
 			}
@@ -142,18 +178,16 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	@Override
 	public Dimension getPreferredScrollableViewportSize() {
-		return new Dimension(getPreferredSize().width, 250);
+		return new Dimension(getPreferredSize().width, 50);
 	}
 
 	@Override
 	public int getScrollableBlockIncrement(Rectangle arg0, int arg1, int arg2) {
-		
 		return 0;
 	}
 
 	@Override
 	public boolean getScrollableTracksViewportHeight() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 

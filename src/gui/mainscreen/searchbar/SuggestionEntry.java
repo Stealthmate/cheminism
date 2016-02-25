@@ -16,6 +16,8 @@ public class SuggestionEntry extends JLabel {
 	private boolean isHighlighted;
 	
 	
+	
+	
 	/*package-private*/ void highlight() {
 		isHighlighted = true;
 		repaint();
@@ -39,7 +41,7 @@ public class SuggestionEntry extends JLabel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(SwingUtilities.isLeftMouseButton(e)) 
-					((SearchPanel)getParent().getParent()).selectSuggestion();
+					((SearchPanel)getParent().getParent().getParent().getParent()).selectSuggestion();
 			}
 			
 		});
