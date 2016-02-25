@@ -1,4 +1,4 @@
-package resources;
+package logic;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -17,7 +17,7 @@ public class ResourceLoader {
 	
 	private static final String SUBSTANCES_DELIMITER = " ";
 	
-	private static HashMap<String, Substance> substances = new HashMap<String, Substance>();
+	private static ArrayList<Substance> substances = new ArrayList<>();
 	private static ArrayList<Reaction> reactions = new ArrayList<>();
 	
 	private static void loadSubstances() {
@@ -31,7 +31,7 @@ public class ResourceLoader {
 				int groupid = Integer.parseInt(line.substring(idelim1+1, idelim2));
 				int id = Integer.parseInt(line.substring(idelim2+1));
 				
-				substances.put(name, new Substance(id, groupid));
+				substances.add(new Substance(name, id, groupid));
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -60,6 +60,16 @@ public class ResourceLoader {
 	public static void load() {
 		loadSubstances();
 		loadReactions();
+	}
+	
+	public static ArrayList<Substance> getSubstanceListMatching(String query) {
+		ArrayList<Substance> matches = new ArrayList<>();
+		
+		for(Substance s : substances) {
+			if(s.getName().toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
+		}
+		
+		return matches;
 	}
 	
 }
