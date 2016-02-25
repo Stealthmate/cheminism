@@ -3,18 +3,14 @@ package gui.mainscreen.searchbar;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
-import java.awt.Image;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.image.BufferedImage;
 
-import javax.swing.ImageIcon;
 import javax.swing.JLabel;
-import javax.swing.border.LineBorder;
+import javax.swing.SwingUtilities;
 
 public class SuggestionEntry extends JLabel {
-	
-	private static final int BORDER_WIDTH = 1;
 	
 	private String name;
 	private BufferedImage thumbnail;
@@ -41,18 +37,6 @@ public class SuggestionEntry extends JLabel {
 	
 	public SuggestionEntry(String name) {
 		super(name);
-		this.name = name;
-		this.isHighlighted = false;
-		this.thumbnail = 
-				new BufferedImage(
-						300, 
-						100, 
-						BufferedImage.TYPE_INT_RGB);
-		
-		Graphics2D graphics = ((BufferedImage) thumbnail).createGraphics();
-		setBackground(Color.WHITE);
-		setOpaque(true);
-
 		this.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -65,11 +49,29 @@ public class SuggestionEntry extends JLabel {
 				setHighlighted(null);
 			}
 			
+			@Override
+			public void mouseClicked(MouseEvent e) {
+				if(SwingUtilities.isLeftMouseButton(e)) select();
+			}
+			
 		});
 		
-		//setBorder(new LineBorder(Color.BLACK, BORDER_WIDTH));
-		//this.setIcon(new ImageIcon(StructureImageBuilder.buildFormulaImage()));
+		this.name = name;
+		this.isHighlighted = false;
+		this.thumbnail = 
+				new BufferedImage(
+						300, 
+						100, 
+						BufferedImage.TYPE_INT_RGB);
 		
+		setBackground(Color.WHITE);
+		setOpaque(true);
+
+		
+	}
+	
+	/*package-private*/ void select() {
+		System.out.println("Not yet implemented");
 	}
 	
 	@Override

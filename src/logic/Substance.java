@@ -1,6 +1,7 @@
-package resources;
+package logic;
 
 public class Substance {
+	
 	String name;
 	int groupID;
 	int ID;
