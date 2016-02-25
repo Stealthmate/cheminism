@@ -103,7 +103,7 @@ public class SearchPanel extends JPanel {
 
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1.0;
-		c.gridy = 10;
+		c.gridy = 100;
 		c.fill = GridBagConstraints.VERTICAL;
 		
 		JPanel dummy = new JPanel();

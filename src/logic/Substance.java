@@ -12,7 +12,7 @@ public class Substance {
 		ID = -1;
 	}
 	
-	Substance(String name, int ID, int groupID) {
+	Substance(String name, int ID) {
 		this.name = name;
 		this.ID = ID; 
 		this.groupID = groupID;

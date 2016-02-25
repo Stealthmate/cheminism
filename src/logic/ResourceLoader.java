@@ -23,15 +23,10 @@ public class ResourceLoader {
 	private static void loadSubstances() {
 		try {
 			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
+			int i = 0;
 			for(String line : lines) {
-				
-				int idelim1 = line.indexOf(SUBSTANCES_DELIMITER);
-				int idelim2 = line.substring(idelim1+1).indexOf(SUBSTANCES_DELIMITER) + idelim1 + 1;
-				String name = line.substring(0, idelim1);
-				int groupid = Integer.parseInt(line.substring(idelim1+1, idelim2));
-				int id = Integer.parseInt(line.substring(idelim2+1));
-				
-				substances.add(new Substance(name, id, groupid));
+				substances.add(new Substance(line, i));
+				i++;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
