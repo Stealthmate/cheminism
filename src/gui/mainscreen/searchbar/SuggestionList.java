@@ -44,7 +44,6 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	private void showPage(int pg) {
 		this.removeAll();
-		System.out.println(pg);
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1.0;
 		c.gridy = 100;
@@ -97,7 +96,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
 
 		for(int i=0; i<=substances.size()-1;i++) {
-			SuggestionEntry entry = new SuggestionEntry(substances.get(i).getName(), i+1);
+			SuggestionEntry entry = new SuggestionEntry(substances.get(i), i+1);
 			entries.add(entry);
 		}
 		

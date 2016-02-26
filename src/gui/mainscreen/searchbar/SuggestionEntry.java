@@ -5,15 +5,19 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.font.TextAttribute;
 import java.awt.image.BufferedImage;
+import java.text.AttributedString;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import logic.Substance;
+
 public class SuggestionEntry extends JLabel {
 	
+	private Substance substance;
 	private String name;
-	private BufferedImage thumbnail;
 	private boolean isHighlighted;
 	private int number;
 	
@@ -27,9 +31,10 @@ public class SuggestionEntry extends JLabel {
 		repaint();
 	}
 	
-	public SuggestionEntry(String name, int number) {
-		super(name);
+	public SuggestionEntry(Substance substance, int number) {
+		super(substance.getFormula());
 		this.number = number;
+		this.substance = substance;
 		this.addMouseListener(new MouseAdapter() {
 			
 			@Override
@@ -45,14 +50,7 @@ public class SuggestionEntry extends JLabel {
 			}
 			
 		});
-		
-		this.name = name;
 		this.isHighlighted = false;
-		this.thumbnail = 
-				new BufferedImage(
-						300, 
-						100, 
-						BufferedImage.TYPE_INT_RGB);
 		
 		setBackground(Color.WHITE);
 		setOpaque(true);
@@ -75,7 +73,10 @@ public class SuggestionEntry extends JLabel {
 		String numstr = Integer.toString(number) + ". ";
 		int width = ((Graphics2D) g).getFontMetrics().stringWidth(numstr);
 		g.drawString(numstr, 1, getHeight());
-		g.drawString(getText(), 1+width, getHeight());
+		
+		AttributedString formula = this.substance.getIndexedFormula();
+		formula.addAttribute(TextAttribute.SIZE, g.getFont().getSize());
+		g.drawString(formula.getIterator(), 1+width, getHeight());
 	}
 	
 }

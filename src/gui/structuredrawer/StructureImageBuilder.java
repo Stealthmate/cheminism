@@ -25,9 +25,6 @@ public class StructureImageBuilder {
 	private static Graphics2D canvas;
 
 	public static BufferedImage buildFormulaImage(Substance s) {
-
-		System.out.println(s);
-		
 		if(s!= null) {
 			return buildInorganicImg(s);
 		}
@@ -70,7 +67,7 @@ public class StructureImageBuilder {
 
 	private static BufferedImage buildInorganicImg(Substance s) {
 		
-		int multx = (int) (s.getName().length() * 10 * Bond.LENGTH * CHAIN_LENGTH_MULT * IMAGE_SCALE_MULTIPLIER);
+		int multx = (int) (s.getFormula().length() * 10 * Bond.LENGTH * CHAIN_LENGTH_MULT * IMAGE_SCALE_MULTIPLIER);
 		int multy = (int) (100 * Bond.LENGTH * IMAGE_SCALE_MULTIPLIER * 0.666);
 		
 		BufferedImage canvasimg = new BufferedImage(500, 100, BufferedImage.TYPE_3BYTE_BGR);
@@ -78,7 +75,7 @@ public class StructureImageBuilder {
 		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 		canvas.setColor(Color.BLACK);
 		canvas.setFont(MAIN_FONT_INORGANIC);
-		canvas.drawString(s.getName(), 1, 70);
+		canvas.drawString(s.getFormula(), 1, 70);
 		
 		return canvasimg;
 		
