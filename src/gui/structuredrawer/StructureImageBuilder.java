@@ -6,9 +6,11 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.Image;
 import java.awt.RenderingHints;
+import java.awt.font.TextAttribute;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.text.AttributedString;
 
 import logic.CarbonChain;
 import logic.Substance;
@@ -17,6 +19,10 @@ public class StructureImageBuilder {
 
 	public static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
 	public static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 60);
+	private static final int MARGIN_L = 2;
+	private static final int MARGIN_R = 2;
+	private static final int MARGIN_T = 3;
+	private static final int MARGIN_B = 30;
 	
 	public static final int STROKE_WIDTH = 2;
 	public static final int IMAGE_SCALE_MULTIPLIER = 3;
@@ -66,16 +72,25 @@ public class StructureImageBuilder {
 	}
 
 	private static BufferedImage buildInorganicImg(Substance s) {
+
+		BufferedImage canvasimg = new BufferedImage(1, 1, BufferedImage.TYPE_INT_BGR);
+		canvas = canvasimg.createGraphics();
+		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		canvas.setFont(MAIN_FONT_INORGANIC);
 		
-		int multx = (int) (s.getFormula().length() * 10 * Bond.LENGTH * CHAIN_LENGTH_MULT * IMAGE_SCALE_MULTIPLIER);
-		int multy = (int) (100 * Bond.LENGTH * IMAGE_SCALE_MULTIPLIER * 0.666);
+		String formula = s.getFormula();
+		AttributedString formattedformula = s.getIndexedFormula();
+		formattedformula.addAttribute(TextAttribute.SIZE, canvas.getFont().getSize());
+		int img_width = canvas.getFontMetrics().stringWidth(formula) + MARGIN_L + MARGIN_R;
+		int img_height = canvas.getFontMetrics().getHeight() + MARGIN_T + MARGIN_B;
 		
-		BufferedImage canvasimg = new BufferedImage(500, 100, BufferedImage.TYPE_3BYTE_BGR);
-		Graphics2D canvas = canvasimg.createGraphics();
+		canvasimg = new BufferedImage(img_width, img_height, BufferedImage.TYPE_INT_RGB);
+		canvas = canvasimg.createGraphics();
+		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		canvas.setFont(MAIN_FONT_INORGANIC);
 		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 		canvas.setColor(Color.BLACK);
-		canvas.setFont(MAIN_FONT_INORGANIC);
-		canvas.drawString(s.getFormula(), 1, 70);
+		canvas.drawString(formattedformula.getIterator(), MARGIN_L, MARGIN_T + canvas.getFontMetrics().getHeight());
 		
 		return canvasimg;
 		
