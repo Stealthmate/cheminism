@@ -66,27 +66,33 @@ public class SuggestionEntry extends JLabel {
 	@Override
 	protected void paintComponent(Graphics g) {
 		
+		//Turn on AA
 		((Graphics2D)g).setRenderingHint(
 				RenderingHints.KEY_ANTIALIASING, 
 				RenderingHints.VALUE_ANTIALIAS_ON);
+		//Set Font
 		g.setFont(SUGGESTION_FONT);
 		
+		//Draw bg
 		g.setColor(Color.WHITE);
 		g.fillRect(0,  0,  getWidth(), getHeight());
-		
-		if(isHighlighted) {
-			g.setColor(new Color(0x3300AFFF, true));
-			g.fillRect(0,  0,  getWidth(), getHeight());
-		}
-		
+
+		//Draw order number
 		g.setColor(Color.BLACK);
 		String numstr = Integer.toString(number) + ". ";
 		int width = ((Graphics2D) g).getFontMetrics().stringWidth(numstr);
 		g.drawString(numstr, 1, getHeight());
 		
+		//Draw formatted formula
 		AttributedString formula = this.substance.getIndexedFormula();
 		formula.addAttribute(TextAttribute.SIZE, g.getFont().getSize());
-		g.drawString(formula.getIterator(), 1+width, getHeight());
+		g.drawString(formula.getIterator(), 1+width, getHeight());		
+		
+		//If highlighted, draw highlight
+		if(isHighlighted) {
+			g.setColor(new Color(0x3300AFFF, true));
+			g.fillRect(0,  0,  getWidth(), getHeight());
+		}
 	}
 	
 }

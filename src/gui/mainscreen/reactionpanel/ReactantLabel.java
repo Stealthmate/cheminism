@@ -83,10 +83,6 @@ public class ReactantLabel extends JLabel {
 	    invalidate();
 	}
 	
-	private void drawHighlight(Graphics g) {
-		
-	}
-	
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		

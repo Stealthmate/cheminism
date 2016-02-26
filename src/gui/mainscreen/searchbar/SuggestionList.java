@@ -112,11 +112,13 @@ public class SuggestionList extends JPanel implements Scrollable {
 	/*package-private*/ String highlightNext() {
 		int n = this.getComponentCount();
 		
+		//If nothing is highlighted and there are suggestions, highlight the top one
 		if(now_highlighted == null && n > 0) {
 			setHighlighted((SuggestionEntry)this.getComponent(0));
 			return now_highlighted.getSubstance().getFormula();
 		}
 	
+		//Else cycle to the next one
 		for(int i=0;i <= n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i < n - 1) {
