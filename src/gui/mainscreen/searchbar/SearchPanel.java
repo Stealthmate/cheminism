@@ -15,10 +15,10 @@ import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
 import gui.MainFrame;
-import resources.ResourceLoader;
-import resources.Substance;
+import logic.ResourceLoader;
+import logic.Substance;
 
-public class SuggestionsPanel extends JPanel {
+public class SearchPanel extends JPanel {
 
 	private static final long serialVersionUID = 6323253787561772917L;
 	
@@ -28,7 +28,7 @@ public class SuggestionsPanel extends JPanel {
 	private JPanel pnlList;
 	private JTextField txtSearch;
 	
-	public SuggestionsPanel(int width, int height) {
+	public SearchPanel(int width, int height) {
 		pnlList = new JPanel();
 		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
@@ -124,9 +124,9 @@ public class SuggestionsPanel extends JPanel {
 		}
 	}
 	
-	private void selectSuggestion() {
+	/*package-private*/ void selectSuggestion() {
 		if(SuggestionEntry.getHighlighted() != null) {
-			System.out.println("Not yet implemented");
+			SuggestionEntry.getHighlighted().select();
 		}
 	}
 	

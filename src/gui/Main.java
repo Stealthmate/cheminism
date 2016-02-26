@@ -1,6 +1,6 @@
 package gui;
 
-import resources.ResourceLoader;
+import logic.ResourceLoader;
 
 public class Main {
 	

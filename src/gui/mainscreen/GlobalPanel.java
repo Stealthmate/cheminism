@@ -4,52 +4,27 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Component;
 import java.awt.Dimension;
-import java.awt.Graphics;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.GridLayout;
-import java.awt.Insets;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.ArrayList;
 
-import javax.swing.BoxLayout;
-import javax.swing.JComponent;
-import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.SwingUtilities;
-import javax.swing.border.Border;
-import javax.swing.border.LineBorder;
-import javax.swing.event.DocumentEvent;
-import javax.swing.event.DocumentListener;
-import javax.swing.plaf.basic.BasicBorders;
-import javax.swing.text.BadLocationException;
 
-import gui.MainFrame;
 import gui.mainscreen.reactionpanel.ReactionPanel;
-import gui.mainscreen.searchbar.SuggestionEntry;
-import gui.mainscreen.searchbar.SuggestionsPanel;
-import resources.ResourceLoader;
-import resources.Substance;
+import gui.mainscreen.searchbar.SearchPanel;
 
 public class GlobalPanel extends JPanel {
 
 	private static final long serialVersionUID = -2037661004330652608L;
 	
-	private JPanel pnlSeekBar;
-	private JTextField textSeekQuery;
-	private JPanel pnlSuggestions;
+	private SearchPanel pnlSearch;
 
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
 	private ReactionPanel pnlEquation;
 
 	private void updatePreferredSize(int width, int height) {
-		pnlSeekBar.setPreferredSize(
-				new Dimension(SuggestionsPanel.SEEK_BAR_WIDTH, height));
+		pnlSearch.setPreferredSize(
+				new Dimension(SearchPanel.SEEK_BAR_WIDTH, height));
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 	}
 	
@@ -75,7 +50,7 @@ public class GlobalPanel extends JPanel {
 		
 		this.setLayout(new BorderLayout());
 		
-		pnlSeekBar = new SuggestionsPanel(width, height);
+		pnlSearch = new SearchPanel(width, height);
 		
 		pnlAction = new JPanel();
 		pnlAction.setLayout(new BorderLayout());
@@ -90,7 +65,7 @@ public class GlobalPanel extends JPanel {
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
-		this.add(pnlSeekBar, BorderLayout.WEST);
+		this.add(pnlSearch, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
 		this.invalidate();
 		
