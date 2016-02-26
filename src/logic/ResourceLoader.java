@@ -17,21 +17,15 @@ public class ResourceLoader {
 	
 	private static final String SUBSTANCES_DELIMITER = " ";
 	
-	private static ArrayList<Substance> substances = new ArrayList<>();
 	private static ArrayList<Reaction> reactions = new ArrayList<>();
 	
 	private static void loadSubstances() {
 		try {
 			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
+			int i = 0;
 			for(String line : lines) {
-				
-				int idelim1 = line.indexOf(SUBSTANCES_DELIMITER);
-				int idelim2 = line.substring(idelim1+1).indexOf(SUBSTANCES_DELIMITER) + idelim1 + 1;
-				String name = line.substring(0, idelim1);
-				int groupid = Integer.parseInt(line.substring(idelim1+1, idelim2));
-				int id = Integer.parseInt(line.substring(idelim2+1));
-				
-				substances.add(new Substance(name, id, groupid));
+				Substance.substances.add(new Substance(line, i));
+				i++;
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -65,7 +59,7 @@ public class ResourceLoader {
 	public static ArrayList<Substance> getSubstanceListMatching(String query) {
 		ArrayList<Substance> matches = new ArrayList<>();
 		
-		for(Substance s : substances) {
+		for(Substance s : Substance.substances) {
 			if(s.getName().toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
 		}
 		
