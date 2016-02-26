@@ -5,10 +5,8 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
-import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
@@ -19,6 +17,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	private static final int ENTRIES_PER_PAGE = 5;
 	
+	private static int highlighted_index;
 	private static SuggestionEntry now_highlighted;
 	
 	private static void setHighlighted(SuggestionEntry se) {
