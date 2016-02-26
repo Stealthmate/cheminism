@@ -17,7 +17,7 @@ import logic.Substance;
 
 public class SuggestionEntry extends JLabel {
 	
-	private static final Font SUGGESTION_FONT = new Font("Arial", Font.PLAIN, 14);
+	private static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 14);
 	
 	private Substance substance;
 	
@@ -71,7 +71,7 @@ public class SuggestionEntry extends JLabel {
 				RenderingHints.KEY_ANTIALIASING, 
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		//Set Font
-		g.setFont(SUGGESTION_FONT);
+		g.setFont(MAIN_FONT);
 		
 		//Draw bg
 		g.setColor(Color.WHITE);

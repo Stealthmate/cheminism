@@ -138,12 +138,14 @@ public class SuggestionList extends JPanel implements Scrollable {
 		
 		int n = this.getComponentCount();
 		
+		//If nothing is highlighted and there are suggestions, select last one
 		if(now_highlighted == null && n > 0) {
 			setHighlighted((SuggestionEntry)this.getComponent(
 							n-1));
 			return now_highlighted.getSubstance().getFormula();
 		}
 		
+		//Else cycle to previous one
 		for(int i=0;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i > 0) {
@@ -163,18 +165,19 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	/*package-private*/ String selectHighlighted() {
 		
-		String result = null;
-		
-		if(now_highlighted != null) {
-			now_highlighted.unhighlight();
-			result = now_highlighted.getSubstance().getFormula();
-		}
-		
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
 		
-		return result;
+		//Value of highlighted suggestion (substance formula)
+		String value = null;
+		
+		if(now_highlighted != null) {
+			now_highlighted.unhighlight();
+			value = now_highlighted.getSubstance().getFormula();
+		}
+		
+		return value;
 	}
 	
 	@Override

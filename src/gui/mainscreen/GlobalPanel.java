@@ -7,6 +7,7 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
+import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
 import gui.mainscreen.reactionpanel.ReactionPanel;
@@ -17,6 +18,7 @@ public class GlobalPanel extends JPanel {
 	private static final long serialVersionUID = -2037661004330652608L;
 	
 	private SearchPanel pnlSearch;
+	private SubstanceInfoPanel pnlSubstanceInfo;
 
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
@@ -65,6 +67,11 @@ public class GlobalPanel extends JPanel {
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
+		JPanel leftbar = new JPanel();
+		leftbar.setLayout(new BorderLayout());
+		leftbar.add(pnlSearch, BorderLayout.NORTH);
+		pnlSubstanceInfo = new SubstanceInfoPanel();
+		leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
 		this.add(pnlSearch, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
 		this.invalidate();

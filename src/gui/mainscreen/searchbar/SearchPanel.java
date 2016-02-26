@@ -18,8 +18,6 @@ import gui.mainscreen.reactionpanel.ReactantLabel;
 import logic.Substance;
 
 public class SearchPanel extends JPanel {
-
-	private static final long serialVersionUID = 6323253787561772917L;
 	
 	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
 	public static final int SEEK_BAR_WIDTH = 300;
@@ -96,7 +94,6 @@ public class SearchPanel extends JPanel {
 		
 		this.add(txtSearch);
 		this.add(new JScrollPane(pnlSuggestions));
-		this.add(new SubstanceInfoPanel());
 		
 	}
 	
