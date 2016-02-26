@@ -17,7 +17,6 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	private static final int ENTRIES_PER_PAGE = 5;
 	
-	private static int highlighted_index;
 	private static SuggestionEntry now_highlighted;
 	
 	private static void setHighlighted(SuggestionEntry se) {
