@@ -62,7 +62,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 			c.gridy++;
 			this.add(entries.get(pg * ENTRIES_PER_PAGE + i), c);
 		}
-		
+
 		this.revalidate();
 		this.repaint();
 	}
@@ -105,7 +105,8 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	/*private-package*/  void highlightMe(SuggestionEntry se) {
 		setHighlighted(se);
-		((SearchPanel)getParent().getParent().getParent()).updateHighlight(se.getText());
+		((SearchPanel)getParent().getParent().getParent())
+		.updateHighlight(se.getSubstance().getFormula());
 	}
 	
 	/*package-private*/ String highlightNext() {
@@ -113,20 +114,20 @@ public class SuggestionList extends JPanel implements Scrollable {
 		
 		if(now_highlighted == null && n > 0) {
 			setHighlighted((SuggestionEntry)this.getComponent(0));
-			return now_highlighted.getText();
+			return now_highlighted.getSubstance().getFormula();
 		}
 	
 		for(int i=0;i <= n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i < n - 1) {
 					setHighlighted((SuggestionEntry) this.getComponent(i+1));
-					return now_highlighted.getText();
+					return now_highlighted.getSubstance().getFormula();
 				}
 				
 				else {
 					showNextPage();
 					setHighlighted((SuggestionEntry) this.getComponent(0));
-					return now_highlighted.getText();
+					return now_highlighted.getSubstance().getFormula();
 				}
 			}
 		}
@@ -140,19 +141,19 @@ public class SuggestionList extends JPanel implements Scrollable {
 		if(now_highlighted == null && n > 0) {
 			setHighlighted((SuggestionEntry)this.getComponent(
 							n-1));
-			return now_highlighted.getText();
+			return now_highlighted.getSubstance().getFormula();
 		}
 		
 		for(int i=0;i<=n - 1; i++) {
 			if(this.getComponent(i) == now_highlighted) {
 				if(i > 0) {
 					setHighlighted((SuggestionEntry)this.getComponent(i-1));
-					return now_highlighted.getText();
+					return now_highlighted.getSubstance().getFormula();
 				}
 				else if (i == 0 && this.getComponentCount() > 0) {
 					showPreviousPage();
 					setHighlighted((SuggestionEntry)this.getComponent(this.getComponentCount()-1));
-					return now_highlighted.getText();
+					return now_highlighted.getSubstance().getFormula();
 				}
 			}
 		}
@@ -166,7 +167,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 		
 		if(now_highlighted != null) {
 			now_highlighted.unhighlight();
-			result = now_highlighted.getText();
+			result = now_highlighted.getSubstance().getFormula();
 		}
 		
 		this.removeAll();

@@ -1,12 +1,13 @@
 package gui.mainscreen.searchbar;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
-import java.awt.image.BufferedImage;
 import java.text.AttributedString;
 
 import javax.swing.JLabel;
@@ -16,8 +17,10 @@ import logic.Substance;
 
 public class SuggestionEntry extends JLabel {
 	
+	private static final Font SUGGESTION_FONT = new Font("Arial", Font.PLAIN, 14);
+	
 	private Substance substance;
-	private String name;
+	
 	private boolean isHighlighted;
 	private int number;
 	
@@ -32,7 +35,7 @@ public class SuggestionEntry extends JLabel {
 	}
 	
 	public SuggestionEntry(Substance substance, int number) {
-		super(substance.getFormula());
+		super("dummy");
 		this.number = number;
 		this.substance = substance;
 		this.addMouseListener(new MouseAdapter() {
@@ -54,12 +57,19 @@ public class SuggestionEntry extends JLabel {
 		
 		setBackground(Color.WHITE);
 		setOpaque(true);
-
-		
+	}
+	
+	public Substance getSubstance() {
+		return this.substance;
 	}
 	
 	@Override
 	protected void paintComponent(Graphics g) {
+		
+		((Graphics2D)g).setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING, 
+				RenderingHints.VALUE_ANTIALIAS_ON);
+		g.setFont(SUGGESTION_FONT);
 		
 		g.setColor(Color.WHITE);
 		g.fillRect(0,  0,  getWidth(), getHeight());

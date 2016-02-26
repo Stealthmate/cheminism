@@ -31,7 +31,8 @@ public class SearchPanel extends JPanel {
 		
 		private void update(DocumentEvent e) {
 			try {
-				pnlSuggestions.generateSuggestions(e.getDocument().getText(0, e.getDocument().getLength()));
+				pnlSuggestions.generateSuggestions(
+						e.getDocument().getText(0, e.getDocument().getLength()));
 			} catch (BadLocationException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
