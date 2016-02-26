@@ -8,19 +8,20 @@ public class Substance {
 	public static ArrayList<Substance> substances = new ArrayList<>();
 	
 	String name;
-	int groupID;
+	String fullname;
+	ArrayList<String> trivial_names;
 	int ID;
 	
 	Substance() {
 		name = "";
-		groupID = -1;
+		fullname = "";
+		trivial_names = new ArrayList<>();
 		ID = -1;
 	}
 	
 	Substance(String name, int ID) {
 		this.name = name;
 		this.ID = ID; 
-		this.groupID = groupID;
 	}
 	
 	public String getName() {

@@ -2,7 +2,7 @@ package logic;
 
 public class Main {
 	private static CarbonChain per;
-	private static Carbon test;
+	private static CarbonAtom test;
 
 	public static void main(String [ ] args){
 		
@@ -10,7 +10,7 @@ public class Main {
 		x = new Carbon();
 		c = new Carbon();*/
 		
-		test = new Carbon();
+		test = new CarbonAtom();
 		
 		per = new CarbonChain(6);
 		

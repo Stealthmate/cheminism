@@ -1,12 +1,9 @@
 package logic;
-import java.util.*;
 
-public class Carbon extends Atom{
+public class CarbonAtom extends Atom{
 	
-	public ArrayList <Bond> bondNum; 
-	
-	Carbon(){
-		bondNum = new ArrayList<Bond>(4); // 4 bonds in total
+	CarbonAtom(){
+		super();
 		for(int i = 0; i < 4; i++){
 			bondNum.add(new Bond()); // initialise bonds
 		}//set bonds to None Type
@@ -20,11 +17,11 @@ public class Carbon extends Atom{
 		
 	}
 	
+	@Override
 	void printBonds(){
-		System.out.println(bondNum.get(0).Bonds);
-		System.out.println(bondNum.get(1).Bonds);
-		System.out.println(bondNum.get(2).Bonds);
-		System.out.println(bondNum.get(3).Bonds+"\n");
+		
+		super.printBonds();
+		System.out.println("btw milen e pedal");
 	}
 		/*public int numberOfBonds;
 		

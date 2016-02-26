@@ -2,24 +2,22 @@ package logic;
 import java.util.*;
 
 public class CarbonChain {
-	ArrayList <Carbon> chain;
+	ArrayList <CarbonAtom> chain;
 	
 	CarbonChain(){
-		chain = new ArrayList<Carbon>(0);
-		chain.add(new Carbon());
+		chain = new ArrayList<CarbonAtom>(0);
+		chain.add(new CarbonAtom());
 	}
 	CarbonChain(int len){
-		chain = new ArrayList<Carbon>(len);
+		chain = new ArrayList<CarbonAtom>(len);
 		
 		for(int i = 0; i < len; i++){
-			chain.add(new Carbon());//initialise Carbon
+			chain.add(new CarbonAtom());//initialise Carbon
 		}	
 		for(int i = 0; i < len; i++){ //connect all Carbon atoms with Single Bonds
 			if(i>0&&i<len-1){
 				chain.get(i).bondNum.get(0).bondTo(chain.get(i+1));
 				chain.get(i).bondNum.get(1).bondTo(chain.get(i-1));
-				
-				//System.out.println(i);
 				
 				chain.get(i).bondNum.get(0).setBond(BondTypes.Single);
 				chain.get(i).bondNum.get(1).setBond(BondTypes.Single);
@@ -34,13 +32,12 @@ public class CarbonChain {
 				}
 		}	
 	}
-	Carbon getCarbonOnPos(int pos){
+	CarbonAtom getCarbonOnPos(int pos){
 		return chain.get(pos-1);
 	}
 	void addCarbonAtEnd(){
 		
-		Carbon Extendee = new Carbon();
-		//Extendee.bondNum.get(0).setBond(BondTypes.Single);
+		CarbonAtom Extendee = new CarbonAtom();
 		chain.add(Extendee);
 		getCarbonOnPos(chain.size()-1).bondNum.get(1).bondTo = getCarbonOnPos(chain.size());
 		getCarbonOnPos(chain.size()).bondNum.get(0).bondTo = getCarbonOnPos(chain.size()-1);
@@ -58,12 +55,14 @@ public class CarbonChain {
 	int getChainLength(){
 		return chain.size();
 	}
-	
+
 	void scanChain(){
-		Carbon z = chain.get(0);
+		CarbonAtom z = chain.get(0);
 		for(int i = 0; i < chain.size()-1;i++){
-		z.printBonds();
-		z = (Carbon)z.bondNum.get(1).bondTo;
+			z.printBonds();
+			Atom a = z.bondNum.get(1).bondTo;
+			if(!(a instanceof CarbonAtom)) 
+			z = (CarbonAtom) z.bondNum.get(1).bondTo;
 		}
 		z.printBonds();
 	}
