@@ -73,6 +73,9 @@ public class GlobalPanel extends JPanel {
 		leftbar.setLayout(new BorderLayout());
 		leftbar.add(pnlSearch, BorderLayout.NORTH);
 		pnlSubstanceInfo = new SubstanceInfoPanel();
+		
+		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
+		
 		leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
 		this.add(leftbar, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);

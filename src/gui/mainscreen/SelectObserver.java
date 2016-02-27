@@ -32,6 +32,7 @@ public class SelectObserver {
 	public static void setActiveReactantSubstance(Substance s) {
 		if(selected_reactant != null) {
 			selected_reactant.setSubstance(s);
+			subinfo.setSubstance(s);
 		}
 	}
 	
