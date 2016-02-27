@@ -106,7 +106,7 @@ public class SearchPanel extends JPanel {
 		pnlSuggestions.selectHighlighted();
 		if(ReactantLabel.getSelected() != null) {
 			ReactantLabel rl = ReactantLabel.getSelected();
-			rl.setSubstance(Substance.getSubstanceFromName(txtSearch.getText()));
+			rl.setSubstance(Substance.querySubstance(txtSearch.getText()));
 		}
 	}
 }

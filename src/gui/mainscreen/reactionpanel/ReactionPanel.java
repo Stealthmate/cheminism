@@ -12,6 +12,8 @@ import java.awt.event.KeyEvent;
 import javax.swing.JButton;
 import javax.swing.JPanel;
 
+import gui.mainscreen.SelectObserver;
+
 public class ReactionPanel extends JPanel {
 
 	private static final long serialVersionUID = 1795331097827539882L;
@@ -71,6 +73,12 @@ public class ReactionPanel extends JPanel {
 		
 		Dimension rlsize = new Dimension(parent_width-2*PADDING_X, (parent_height - 6*PADDING_Y)/2);
 		
+		ReactantLabel react1 = new ReactantLabel(rlsize);
+		ReactantLabel react2 = new ReactantLabel(rlsize);
+		ReactantLabel react3 = new ReactantLabel(rlsize);
+		SelectObserver.registerReactant(react1);
+		SelectObserver.registerReactant(react2);
+		SelectObserver.registerReactant(react3);
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.fill = GridBagConstraints.BOTH;
@@ -79,13 +87,13 @@ public class ReactionPanel extends JPanel {
 		c.weighty = 1.0;
 		c.gridx = 0;
 		c.gridy = 1;
-		pnlReactants.add(new ReactantLabel(rlsize), c);
+		pnlReactants.add(react1, c);
 		c.gridy = 2;
 		c.insets.top /= 2;
-		pnlReactants.add(new ReactantLabel(rlsize), c);
+		pnlReactants.add(react2, c);
 		c.gridy = 3;
 		c.insets.bottom *= 2;
-		pnlReactants.add(new ReactantLabel(rlsize), c);
+		pnlReactants.add(react3, c);
 		
 		pnlReactants.setOpaque(true);
 		//pnlReactants.setBackground(Color.RED);

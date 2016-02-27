@@ -12,6 +12,7 @@ import java.awt.KeyEventDispatcher;
 import javax.swing.JFrame;
 
 import gui.mainscreen.GlobalPanel;
+import gui.mainscreen.SelectObserver;
 import gui.mainscreen.reactionpanel.ReactantLabel;
 
 public class MainFrame extends JFrame {
@@ -71,9 +72,9 @@ public class MainFrame extends JFrame {
 			public boolean dispatchKeyEvent(KeyEvent e) {
 				if(e.isControlDown()) {
 					switch (e.getKeyCode()) {
-					case KeyEvent.VK_1 : pnlGlobal.selectReactant(0); break;
-					case KeyEvent.VK_2 : pnlGlobal.selectReactant(1); break;
-					case KeyEvent.VK_3 : pnlGlobal.selectReactant(2); break;
+					case KeyEvent.VK_1 : SelectObserver.selectReactant(0); break;
+					case KeyEvent.VK_2 : SelectObserver.selectReactant(1); break;
+					case KeyEvent.VK_3 : SelectObserver.selectReactant(2); break;
 					}
 				}
 				return false;

@@ -18,6 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
 import gui.MainFrame;
+import gui.mainscreen.SelectObserver;
 import gui.structuredrawer.StructureImageBuilder;
 import logic.Substance;
 
@@ -49,6 +50,27 @@ public class ReactantLabel extends JLabel {
 			me.repaint();
 		}
 	}
+	
+	public void select(SelectObserver.Lock l) {
+		if(l == null) {
+			System.out.println("DO NOT CALL THIS IF YOU'RE NOT SELECTOBSERVER!!!!");
+			return;
+		}
+		
+		
+		this.isSelected = true;
+		this.repaint();
+	}
+	
+	public void deselect(SelectObserver.Lock l) {
+		if(l == null) {
+			System.out.println("DO NOT CALL THIS IF YOU'RE NOT SELECTOBSERVER!!!!");
+			return;
+		}
+		
+		this.isSelected = false;
+		repaint();
+	}
 
 	private void setup(Dimension d) {
 		
@@ -58,8 +80,10 @@ public class ReactantLabel extends JLabel {
 		this.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mousePressed(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) selectMe(ReactantLabel.this);
-				else if(SwingUtilities.isRightMouseButton(e)) selectMe(null);
+				if(SwingUtilities.isLeftMouseButton(e)) 
+					SelectObserver.selectReactant(ReactantLabel.this);
+				else if(SwingUtilities.isRightMouseButton(e)) 
+					SelectObserver.selectReactant(null);
 			}
 		});
 		

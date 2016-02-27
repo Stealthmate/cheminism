@@ -66,7 +66,7 @@ public class Substance {
 		return formattedname;
 	}
 	
-	public static Substance getSubstanceFromName(String name) {
+	public static Substance querySubstance(String name) {
 		for (Substance s : substances) {
 			if(s.getFormula().equals(name)) return s;
 		}
