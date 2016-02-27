@@ -19,20 +19,29 @@ public class SuggestionList extends JPanel {
 	
 	private static final int ENTRIES_PER_PAGE = 5;
 
+	private static final int INDEX_FIRST_ENTRY = 1;
+	
+	private static final JPanel dummy = new JPanel();
+	
 	private ArrayList<SuggestionEntry> entries;
+	private int n_entries = 0;
+	
 	private int current_page = -1;
 	
-	private int n_entries = 0;
 	
 	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
 		
+		//Compute height of single suggestion
 		int height = (int) new SuggestionEntry(new Substance(), 1).getPreferredSize().getHeight();
-		this.setPreferredSize(new Dimension(0, height * 5));
+		this.setPreferredSize(new Dimension(0, height * 6));//6 because of dummy tablet
 
 		this.setBackground(Color.WHITE);
 		this.invalidate();
+		
+		dummy.setOpaque(true);
+		dummy.setBackground(Color.WHITE);
 		
 		entries = new ArrayList<>(5);
 		n_entries = 0;
@@ -43,6 +52,11 @@ public class SuggestionList extends JPanel {
 		n_entries = 0;
 		
 		GridBagConstraints c = new GridBagConstraints();
+		
+		c.weighty = 1.0;
+		c.gridy = 100;
+		c.fill = GridBagConstraints.VERTICAL;
+		this.add(dummy, c);
 		
 		c.gridx = 0;
 		c.gridy = 0;
@@ -55,15 +69,6 @@ public class SuggestionList extends JPanel {
 			this.add(entries.get(pg * ENTRIES_PER_PAGE + i), c);
 			c.gridy++;
 			n_entries++;
-		}
-
-		if(n_entries == 1) {
-
-			c.weighty = 1.0;
-			c.gridy = 100;
-			c.fill = GridBagConstraints.VERTICAL;
-			JPanel dummy = new JPanel();
-			//this.add(dummy, c);
 		}
 		
 		this.revalidate();
@@ -117,7 +122,7 @@ public class SuggestionList extends JPanel {
 		
 		//If nothing is highlighted and there are suggestions, highlight the top one
 		if(SearchManager.getHighlighted() == null && n_entries > 0) {
-			SearchManager.highlight((SuggestionEntry)this.getComponent(0));
+			SearchManager.highlight((SuggestionEntry)this.getComponent(INDEX_FIRST_ENTRY));
 			return SearchManager.getHighlighted().getSubstance().getFormula();
 		}
 	
@@ -131,7 +136,7 @@ public class SuggestionList extends JPanel {
 				
 				else {
 					showNextPage();
-					SearchManager.highlight((SuggestionEntry) this.getComponent(0));
+					SearchManager.highlight((SuggestionEntry) this.getComponent(INDEX_FIRST_ENTRY));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 			}
@@ -151,11 +156,11 @@ public class SuggestionList extends JPanel {
 		//Else cycle to previous one
 		for(int i=0;i<=n_entries - 1;i++) {
 			if(this.getComponent(i) == SearchManager.getHighlighted()) {
-				if(i > 0) {
+				if(i > INDEX_FIRST_ENTRY) {
 					SearchManager.highlight((SuggestionEntry)this.getComponent(i-1));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
-				else if (i == 0 && this.getComponentCount() > 0) {
+				else if (i == INDEX_FIRST_ENTRY && this.getComponentCount() > 0) {
 					showPreviousPage();
 					SearchManager.highlight((SuggestionEntry)this.getComponent(n_entries - 1));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
@@ -164,25 +169,6 @@ public class SuggestionList extends JPanel {
 		}
 		
 		return "";
-	}
-
-	
-	/*package-private*/ String selectHighlighted() {
-		
-		this.removeAll();
-		n_entries = 0;
-		this.revalidate();
-		this.repaint();
-		
-		//Value of highlighted suggestion (substance formula)
-		String value = null;
-		
-		if(SearchManager.getHighlighted() != null) {
-			SearchManager.getHighlighted().unhighlight();
-			value = SearchManager.getHighlighted().getSubstance().getFormula();
-		}
-		
-		return value;
 	}
 
 }

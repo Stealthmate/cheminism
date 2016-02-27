@@ -52,10 +52,12 @@ public class SearchPanel extends JPanel {
 
 	public SearchPanel(int width, int height) {
 
+		//Register with manager
 		SearchManager.registerSearchPanel(this);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
 		
+		//Init searchbox
 		txtSearch = new JTextField();
 		
 		txtSearch.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
@@ -70,7 +72,9 @@ public class SearchPanel extends JPanel {
 			@Override
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()) {
+				//On Enter execute a search
 				case KeyEvent.VK_ENTER : SearchManager.executeQuery(txtSearch.getText()); break;
+				//Up/Down cycle suggestions
 				case KeyEvent.VK_DOWN : updateText(pnlSuggestions.highlightNext()); break;
 				case KeyEvent.VK_UP : updateText(pnlSuggestions.highlightPrev()); break;
 				}
@@ -87,6 +91,7 @@ public class SearchPanel extends JPanel {
 	
 	
 	/*package-private*/ void updateText(String txt) {
+		//If there's actually any text, make sure to disable listener before updating
 		if(txt != null) {
 			txtSearch.getDocument().removeDocumentListener(SUGGESTIONS_LISTENER);
 			txtSearch.setText(txt);
@@ -95,6 +100,7 @@ public class SearchPanel extends JPanel {
 	}
 	
 	
+	//Self-explanatory - forwarded to SuggestionList
 	/*package-private*/ String highlightNext() {
 		return pnlSuggestions.highlightNext();
 	}
@@ -104,20 +110,6 @@ public class SearchPanel extends JPanel {
 	}
 	
 	/*package-private*/ void highlight(SuggestionEntry se) {
-		if(SearchManager.getHighlighted() != null)
-			SearchManager.getHighlighted().unhighlight();
-
-		SearchManager.highlight(se);
-		
-		if(SearchManager.getHighlighted() != null) {
-			
-			SearchManager.getHighlighted().highlight();
-
-			updateText(SearchManager.getHighlighted().getSubstance().getFormula());
-		}
-	}
-	
-	/*package-private*/ void selectHighlighted() {
-		pnlSuggestions.selectHighlighted();
+		updateText(pnlSuggestions.highlightMe(se));
 	}
 }
