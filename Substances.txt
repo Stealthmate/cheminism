@@ -1,258 +1,258 @@
-H2
-H2O
-Li
-Li2O
-LiOH
-LiH
-LiF
-LiCl
-LiBr
-LiI
-Li2S
-Li2SO3
-Li2SO4
-LiNO3
-Li3PO4
-Li2CO3
-Na
-Na2O
-NaOH
-NaH
-NaF
-NaCl
-NaBr
-NaI
-Na2S
-Na2SO3
-Na2SO4
-NaNO3
-Na3PO4
-Na2CO3
-K
-K2O
-KOH
-KH
-KF
-KCl
-KBr
-KI
-K2S
-K2SO3
-K2SO4
-KNO3
-K3PO4
-K2CO3
-Rb
-Rb2O
-RbOH
-RbH
-RbF
-RbCl
-RbBr
-RbI
-Rb2S
-Rb2SO3
-Rb2SO4
-RbNO3
-Rb3PO4
-Rb2CO3
-Cs
-Cs2O
-CsOH
-CsH
-CsF
-CsCl
-CsBr
-CsI
-Cs2S
-Cs2SO3
-Cs2SO4
-CsNO3
-Cs3PO4
-Cs2CO3
-Mg
-MgO
-MgH2
-Mg(OH)2
-MgF2
-MgCl2
-MgBr2
-MgI2
-MgSO3
-MgSO4
-Mg(NO3)2
-Mg3(PO4)2
-MgCO3
-Ca
-CaO
-CaH2
-Ca(OH)2
-CaF2
-CaCl2
-CaBr2
-CaI2
-CaSO3
-CaSO4
-Ca(NO3)2
-Ca3(PO4)2
-CaCO3
-Sr
-SrO
-SrH2
-Sr(OH)2
-SrF2
-SrCl2
-SrBr2
-SrI2
-SrS
-SrSO3
-SrSO4
-Sr(NO3)2
-Sr3(PO4)2
-SrCO3
-Ba
-BaO
-BaH2
-Ba(OH)2
-BaF2
-BaCl2
-BaBr2
-BaI2
-BaSO3
-BaSO4
-Ba(NO3)2
-Ba3(PO4)2
-BaCO3
-Al
-Al2O3
-Al(OH)3
-AlF3
-AlCl3
-AlBr3
-AlI3
-AL2(SO4)3
-Al(NO3)3
-AlPO4
-C
-CO
-CO2
-H2CO3
-CH4
-CaC2
-Al4C3
-Pb
-PbO
-PbO2
-Pb(OH)2
-PbF2
-PbCl2
-PbBr2
-PbI2
-PbS
-PbSO3
-PbSO4
-Pb(NO3)2
-PbCO3
-Pb3(PO4)2
-N2
-N2O
-NO
-N2O3
-NO2
-N2O5
-NH3
-NH4OH
-NH4F
-NH4Cl
-NH4Br
-NH4I
-(NH4)2S
-(NH4)2SO3
-(NH4)2SO4
-NH4NO3
-(NH4)3PO4
-(NH4)2CO3
-P
-PO2
-P2O5
-H3PO3
-H3PO4
-PH3
-O2
-S
-SO2
-SO3
-H2S
-H2SO3
-H2SO4
-F2
-HF
-HFO
-Cl2
-HCl
-HClO
-Br2
-HBr
-HBrO
-I2
-HI
-HIO
-Cu
-Cu2O
-CuO
-Cu(OH)2
-CuF2
-CuCl2
-CuBr2
-CuS
-CuSO4
-Cu(NO3)2
-CuCO3
-Cu3(PO4)2
-Ag
-Ag2O
-AgF
-AgCl
-AgBr
-AgI
-Ag2S
-Ag2SO3
-Ag2SO4
-AgNO3
-Ag3PO4
-Ag2CO3
-Zn
-ZnO
-Zn(OH)2
-ZnF2
-ZnCl2
-ZnBr2
-ZnI2
-ZnS
-ZnSO3
-ZnSO4
-Zn(NO3)2
-ZnCO3
+﻿H2 Hydrogen 
+H2O Water
+Li Lithium
+Li2O Lithium_Oxide
+LiOH Lithium_Hydroxide
+LiH Lithium_Hydride
+LiF Lithium_Fluoride
+LiCl Lithium_Chloride
+LiBr Lithium_Bromide
+LiI Lithium_Iodide
+Li2S Lithium_Sulfide
+Li2SO3 Lithium_Sulfite
+Li2SO4 Lithium_Sulfate
+LiNO3 Lithium_Nitrate
+Li3PO4 Lithium_Phosphate
+Li2CO3 Lithium_Carbonate
+Na Sodium
+Na2O Sodium_Oxide
+NaOH Sodium_Hydroxide / Caustic_Soda
+NaH Sodium_Hydride
+NaF Sodium_Fluoride
+NaCl Sodium_Chloride / Salt
+NaBr Sodium_Bromide
+NaI Sodium_Iodide
+Na2S Sodium_Sulfide
+Na2SO3 Sodium_Sulfite
+Na2SO4 Sodium_Sulfate / Glaubers'_Salt
+NaNO3 Sodium_Nitrate
+Na3PO4 Sodium_Phosphate
+Na2CO3 Sodium_Carbonate / Washing_Soda
+K Potassium
+K2O Potassium_Oxide
+KOH Potassium_Hydroxide
+KH Potassium_Hydride
+KF Potassium_Fluoride
+KCl Potassium_Chloride
+KBr Potassium_Bromide
+KI Potassium_Iodide
+K2S Potassium_Sulfide
+K2SO3 Potassium_Sulfite
+K2SO4 Potassium_Sulfate
+KNO3 Potassium_Nitrate
+K3PO4 Potassium_Phosphate
+K2CO3 Potassium_Carbonate / Potash_Ash
+Rb Rubidium
+Rb2O Rubidium_Oxide
+RbOH Rubidium_Hydroxide
+RbH Rubidium_Hydride
+RbF Rubidium_Fluoride
+RbCl Rubidium_Chloride
+RbBr Rubidium_Bromide
+RbI Rubidium_Iodide
+Rb2S Rubidium_Sulfide
+Rb2SO3 Rubidium_Sulfite
+Rb2SO4 Rubidium_Sulfate
+RbNO3 Rubidium_Nitrate
+Rb3PO4 Rubidium_Phosphate
+Rb2CO3 Rubidium_Carbonate
+Cs Caesium
+Cs2O Caesium_Oxide
+CsOH Caesium_Hydroxide
+CsH Caesium_Hydride
+CsF Caesium_Fluoride
+CsCl Caesium_Chloride
+CsBr Caesium_Bromide
+CsI Caesium_Iodide
+Cs2S Caesium_Sulfide
+Cs2SO3 Caesium_Sulfite
+Cs2SO4 Caesium_Sulfate
+CsNO3 Caesium_Nitrate
+Cs3PO4 Caesium_Phosphate
+Cs2CO3 Caesium_Carbonate
+Mg Magnesium
+MgO Magnesium_Oxide
+MgH2 Magnesium_Hydride
+Mg(OH)2 Magnesium_Hydroxide
+MgF2 Magnesium_Fluoride
+MgCl2 Magnesium_Chloride
+MgBr2 Magnesium_Bromide
+MgI2 Magnesium_Iodide
+MgSO3 Magnesium_Sulfite
+MgSO4 Magnesium_Sulfate 
+Mg(NO3)2 Magnesium_Nitrate
+Mg3(PO4)2 Magnesium_Phosphate
+MgCO3 Magnesium_Carbonate
+Ca Calcium 
+CaO Calcium_Oxide / Quick_Lime
+CaH2 Calcium_Hydride
+Ca(OH)2 Calcium_Hydroxide / Slaked_Lime
+CaF2 Calcium_Fluoride
+CaCl2 Calcium_Chloride
+CaBr2 Calcium_Bromide
+CaI2 Calcium_Iodide
+CaSO3 Calcium_Sulfite
+CaSO4 Calcium_Sulfate / Gypsum
+Ca(NO3)2 Calcium_Nitrate
+Ca3(PO4)2 Calcium_Phosphate
+CaCO3 Calcium_Carbonate / Chalk
+Sr Strontium
+SrO Strontium_Oxide
+SrH2 Strontium_Hydride
+Sr(OH)2 Strontium_Hydroxide
+SrF2 Strontium_Fluoride
+SrCl2 Strontium_Chloride
+SrBr2 Strontium_Bromide
+SrI2 Strontium_Iodide
+SrS Strontium_Sulfide
+SrSO3 Strontium_Sulfite
+SrSO4 Strontium_Sulfate
+Sr(NO3)2 Strontium_Nitrate
+Sr3(PO4)2 Strontium_Phosphate
+SrCO3 Strontium_Carbonate
+Ba Barium
+BaO Barium_Oxide
+BaH2 Barium_Hydride
+Ba(OH)2 Barium_Hydroxide
+BaF2 Barium_Fluoride
+BaCl2 Barium_Chloride
+BaBr2 Barium_Bromide
+BaI2 Barium_Iodide
+BaSO3 Barium_Sulfite
+BaSO4 Barium_Sulfate
+Ba(NO3)2 Barium_Nitrate
+Ba3(PO4)2 Barium_Phosphate
+BaCO3 Barium_Carbonate
+Al Aluminium
+Al2O3 Aluminium_Oxide
+Al(OH)3 Aluminium_Hydroxide
+AlF3 Aluminium_Fluoride
+AlCl3 Aluminium_Chloride
+AlBr3 Aluminium_Bromide
+AlI3 Aluminium_Iodide
+AL2(SO4)3 Aluminium_Sulfate
+Al(NO3)3 Aluminium_Nitrate
+AlPO4 Aluminium_Phosphate
+C Carbon
+CO Carbon_Monoxide
+CO2 Carbon_Dioxide / Dry_Ice
+H2CO3 Carbonic_Acid
+CH4 Methane
+CaC2 Calcium_Carbide
+Al4C3 Alluminium_Carbide
+Pb Lead
+PbO Lead(II)_Oxide
+PbO2 Lead(IV)_Oxide
+Pb(OH)2 Lead_Hydroxide
+PbF2 Lead_Fluoride
+PbCl2 Lead_Chloride
+PbBr2 Lead_Bromide
+PbI2 Lead_Iodide
+PbS Lead_Sulfide
+PbSO3 Lead_Sulfite
+PbSO4 Lead_Sulfate
+Pb(NO3)2 Lead_Nitrate
+PbCO3 Lead_Carbonate
+Pb3(PO4)2 Lead_Phosphate
+N2 Nitrogen
+N2O Nitrogen(I)_Oxide / Laughing_Gas
+NO Nitrogen(II)_Oxide
+N2O3 Nitrogen(III)_Oxide
+NO2 Nitrogen(IV)_Oxide
+N2O5 Nitrogen(V)_Oxide
+NH3 Ammonia
+NH4OH Ammonium_Hydroxide
+NH4F Ammonium_Fluoride
+NH4Cl Ammonium_Chloride / Nausadar
+NH4Br Ammonium_Bromide
+NH4I Ammonium_Iodide
+(NH4)2S Ammonium_Sulfide
+(NH4)2SO3 Ammonium_Sulfite
+(NH4)2SO4 Ammonium_Sulfate
+NH4NO3 Ammonium_Nitrate
+(NH4)3PO4 Ammonium_Phosphate
+(NH4)2CO3 Ammonium_Carbonate
+P Phosphorus
+PO2 Phosphoric(II)_Oxide
+P2O5 Phosphoric(V)_Oxide
+H3PO3 Phosphorous_Acid
+H3PO4 Phosphoric_Acid
+PH3 Phosphine
+O2 Oxygen
+S Sulfur
+SO2 Sulfur_Dioxide
+SO3 Sulfur_Trioxide
+H2S Hydrogen_Sulfide
+H2SO3 Sulfurous_Acid
+H2SO4 Sulfuric_Acid
+F2 Fluorine
+HF Hydroden_Fluoride/Hydrofluoric_Acid(aq)
+HFO Hypofluorous_Acid
+Cl2 Chlorine
+HCl Hydroden_Chloride/Hydrochloric_Acid(aq)
+HClO Hypochlorous_Acid
+Br2 Bromine
+HBr Hydroden_Bromide/Hydrobromic_Acid(aq)
+HBrO Hypobromous_Acid
+I2 Iodine
+HI  Hydroden_Iodide/Hydroiodic_Acid(aq)
+HIO Hypoiodous_Acid
+Cu Copper
+Cu2O Copper(I)_Oxide
+CuO Copper(II)_Oxide
+Cu(OH)2 Copper_Hydroxide
+CuF2 Copper_Fluoride
+CuCl2 Copper_Chloride
+CuBr2 Copper_Bromide
+CuS Copper_Sulfide
+CuSO4 Copper_Sulfate /  Blue_Vitriol
+Cu(NO3)2 Copper_Nitrate
+CuCO3 Copper_Carbonate
+Cu3(PO4)2 Copper_Phosphate
+Ag Silver
+Ag2O Silver_Oxide
+AgF Silver_Fluoride
+AgCl Silver_Chloride
+AgBr Silver_Bromide
+AgI Silver_Iodide
+Ag2S Silver_Sulfide
+Ag2SO3 Silver_Sulfite
+Ag2SO4 Silver_Sulfate
+AgNO3 Silver_Nitrate / Lunar_Caustic
+Ag3PO4 Silver_Phopshate
+Ag2CO3 Silver_Carbonate
+Zn Zinc 
+ZnO Zinc_Oxide
+Zn(OH)2 Zinc_Hydroxide
+ZnF2 Zinc_Fluoride
+ZnCl2 Zinc_Chloride
+ZnBr2 Zinc_Bromide
+ZnI2 Zinc_Iodide
+ZnS Zinc_Sulfide
+ZnSO3 Zinc_Sulfite
+ZnSO4 Zinc_Sulfate / White_Vitriol
+Zn(NO3)2 Zinc_Nitrate
+ZnCO3 Zinc_Carbonate
 Zn3(PO4)2
-Fe
-FeO
-Fe2O3
-Fe(OH)2
-Fe(OH)3
-FeF2
-FeCl2
-FeBr2
-FeI2
-FeS
-FeSO3
-FeSO4
-Fe(NO3)2
-FeCO3
-Fe3(PO4)2
-FeF3
-FeCl3
-FeBr3
-FeI3
-Fe2S3
-Fe2(SO4)3
-Fe(NO3)3
+Fe Iron
+FeO Iron(II)_Oxide
+Fe2O3 Iron(III)_Oxide
+Fe(OH)2 Iron(II)_Hydroxide
+Fe(OH)3 Iron(III)_Hydroxide
+FeF2 Iron(II)_Fluoride
+FeCl2 Iron(II)_Chloride
+FeBr2 Iron(II)_Bromide
+FeI2 Iron(II)_Iodide
+FeS Iron(II)_Sulfide
+FeSO3 Iron(II)_Sulfite
+FeSO4 Iron(II)_Sulfate / Green_Vitriol
+Fe(NO3)2 Iron(II)_Nitrate
+FeCO3 Iron(II)_Carbonate
+Fe3(PO4)2 Iron(II)_Phosphate
+FeF3 Iron(III)_ Fluoride
+FeCl3 Iron(III)_Chloride
+FeBr3 Iron(III)_Bromide
+FeI3 Iron(III)_Iodide
+Fe2S3 Iron(III)_Sulfide
+Fe2(SO4)3 Iron(III)_Sulfate
+Fe(NO3)3 Iron(III)_Nitrate
