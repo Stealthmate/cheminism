@@ -34,7 +34,10 @@ public class SuggestionList extends JPanel implements Scrollable {
 	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
-		this.setBackground(Color.RED);
+		
+		int height = (int) new SuggestionEntry(new Substance(), 1).getPreferredSize().getHeight();
+		this.setPreferredSize(new Dimension(0, height * 5));
+		
 		this.setOpaque(true);
 		this.invalidate();
 		entries = new ArrayList<>(30);

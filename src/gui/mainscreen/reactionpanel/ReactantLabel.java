@@ -118,24 +118,6 @@ public class ReactantLabel extends JLabel {
 							getWidth(),
 							getHeight() - text_y);
 			
-			//Compute width/height and x/y coordinates
-			
-			int area_w = getWidth();
-			int area_h = getHeight() - text_y;
-			
-			int img_w = structureImage.getWidth();
-			int img_h = structureImage.getHeight();
-			
-			int final_w = img_w * area_h / img_h;
-			int final_h = area_h;
-			
-			//If vertical scale is not enough, scale horizontally
-			if(final_w > area_w) {
-				int temp = final_w;
-				final_w = area_w;
-				final_h = final_h * area_w / temp;
-			}
-			
 			g.drawImage(
 					structureImage, 
 					0, 
