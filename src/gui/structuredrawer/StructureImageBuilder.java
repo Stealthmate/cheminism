@@ -51,18 +51,21 @@ public class StructureImageBuilder {
 	
 	public static BufferedImage buildFormulaImage(Substance s, int width, int height) {
 
+		//Create image with w/h of provided area
 		canvasimg = new BufferedImage(width, height, IMAGE_TYPE);
+		//Prepare canvas
 		canvas = canvasimg.createGraphics();
 		canvas.setRenderingHint(
 				RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		//canvas.setColor(Color.CYAN);
 		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 		
+		//Compute font size based on width
 		Font f = MAIN_FONT_INORGANIC.deriveFont(
 				width / (WIDTH_TO_FONT_RATIO_LETTER * MAX_FORMULA_LENGTH));
 		
-
-		System.out.println(f.getSize() * HEIGHT_TO_FONT_RATIO + " " + height);
+		//If height is not enough to house formula, downscale to match
 		if(f.getSize() * HEIGHT_TO_FONT_RATIO > height) {
 			f = f.deriveFont(height / HEIGHT_TO_FONT_RATIO);
 		}
@@ -73,30 +76,37 @@ public class StructureImageBuilder {
 		if(s.isOrganic()) {
 			return null;
 		}
-		
+		//If the compound i inorganic, draw its formula
 		else {
 			
-
+			//Get and prepare formula as AttributedString
 			AttributedString formula = s.getIndexedFormula();
 			formula.addAttribute(TextAttribute.SIZE, canvas.getFont().getSize());
 			
+			//Make a dummy TextLayout to 
+			//get height of formula with indexes (if actual formula doesn't have such
 			TextLayout dummy = new TextLayout(SAMPLE_FORMULA().getIterator(), canvas.getFontRenderContext());
 			
+			//Compute Y coordinate of formula
 			int fy = 
 					(int) (
 							(height - dummy.getBounds().getHeight() 
 									+ (canvas.getFont().getSize() 
 											* HEIGHT_TO_FONT_RATIO_SUBSCRIPT)) / 2);
-			System.out.println(height + " " + dummy.getBounds().getHeight() + " " + fy);
+			
+			//Set TextLayout to actual formula in order to get its width
 			dummy = new TextLayout(formula.getIterator(), canvas.getFontRenderContext());
+			//Compute X coordinate
 			int fx = -3 +(int) (width - dummy.getBounds().getWidth()) / 2;
 			
+			//Draw
 			canvas.setColor(Color.BLACK);
 			canvas.drawString(
 					formula.getIterator(), 
 					fx,
 					fy);
 			
+			//Return the image
 			return canvasimg;
 			
 		}
