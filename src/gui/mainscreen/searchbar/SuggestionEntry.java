@@ -70,7 +70,6 @@ public class SuggestionEntry extends JLabel {
 		int min_w = (int) tl.getBounds().getWidth();
 		int min_h = (int) tl.getBounds().getHeight();
 		this.setPreferredSize(new Dimension(min_w, min_h+7));
-		System.out.println(getPreferredSize().getHeight());
 	}
 	
 	public Substance getSubstance() {

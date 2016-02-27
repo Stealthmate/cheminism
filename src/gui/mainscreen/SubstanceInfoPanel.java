@@ -31,7 +31,7 @@ public class SubstanceInfoPanel extends JPanel {
 	
 	public void setSubstance(Substance s) {
 		name = s.getFormula();
-		structure = StructureImageBuilder.buildFormulaImage(s, 1);
+		//structure = StructureImageBuilder.buildFormulaImage(s, 1);
 		repaint();
 	}
 	

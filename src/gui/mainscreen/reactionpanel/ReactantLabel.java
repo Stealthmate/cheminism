@@ -115,7 +115,8 @@ public class ReactantLabel extends JLabel {
 			BufferedImage structureImage = 
 					StructureImageBuilder.buildFormulaImage(
 							this.substance,
-							scale);
+							getWidth(),
+							getHeight() - text_y);
 			
 			//Compute width/height and x/y coordinates
 			
@@ -125,52 +126,20 @@ public class ReactantLabel extends JLabel {
 			int img_w = structureImage.getWidth();
 			int img_h = structureImage.getHeight();
 			
-			int final_w;
-			int final_h;
+			int final_w = img_w * area_h / img_h;
+			int final_h = area_h;
 			
-			if(img_h * area_w / img_w < area_h) {
+			//If vertical scale is not enough, scale horizontally
+			if(final_w > area_w) {
+				int temp = final_w;
 				final_w = area_w;
-				final_h = img_h * area_w / img_w;
+				final_h = final_h * area_w / temp;
 			}
-			else {
-				final_w = img_w * area_h / img_h;
-				final_h = area_h;
-			}
-			
-			System.out.println(area_w + " " + area_h + " " + img_w + " " + img_h + " " + final_w + " " + final_h);
-			
-			
-			
-			int w1 = structureImage.getWidth();
-			int h1 = structureImage.getHeight();
-			if(h1 > w1) {
-				int new_w = getWidth();
-				int new_h = h1 * getWidth() / w1;
-				w1 = new_w;
-				h1 = new_h;
-			}
-			else {
-				int new_h = getHeight() - text_y;
-				int new_w = w1 * (getHeight() - text_y) / h1;
-				w1 = new_w;
-				h1 = new_h;
-			}
-			
-			int imgw = 
-					structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH).getWidth(null);
-			int imgh = 
-					structureImage.getScaledInstance(w1, h1, Image.SCALE_SMOOTH).getHeight(null);
-			
-			int img_x =  (getWidth() - imgw)/2;
-			int img_y = text_y;
 			
 			g.drawImage(
-					structureImage.getScaledInstance(
-							final_w, 
-							final_h, 
-							Image.SCALE_SMOOTH), 
-					img_x, 
-					img_y, 
+					structureImage, 
+					0, 
+					text_y, 
 					null);
 			
 			//Draw full name

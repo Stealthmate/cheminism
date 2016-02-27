@@ -11,6 +11,7 @@ import java.awt.font.TextLayout;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.net.SocketTimeoutException;
 import java.text.AttributedString;
 
 import gui.MainFrame;
@@ -18,15 +19,22 @@ import logic.Substance;
 
 public class StructureImageBuilder {
 
+	private static final float WIDTH_TO_FONT_RATIO_LETTER = 0.69125f;
+	private static final float WIDTH_TO_FONT_RATIO_INDEX  = 0.37875f;
+	private static final float HEIGHT_TO_FONT_RATIO = 1.185f;
+	private static final float HEIGHT_TO_FONT_RATIO_SUBSCRIPT = 0.37f;
+	
+	private static final int MAX_FORMULA_LENGTH = 10;
+	
 	private static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
-	private static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 40);
+	private static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 36);
 	
 	private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 	
-	private static final int MARGIN_L = 2;
-	private static final int MARGIN_R = 10;
-	private static final int MARGIN_T = 3;
-	private static final int MARGIN_B = 30;
+	private static final int MARGIN_L = 20;
+	private static final int MARGIN_R = 50;
+	private static final int MARGIN_T = 10;
+	private static final int MARGIN_B = 20;
 	
 	public static final int STROKE_WIDTH = 2;
 	public static final int IMAGE_SCALE_MULTIPLIER = 3;
@@ -35,49 +43,59 @@ public class StructureImageBuilder {
 	private static Graphics2D canvas;
 	private static BufferedImage canvasimg;
 	
-	public static BufferedImage buildFormulaImage(Substance s, float scale) {
+	private static AttributedString SAMPLE_FORMULA() {
+		AttributedString sample = new AttributedString("A2()");
+		sample.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB, 1, 2);
+		return sample;
+	}
+	
+	public static BufferedImage buildFormulaImage(Substance s, int width, int height) {
 
+		canvasimg = new BufferedImage(width, height, IMAGE_TYPE);
+		canvas = canvasimg.createGraphics();
+		canvas.setRenderingHint(
+				RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		//canvas.setColor(Color.CYAN);
+		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
+		
+		Font f = MAIN_FONT_INORGANIC.deriveFont(
+				width / (WIDTH_TO_FONT_RATIO_LETTER * MAX_FORMULA_LENGTH));
+		
 
-		canvas = new BufferedImage(1, 1, IMAGE_TYPE).createGraphics();
-
+		System.out.println(f.getSize() * HEIGHT_TO_FONT_RATIO + " " + height);
+		if(f.getSize() * HEIGHT_TO_FONT_RATIO > height) {
+			f = f.deriveFont(height / HEIGHT_TO_FONT_RATIO);
+		}
+				
+		canvas.setFont(f);
+		
+		
 		if(s.isOrganic()) {
 			return null;
 		}
 		
 		else {
 			
-			canvas.setFont(MAIN_FONT_INORGANIC);
 
 			AttributedString formula = s.getIndexedFormula();
-			formula.addAttribute(TextAttribute.SIZE, MAIN_FONT_INORGANIC.getSize());
+			formula.addAttribute(TextAttribute.SIZE, canvas.getFont().getSize());
 			
-			int width = 
-					(int) new TextLayout(
-					formula.getIterator(), 
-					canvas.getFontRenderContext()
-					).getBounds().getWidth() + MARGIN_L + MARGIN_R;
+			TextLayout dummy = new TextLayout(SAMPLE_FORMULA().getIterator(), canvas.getFontRenderContext());
 			
-			int height = 
-					(int) new TextLayout(
-					formula.getIterator(), 
-					canvas.getFontRenderContext()
-					).getBounds().getHeight() + MARGIN_T + MARGIN_B;
-			
-			canvasimg = new BufferedImage(width, height, IMAGE_TYPE);
-			canvas = canvasimg.createGraphics();
-			
-			canvas.setRenderingHint(
-					RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-			
-			canvas.setColor(Color.CYAN);
-			canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
-			
-			canvas.setFont(MAIN_FONT_INORGANIC);
+			int fy = 
+					(int) (
+							(height - dummy.getBounds().getHeight() 
+									+ (canvas.getFont().getSize() 
+											* HEIGHT_TO_FONT_RATIO_SUBSCRIPT)) / 2);
+			System.out.println(height + " " + dummy.getBounds().getHeight() + " " + fy);
+			dummy = new TextLayout(formula.getIterator(), canvas.getFontRenderContext());
+			int fx = -3 +(int) (width - dummy.getBounds().getWidth()) / 2;
 			
 			canvas.setColor(Color.BLACK);
 			canvas.drawString(
 					formula.getIterator(), 
-					MARGIN_L, MARGIN_T + canvas.getFontMetrics().getHeight());
+					fx,
+					fy);
 			
 			return canvasimg;
 			
