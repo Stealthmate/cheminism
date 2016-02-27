@@ -45,14 +45,12 @@ public class SuggestionEntry extends JLabel {
 			
 			@Override
 			public void mouseEntered(MouseEvent e) {
-				((SuggestionList) SuggestionEntry.this.getParent())
-				.highlightMe(SuggestionEntry.this);
+				SearchManager.highlight(SuggestionEntry.this);
 			}
 			
 			@Override
 			public void mouseClicked(MouseEvent e) {
-				if(SwingUtilities.isLeftMouseButton(e)) 
-					((SearchPanel)getParent().getParent()).selectSuggestion();
+				SearchManager.highlight(SuggestionEntry.this);
 			}
 			
 		});

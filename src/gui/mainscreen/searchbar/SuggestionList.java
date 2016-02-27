@@ -5,36 +5,29 @@ import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Rectangle;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
 import javax.swing.Scrollable;
 
+import gui.mainscreen.SelectObserver;
 import logic.ResourceLoader;
 import logic.Substance;
 
-public class SuggestionList extends JPanel implements Scrollable {
+public class SuggestionList extends JPanel {
 	
 	private static final int ENTRIES_PER_PAGE = 5;
-	
-	private static SuggestionEntry now_highlighted;
-	
-	private static void setHighlighted(SuggestionEntry se) {
-		if(now_highlighted != null)
-			now_highlighted.unhighlight();
-
-		now_highlighted = se;
-		if(se != null) 
-			se.highlight();
-	}
 
 	private ArrayList<SuggestionEntry> entries;
 	private int current_page = -1;
 	
+	private int n_entries = 0;
+	
 	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
-		
+		n_entries = 0;
 		int height = (int) new SuggestionEntry(new Substance(), 1).getPreferredSize().getHeight();
 		this.setPreferredSize(new Dimension(0, height * 5));
 		
@@ -46,6 +39,8 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	private void showPage(int pg) {
 		this.removeAll();
+		n_entries = 0;
+		
 		GridBagConstraints c = new GridBagConstraints();
 		c.weighty = 1.0;
 		c.gridy = 100;
@@ -59,6 +54,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 		for(int i = 0; i<=ENTRIES_PER_PAGE-1 && pg * ENTRIES_PER_PAGE + i <=entries.size()-1;i++) {
 			c.gridy++;
 			this.add(entries.get(pg * ENTRIES_PER_PAGE + i), c);
+			n_entries++;
 		}
 
 		this.revalidate();
@@ -82,10 +78,11 @@ public class SuggestionList extends JPanel implements Scrollable {
 	}
 	
 	/*package-private*/ void generateSuggestions(String query) {
-		setHighlighted(null);
+		SearchManager.highlight(null);
 		this.removeAll();
 		this.revalidate();
 		this.repaint();
+		n_entries = 0;
 		entries.clear();
 		current_page = -1;
 		
@@ -101,33 +98,31 @@ public class SuggestionList extends JPanel implements Scrollable {
 		showNextPage();
 	}
 	
-	/*private-package*/  void highlightMe(SuggestionEntry se) {
-		setHighlighted(se);
-		((SearchPanel)getParent())
-		.updateHighlight(se.getSubstance().getFormula());
+	/*private-package*/  String highlightMe(SuggestionEntry se) {
+		SearchManager.highlight(se);
+		return SearchManager.getHighlighted().getSubstance().getFormula();
 	}
 	
 	/*package-private*/ String highlightNext() {
-		int n = this.getComponentCount();
 		
 		//If nothing is highlighted and there are suggestions, highlight the top one
-		if(now_highlighted == null && n > 0) {
-			setHighlighted((SuggestionEntry)this.getComponent(0));
-			return now_highlighted.getSubstance().getFormula();
+		if(SearchManager.getHighlighted() == null && n_entries > 0) {
+			SearchManager.highlight((SuggestionEntry)this.getComponent(0));
+			return SearchManager.getHighlighted().getSubstance().getFormula();
 		}
 	
 		//Else cycle to the next one
-		for(int i=0;i <= n - 1; i++) {
-			if(this.getComponent(i) == now_highlighted) {
-				if(i < n - 1) {
-					setHighlighted((SuggestionEntry) this.getComponent(i+1));
-					return now_highlighted.getSubstance().getFormula();
+		for(int i=0;i <= n_entries - 1; i++) {
+			if(this.getComponent(i) == SearchManager.getHighlighted()) {
+				if(i < n_entries - 1) {
+					SearchManager.highlight((SuggestionEntry) this.getComponent(i+1));
+					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 				
 				else {
 					showNextPage();
-					setHighlighted((SuggestionEntry) this.getComponent(0));
-					return now_highlighted.getSubstance().getFormula();
+					SearchManager.highlight((SuggestionEntry) this.getComponent(0));
+					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 			}
 		}
@@ -136,74 +131,48 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	/*package-private*/ String highlightPrevious() {
 		
-		int n = this.getComponentCount();
-		
 		//If nothing is highlighted and there are suggestions, select last one
-		if(now_highlighted == null && n > 0) {
-			setHighlighted((SuggestionEntry)this.getComponent(
-							n-1));
-			return now_highlighted.getSubstance().getFormula();
+		if(SearchManager.getHighlighted() == null && n_entries > 0) {
+			SearchManager.highlight((SuggestionEntry)this.getComponent(
+							n_entries-1));
+			return SearchManager.getHighlighted().getSubstance().getFormula();
 		}
 		
 		//Else cycle to previous one
-		for(int i=0;i<=n - 1; i++) {
-			if(this.getComponent(i) == now_highlighted) {
+		for(int i=0;i<=n_entries - 1;i++) {
+			if(this.getComponent(i) == SearchManager.getHighlighted()) {
 				if(i > 0) {
-					setHighlighted((SuggestionEntry)this.getComponent(i-1));
-					return now_highlighted.getSubstance().getFormula();
+					SearchManager.highlight((SuggestionEntry)this.getComponent(i-1));
+					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 				else if (i == 0 && this.getComponentCount() > 0) {
 					showPreviousPage();
-					setHighlighted((SuggestionEntry)this.getComponent(this.getComponentCount()-1));
-					return now_highlighted.getSubstance().getFormula();
+					SearchManager.highlight((SuggestionEntry)this.getComponent(n_entries - 1));
+					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 			}
 		}
 		
 		return "";
 	}
+
 	
 	/*package-private*/ String selectHighlighted() {
 		
 		this.removeAll();
+		n_entries = 0;
 		this.revalidate();
 		this.repaint();
 		
 		//Value of highlighted suggestion (substance formula)
 		String value = null;
 		
-		if(now_highlighted != null) {
-			now_highlighted.unhighlight();
-			value = now_highlighted.getSubstance().getFormula();
+		if(SearchManager.getHighlighted() != null) {
+			SearchManager.getHighlighted().unhighlight();
+			value = SearchManager.getHighlighted().getSubstance().getFormula();
 		}
 		
 		return value;
-	}
-	
-	@Override
-	public Dimension getPreferredScrollableViewportSize() {
-		return new Dimension(getPreferredSize().width, 50);
-	}
-
-	@Override
-	public int getScrollableBlockIncrement(Rectangle arg0, int arg1, int arg2) {
-		return 0;
-	}
-
-	@Override
-	public boolean getScrollableTracksViewportHeight() {
-		return false;
-	}
-
-	@Override
-	public boolean getScrollableTracksViewportWidth() {
-		return true;
-	}
-
-	@Override
-	public int getScrollableUnitIncrement(Rectangle arg0, int arg1, int arg2) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

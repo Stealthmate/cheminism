@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import gui.mainscreen.reactionpanel.ReactantLabel;
 import gui.mainscreen.searchbar.SuggestionEntry;
+import gui.mainscreen.searchbar.SuggestionList;
 import logic.Substance;
 
 public class SelectObserver {
