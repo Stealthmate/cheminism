@@ -7,6 +7,7 @@ import java.awt.Font;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
 import java.awt.font.TextAttribute;
+import java.awt.font.TextLayout;
 import java.awt.geom.Point2D;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
@@ -19,11 +20,11 @@ public class StructureImageBuilder {
 
 	private static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
 	private static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 40);
-	private static final Dimension INORGANIC_IMAGE_SCALE = new Dimension(40, 70);
+	
 	private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
 	
 	private static final int MARGIN_L = 2;
-	private static final int MARGIN_R = 2;
+	private static final int MARGIN_R = 10;
 	private static final int MARGIN_T = 3;
 	private static final int MARGIN_B = 30;
 	
@@ -36,19 +37,51 @@ public class StructureImageBuilder {
 	
 	public static BufferedImage buildFormulaImage(Substance s, float scale) {
 
-		int width = s.getFormula().length() * INORGANIC_IMAGE_SCALE.width;
-		int height = INORGANIC_IMAGE_SCALE.height;
-		System.out.println(width + " " + height);
-		canvasimg = new BufferedImage(width, height, IMAGE_TYPE);
-		canvas = canvasimg.createGraphics();
-		canvas.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		//canvas.setColor(Color.CYAN);
-		canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
-		
-		if(s!= null) {
-			return buildInorganicImg(s);
+
+		canvas = new BufferedImage(1, 1, IMAGE_TYPE).createGraphics();
+
+		if(s.isOrganic()) {
+			return null;
 		}
-		else return buildOrganicImg();
+		
+		else {
+			
+			canvas.setFont(MAIN_FONT_INORGANIC);
+
+			AttributedString formula = s.getIndexedFormula();
+			formula.addAttribute(TextAttribute.SIZE, MAIN_FONT_INORGANIC.getSize());
+			
+			int width = 
+					(int) new TextLayout(
+					formula.getIterator(), 
+					canvas.getFontRenderContext()
+					).getBounds().getWidth() + MARGIN_L + MARGIN_R;
+			
+			int height = 
+					(int) new TextLayout(
+					formula.getIterator(), 
+					canvas.getFontRenderContext()
+					).getBounds().getHeight() + MARGIN_T + MARGIN_B;
+			
+			canvasimg = new BufferedImage(width, height, IMAGE_TYPE);
+			canvas = canvasimg.createGraphics();
+			
+			canvas.setRenderingHint(
+					RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+			
+			//canvas.setColor(Color.CYAN);
+			canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
+			
+			canvas.setFont(MAIN_FONT_INORGANIC);
+			
+			canvas.setColor(Color.BLACK);
+			canvas.drawString(
+					formula.getIterator(), 
+					MARGIN_L, MARGIN_T + canvas.getFontMetrics().getHeight());
+			
+			return canvasimg;
+			
+		}
 	}
 	
 	public static BufferedImage buildOrganicImg() {
@@ -69,21 +102,5 @@ public class StructureImageBuilder {
 		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.SE, Bond.SINGLE);
 
 		return canvasimg;
-	}
-
-	private static BufferedImage buildInorganicImg(Substance s) {
-		
-		canvas.setFont(MAIN_FONT_INORGANIC);
-		
-		AttributedString formattedformula = s.getIndexedFormula();
-		formattedformula.addAttribute(TextAttribute.SIZE, canvas.getFont().getSize());
-
-		canvas.setColor(Color.BLACK);
-		canvas.drawString(
-				formattedformula.getIterator(), 
-				MARGIN_L, MARGIN_T + canvas.getFontMetrics().getHeight());
-		
-		return canvasimg;
-		
 	}
 }
