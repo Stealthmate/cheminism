@@ -4,14 +4,10 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
-import java.awt.Rectangle;
-import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
-import javax.swing.Scrollable;
 
-import gui.mainscreen.SelectObserver;
 import logic.ResourceLoader;
 import logic.Substance;
 

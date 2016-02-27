@@ -14,7 +14,6 @@ import java.awt.image.BufferedImage;
 import java.text.AttributedString;
 
 import javax.swing.JLabel;
-import javax.swing.SwingUtilities;
 
 import logic.Substance;
 
@@ -38,7 +37,7 @@ public class SuggestionEntry extends JLabel {
 	}
 	
 	public SuggestionEntry(Substance substance, int number) {
-		super("dummy");
+		super();
 		this.number = number;
 		this.substance = substance;
 		this.addMouseListener(new MouseAdapter() {
@@ -54,19 +53,27 @@ public class SuggestionEntry extends JLabel {
 			}
 			
 		});
+		
 		this.isHighlighted = false;
 		
 		setBackground(Color.WHITE);
 		setOpaque(true);
 		
+		//Create dummy content
 		AttributedString sizestr = new AttributedString("A2");
 		sizestr.addAttribute(TextAttribute.SUPERSCRIPT, TextAttribute.SUPERSCRIPT_SUB, 1, 2);
 		sizestr.addAttribute(TextAttribute.SIZE, MAIN_FONT.getSize());
+		
+		//Create dummy graphics
 		Graphics2D g = (Graphics2D) new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB).createGraphics();
 		g.setFont(MAIN_FONT);
+		
 		TextLayout tl = new TextLayout(sizestr.getIterator(), g.getFontRenderContext());
+		
+		//Measure dummy size
 		int min_w = (int) tl.getBounds().getWidth();
 		int min_h = (int) tl.getBounds().getHeight();
+		
 		this.setPreferredSize(new Dimension(min_w, min_h+7));
 	}
 	
