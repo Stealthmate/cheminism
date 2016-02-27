@@ -18,9 +18,8 @@ import gui.mainscreen.reactionpanel.ReactantLabel;
 import logic.Substance;
 
 public class SearchPanel extends JPanel {
-	
+
 	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
-	public static final int SEEK_BAR_WIDTH = 300;
 	
 	private JTextField txtSearch;
 	private SuggestionList pnlSuggestions;

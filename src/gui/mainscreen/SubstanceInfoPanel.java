@@ -22,9 +22,16 @@ public class SubstanceInfoPanel extends JPanel {
 		this.info = "";
 	}
 	
+	/*
+	 * TODO:
+	 * Implement proper scaling of SIB images and REactantLabel
+	 * 
+	 * */
+	
+	
 	public void setSubstance(Substance s) {
 		name = s.getFormula();
-		structure = StructureImageBuilder.buildFormulaImage(s);
+		structure = StructureImageBuilder.buildFormulaImage(s, 1);
 		repaint();
 	}
 	

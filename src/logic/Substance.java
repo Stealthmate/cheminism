@@ -3,6 +3,7 @@ package logic;
 import java.awt.font.TextAttribute;
 import java.text.AttributedString;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Substance {	
 
@@ -13,20 +14,42 @@ public class Substance {
 	private String fullname;
 	private ArrayList<String> trivial_names;
 	
+	private boolean isOrganic;
+	
+	
 	public Substance() {
 		formula = "";
 		fullname = "";
 		trivial_names = new ArrayList<>();
 		ID = -1;
+		isOrganic = false;
 	}
 	
-	Substance(String name, int ID) {
-		this.formula = name;
+	Substance(int ID, String formula, String fullname, boolean isOrganic) {
 		this.ID = ID; 
+		this.formula = formula;
+		this.fullname = fullname;
+		this.isOrganic = isOrganic;
+	}
+	
+	public void addTrivialName(String name) {
+		trivial_names.add(name);
+	}
+	
+	public void addTrivialNames(List<String> names) {
+		trivial_names.addAll(names);
+	}
+	
+	public boolean isOrganic() {
+		return isOrganic;
 	}
 	
 	public String getFormula() {
 		return this.formula;
+	}
+	
+	public String getFullName() {
+		return this.fullname;
 	}
 	
 	public AttributedString getIndexedFormula() {

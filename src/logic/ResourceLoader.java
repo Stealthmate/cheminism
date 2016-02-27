@@ -24,7 +24,7 @@ public class ResourceLoader {
 			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
 			int i = 0;
 			for(String line : lines) {
-				Substance.substances.add(new Substance(line, i));
+				Substance.substances.add(new Substance(i, line, "", false));
 				i++;
 			}
 		} catch (FileNotFoundException e) {

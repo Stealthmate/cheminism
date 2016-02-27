@@ -6,6 +6,8 @@ import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 import javax.swing.JButton;
 import javax.swing.JPanel;
@@ -48,7 +50,9 @@ public class ReactionPanel extends JPanel {
 				rect_h));
 		
 		for(int i=0;i<=2;i++)
-			pnlReactants.getComponent(i).setPreferredSize(new Dimension(rect_w, rect_h/3));
+			pnlReactants.getComponent(i).setPreferredSize(new Dimension(
+					rect_w - 2*PADDING_X, 
+					(rect_h - 6*PADDING_Y)/3));
 		pnlReactants.revalidate();
 		
 		
@@ -65,6 +69,8 @@ public class ReactionPanel extends JPanel {
 		pnlReactants = new JPanel();
 		pnlReactants.setLayout(new GridBagLayout());
 		
+		Dimension rlsize = new Dimension(parent_width-2*PADDING_X, (parent_height - 6*PADDING_Y)/2);
+		
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.fill = GridBagConstraints.BOTH;
@@ -73,14 +79,13 @@ public class ReactionPanel extends JPanel {
 		c.weighty = 1.0;
 		c.gridx = 0;
 		c.gridy = 1;
-		pnlReactants.add(new ReactantLabel(), c);
+		pnlReactants.add(new ReactantLabel(rlsize), c);
 		c.gridy = 2;
 		c.insets.top /= 2;
-		pnlReactants.add(new ReactantLabel(), c);
+		pnlReactants.add(new ReactantLabel(rlsize), c);
 		c.gridy = 3;
 		c.insets.bottom *= 2;
-		pnlReactants.add(new ReactantLabel(), c);
-
+		pnlReactants.add(new ReactantLabel(rlsize), c);
 		
 		pnlReactants.setOpaque(true);
 		//pnlReactants.setBackground(Color.RED);
@@ -100,5 +105,8 @@ public class ReactionPanel extends JPanel {
 		this.invalidate();
 	}
 
-	
+	public ReactantLabel getReactant(int i) {
+		if(i >= 0 && i <=2) return (ReactantLabel) pnlReactants.getComponent(i);
+		return null;
+	}
 }
