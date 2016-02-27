@@ -19,12 +19,41 @@ public class ResourceLoader {
 	
 	private static ArrayList<Reaction> reactions = new ArrayList<>();
 	
+	private static Substance parseSubstance(String str, int id) {
+		
+		String line = str;
+		
+		int delim = str.indexOf(SUBSTANCES_DELIMITER);
+		String formula = line.substring(0, delim);
+		line = line.substring(delim + 1);
+		
+		delim = line.indexOf(" / ");
+		String fullname;
+		if(delim > 0) {
+			fullname = line.substring(0, delim);
+			line = line.substring(delim+3);
+		}
+		else {
+			fullname = line.substring(0);
+			line = "";
+		}
+		Substance s = new Substance(id, formula.replace("_", " "), fullname.replace("_", " "), false);
+		
+		delim = line.indexOf(SUBSTANCES_DELIMITER);
+		while(delim > 0) {
+			s.addTrivialName(line.substring(0, delim).replace("_", " "));
+			line = line.substring(delim+1);
+		}
+		
+		return s;
+	}
+	
 	private static void loadSubstances() {
 		try {
 			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
 			int i = 0;
 			for(String line : lines) {
-				Substance.substances.add(new Substance(i, line, "", false));
+				Substance.substances.add(parseSubstance(line, i));
 				i++;
 			}
 		} catch (FileNotFoundException e) {

@@ -1,4 +1,4 @@
-﻿H2 Hydrogen 
+﻿H2 Hydrogen
 H2O Water
 Li Lithium
 Li2O Lithium_Oxide
@@ -233,7 +233,7 @@ ZnSO3 Zinc_Sulfite
 ZnSO4 Zinc_Sulfate / White_Vitriol
 Zn(NO3)2 Zinc_Nitrate
 ZnCO3 Zinc_Carbonate
-Zn3(PO4)2
+Zn3(PO4)2 Zinc(II)_Phosphate
 Fe Iron
 FeO Iron(II)_Oxide
 Fe2O3 Iron(III)_Oxide
