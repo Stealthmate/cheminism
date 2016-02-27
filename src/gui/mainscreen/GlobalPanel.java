@@ -7,15 +7,13 @@ import java.awt.Dimension;
 import java.awt.event.ComponentAdapter;
 import java.awt.event.ComponentEvent;
 
-import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 
+import gui.mainscreen.reactionpanel.ReactantLabel;
 import gui.mainscreen.reactionpanel.ReactionPanel;
 import gui.mainscreen.searchbar.SearchPanel;
 
 public class GlobalPanel extends JPanel {
-
-	private static final long serialVersionUID = -2037661004330652608L;
 	
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPanel pnlSubstanceInfo;
@@ -26,8 +24,8 @@ public class GlobalPanel extends JPanel {
 
 	private void updatePreferredSize(int width, int height) {
 		pnlSearch.setPreferredSize(
-				new Dimension(SearchPanel.SEEK_BAR_WIDTH, height));
-		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
+				new Dimension(width/5, height));
+		pnlViewCompoundBar.setPreferredSize(new Dimension(4*width/5, height/4));
 	}
 	
 	public void resizeLayout(Dimension d) {
@@ -75,7 +73,9 @@ public class GlobalPanel extends JPanel {
 		this.add(pnlSearch, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
 		this.invalidate();
-		
-		
+	}
+	
+	public void selectReactant(int i) {
+		ReactantLabel.selectMe(pnlEquation.getReactant(i));
 	}
 }
