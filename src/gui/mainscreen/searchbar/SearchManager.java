@@ -46,7 +46,11 @@ public class SearchManager {
 	}
 	
 	/*package-private*/ static void executeQuery(String query) {
+		
+		searchpanel.selectHighlighted();
+		
 		Substance s = Substance.querySubstance(query);
+		
 		if(s!=null) {
 			SelectObserver.setActiveReactantSubstance(s);
 		}

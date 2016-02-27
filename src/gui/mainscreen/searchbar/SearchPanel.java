@@ -48,7 +48,42 @@ public class SearchPanel extends JPanel {
 		}
 	}
 	
-	private static SearchListener SUGGESTIONS_LISTENER;
+	private SearchListener SUGGESTIONS_LISTENER;
+
+	public SearchPanel(int width, int height) {
+
+		SearchManager.registerSearchPanel(this);
+		
+		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		
+		txtSearch = new JTextField();
+		
+		txtSearch.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
+		txtSearch.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
+		txtSearch.setFont(MainFrame.MAIN_FONT);
+		SUGGESTIONS_LISTENER = new SearchListener();
+		
+		txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
+		
+		txtSearch.addKeyListener(new KeyAdapter() {
+	
+			@Override
+			public void keyPressed(KeyEvent e) {
+				switch(e.getKeyCode()) {
+				case KeyEvent.VK_ENTER : SearchManager.executeQuery(txtSearch.getText()); break;
+				case KeyEvent.VK_DOWN : updateText(pnlSuggestions.highlightNext()); break;
+				case KeyEvent.VK_UP : updateText(pnlSuggestions.highlightPrev()); break;
+				}
+			}
+			
+		});
+		
+		pnlSuggestions = new SuggestionList();
+		
+		this.add(txtSearch);
+		this.add(pnlSuggestions);
+		
+	}
 	
 	
 	/*package-private*/ void updateText(String txt) {
@@ -59,46 +94,13 @@ public class SearchPanel extends JPanel {
 		}
 	}
 	
-	public SearchPanel(int width, int height) {
-		
-		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		this.setOpaque(true);
-		SearchManager.registerSearchPanel(this);
-		
-		txtSearch = new JTextField();
-		SUGGESTIONS_LISTENER = new SearchListener();
-		txtSearch.getDocument().addDocumentListener(SUGGESTIONS_LISTENER);
-		
-		txtSearch.addKeyListener(new KeyAdapter() {
-	
-			@Override
-			public void keyPressed(KeyEvent e) {
-				switch(e.getKeyCode()) {
-				case KeyEvent.VK_ENTER : SearchManager.executeQuery(txtSearch.getText()); break;
-				case KeyEvent.VK_DOWN : updateText(pnlSuggestions.highlightNext()); break;
-				case KeyEvent.VK_UP : updateText(pnlSuggestions.highlightPrevious()); break;
-				}
-			}
-			
-		});
-		
-		txtSearch.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
-		txtSearch.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
-		txtSearch.setFont(MainFrame.MAIN_FONT);
-		
-		pnlSuggestions = new SuggestionList();
-		
-		this.add(txtSearch);
-		this.add(pnlSuggestions);
-		
-	}
 	
 	/*package-private*/ String highlightNext() {
 		return pnlSuggestions.highlightNext();
 	}
 	
 	/*package-private*/ String highlightPrev() {
-		return pnlSuggestions.highlightPrevious();
+		return pnlSuggestions.highlightPrev();
 	}
 	
 	/*package-private*/ void highlight(SuggestionEntry se) {
@@ -113,5 +115,9 @@ public class SearchPanel extends JPanel {
 
 			updateText(SearchManager.getHighlighted().getSubstance().getFormula());
 		}
+	}
+	
+	/*package-private*/ void selectHighlighted() {
+		pnlSuggestions.selectHighlighted();
 	}
 }

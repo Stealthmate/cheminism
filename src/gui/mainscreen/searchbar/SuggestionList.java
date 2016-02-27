@@ -27,14 +27,15 @@ public class SuggestionList extends JPanel {
 	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
-		n_entries = 0;
+		
 		int height = (int) new SuggestionEntry(new Substance(), 1).getPreferredSize().getHeight();
 		this.setPreferredSize(new Dimension(0, height * 5));
-		
-		this.setOpaque(true);
+
 		this.setBackground(Color.WHITE);
 		this.invalidate();
+		
 		entries = new ArrayList<>(5);
+		n_entries = 0;
 	}
 	
 	private void showPage(int pg) {
@@ -42,26 +43,35 @@ public class SuggestionList extends JPanel {
 		n_entries = 0;
 		
 		GridBagConstraints c = new GridBagConstraints();
-		c.weighty = 1.0;
-		c.gridy = 100;
-		c.fill = GridBagConstraints.VERTICAL;
 		
 		c.gridx = 0;
-		c.gridy = -1;
+		c.gridy = 0;
 		c.fill = GridBagConstraints.HORIZONTAL;
 		c.weightx = 1.0;
 		c.weighty = 0.0;
-		for(int i = 0; i<=ENTRIES_PER_PAGE-1 && pg * ENTRIES_PER_PAGE + i <=entries.size()-1;i++) {
-			c.gridy++;
+		
+		for(int i = 0; i<=ENTRIES_PER_PAGE-1 && pg * ENTRIES_PER_PAGE + i <=entries.size() - 1;i++) {
+
 			this.add(entries.get(pg * ENTRIES_PER_PAGE + i), c);
+			c.gridy++;
 			n_entries++;
 		}
 
+		if(n_entries == 1) {
+
+			c.weighty = 1.0;
+			c.gridy = 100;
+			c.fill = GridBagConstraints.VERTICAL;
+			JPanel dummy = new JPanel();
+			//this.add(dummy, c);
+		}
+		
 		this.revalidate();
 		this.repaint();
 	}
 	
 	private void showNextPage() {
+		
 		if((current_page+1) * ENTRIES_PER_PAGE > entries.size()-1) {
 			current_page = -1;
 		}
@@ -71,9 +81,9 @@ public class SuggestionList extends JPanel {
 	
 	private void showPreviousPage() {
 		if(current_page == 0) {
-			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE);
+			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE) + 1;
 		}
-		current_page -= 1;
+		current_page -= 1;		
 		showPage(current_page);
 	}
 	
@@ -129,7 +139,7 @@ public class SuggestionList extends JPanel {
 		return "";
 	}
 	
-	/*package-private*/ String highlightPrevious() {
+	/*package-private*/ String highlightPrev() {
 		
 		//If nothing is highlighted and there are suggestions, select last one
 		if(SearchManager.getHighlighted() == null && n_entries > 0) {

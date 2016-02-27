@@ -17,7 +17,13 @@ public class SelectObserver {
 	
 	private static ReactantLabel selected_reactant = null;
 	
+	private static SubstanceInfoPanel subinfo;
+	
 	private static ArrayList<ReactantLabel> reactants = new ArrayList<>(3);
+	
+	public static void registerSubstanceInfoPanel(SubstanceInfoPanel pnl) {
+		subinfo = pnl;
+	}
 	
 	public static void registerReactant(ReactantLabel rl) {
 		reactants.add(rl);
