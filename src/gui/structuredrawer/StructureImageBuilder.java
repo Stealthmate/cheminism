@@ -69,7 +69,7 @@ public class StructureImageBuilder {
 			canvas.setRenderingHint(
 					RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 			
-			//canvas.setColor(Color.CYAN);
+			canvas.setColor(Color.CYAN);
 			canvas.fill(new Rectangle2D.Double(0, 0, canvasimg.getWidth(), canvasimg.getHeight()));
 			
 			canvas.setFont(MAIN_FONT_INORGANIC);

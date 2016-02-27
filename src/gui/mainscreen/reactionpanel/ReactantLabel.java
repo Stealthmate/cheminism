@@ -118,11 +118,42 @@ public class ReactantLabel extends JLabel {
 							scale);
 			
 			//Compute width/height and x/y coordinates
+			
+			int area_w = getWidth();
+			int area_h = getHeight() - text_y;
+			
+			int img_w = structureImage.getWidth();
+			int img_h = structureImage.getHeight();
+			
+			int final_w;
+			int final_h;
+			
+			if(img_h * area_w / img_w < area_h) {
+				final_w = area_w;
+				final_h = img_h * area_w / img_w;
+			}
+			else {
+				final_w = img_w * area_h / img_h;
+				final_h = area_h;
+			}
+			
+			System.out.println(area_w + " " + area_h + " " + img_w + " " + img_h + " " + final_w + " " + final_h);
+			
+			
+			
 			int w1 = structureImage.getWidth();
 			int h1 = structureImage.getHeight();
-			while(w1 > getSize().getWidth() || h1 > getSize().getHeight() - text_y) {
-				w1 = w1*9/10;
-				h1 = h1*9/10;
+			if(h1 > w1) {
+				int new_w = getWidth();
+				int new_h = h1 * getWidth() / w1;
+				w1 = new_w;
+				h1 = new_h;
+			}
+			else {
+				int new_h = getHeight() - text_y;
+				int new_w = w1 * (getHeight() - text_y) / h1;
+				w1 = new_w;
+				h1 = new_h;
 			}
 			
 			int imgw = 
@@ -135,8 +166,8 @@ public class ReactantLabel extends JLabel {
 			
 			g.drawImage(
 					structureImage.getScaledInstance(
-							w1, 
-							h1, 
+							final_w, 
+							final_h, 
 							Image.SCALE_SMOOTH), 
 					img_x, 
 					img_y, 
