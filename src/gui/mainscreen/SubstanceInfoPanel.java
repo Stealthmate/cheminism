@@ -1,6 +1,7 @@
 package gui.mainscreen;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferedImage;
@@ -21,7 +22,7 @@ public class SubstanceInfoPanel extends JPanel {
 		this.name = "";
 		this.structure = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
 		this.info = "";
-		this.setBackground(Color.CYAN);
+		//this.setBackground(Color.CYAN);
 		this.setOpaque(true);
 		this.invalidate();
 	}
@@ -32,13 +33,16 @@ public class SubstanceInfoPanel extends JPanel {
 		repaint();
 	}
 	
-	/*@Override
+	@Override
 	protected void paintComponent(Graphics g) {
 		super.paintComponent(g);
-		System.out.println(getBounds());
-		g.drawString(name, 5, 5);
+		g.setColor(Color.WHITE);
+		g.fillRect(0, 0, getWidth(), getHeight());
+		g.setColor(Color.BLACK);
+		g.setFont(new Font("Arial", Font.PLAIN, 20));
+		g.drawString(name, 50, 50);
 		g.drawImage(structure, 5, 10, null);
-	}*/
+	}
 	
 
 }

@@ -52,7 +52,7 @@ public class SuggestionEntry extends JLabel {
 			@Override
 			public void mouseClicked(MouseEvent e) {
 				if(SwingUtilities.isLeftMouseButton(e)) 
-					((SearchPanel)getParent().getParent().getParent().getParent()).selectSuggestion();
+					((SearchPanel)getParent().getParent()).selectSuggestion();
 			}
 			
 		});

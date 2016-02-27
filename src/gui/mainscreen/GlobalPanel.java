@@ -82,5 +82,6 @@ public class GlobalPanel extends JPanel {
 	
 	public void selectReactant(int i) {
 		ReactantLabel.selectMe(pnlEquation.getReactant(i));
+		pnlSubstanceInfo.setSubstance(new Substance());
 	}
 }

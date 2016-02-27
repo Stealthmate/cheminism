@@ -103,7 +103,7 @@ public class SuggestionList extends JPanel implements Scrollable {
 	
 	/*private-package*/  void highlightMe(SuggestionEntry se) {
 		setHighlighted(se);
-		((SearchPanel)getParent().getParent().getParent())
+		((SearchPanel)getParent())
 		.updateHighlight(se.getSubstance().getFormula());
 	}
 	
