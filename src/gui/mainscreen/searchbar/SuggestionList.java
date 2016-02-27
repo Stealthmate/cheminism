@@ -39,8 +39,9 @@ public class SuggestionList extends JPanel implements Scrollable {
 		this.setPreferredSize(new Dimension(0, height * 5));
 		
 		this.setOpaque(true);
+		this.setBackground(Color.WHITE);
 		this.invalidate();
-		entries = new ArrayList<>(30);
+		entries = new ArrayList<>(5);
 	}
 	
 	private void showPage(int pg) {
@@ -49,10 +50,6 @@ public class SuggestionList extends JPanel implements Scrollable {
 		c.weighty = 1.0;
 		c.gridy = 100;
 		c.fill = GridBagConstraints.VERTICAL;
-		
-		JPanel dummy = new JPanel();
-		dummy.setOpaque(false);
-		//this.add(dummy, c);
 		
 		c.gridx = 0;
 		c.gridy = -1;

@@ -12,18 +12,20 @@ import javax.swing.JPanel;
 import gui.mainscreen.reactionpanel.ReactantLabel;
 import gui.mainscreen.reactionpanel.ReactionPanel;
 import gui.mainscreen.searchbar.SearchPanel;
+import logic.Substance;
 
 public class GlobalPanel extends JPanel {
 	
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPanel pnlSubstanceInfo;
 
+	private JPanel leftbar;
 	private JPanel pnlAction;
 	private JPanel pnlViewCompoundBar;
 	private ReactionPanel pnlEquation;
 
 	private void updatePreferredSize(int width, int height) {
-		pnlSearch.setPreferredSize(
+		leftbar.setPreferredSize(
 				new Dimension(width/5, height));
 		pnlViewCompoundBar.setPreferredSize(new Dimension(4*width/5, height/4));
 	}
@@ -65,13 +67,16 @@ public class GlobalPanel extends JPanel {
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
-		JPanel leftbar = new JPanel();
+		leftbar = new JPanel();
+		leftbar.setBackground(Color.RED);
+		leftbar.setOpaque(true);
 		leftbar.setLayout(new BorderLayout());
 		leftbar.add(pnlSearch, BorderLayout.NORTH);
 		pnlSubstanceInfo = new SubstanceInfoPanel();
 		leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
-		this.add(pnlSearch, BorderLayout.WEST);
+		this.add(leftbar, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
+		updatePreferredSize(width, height);
 		this.invalidate();
 	}
 	

@@ -1,5 +1,6 @@
 package gui.mainscreen.searchbar;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
@@ -66,6 +67,7 @@ public class SearchPanel extends JPanel {
 	public SearchPanel(int width, int height) {
 		
 		setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
+		this.setOpaque(true);
 		
 		txtSearch = new JTextField();
 		SUGGESTIONS_LISTENER = new SearchListener();
@@ -92,7 +94,7 @@ public class SearchPanel extends JPanel {
 		pnlSuggestions = new SuggestionList();
 		
 		this.add(txtSearch);
-		this.add(new JScrollPane(pnlSuggestions));
+		this.add(pnlSuggestions);
 		
 	}
 	
