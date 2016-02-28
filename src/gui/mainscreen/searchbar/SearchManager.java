@@ -49,6 +49,7 @@ public class SearchManager {
 		
 		if(s!=null) {
 			SelectObserver.setActiveReactantSubstance(s);
+			searchpanel.clearQuery();
 		}
 	}
 	

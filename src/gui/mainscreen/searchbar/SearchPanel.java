@@ -137,6 +137,10 @@ public class SearchPanel extends JPanel {
 		updateText(pnlSuggestions.highlightMe(se));
 	}
 	
+	/*package-private*/ void clearQuery() {
+		updateText("");
+	}
+	
 	private void reset() {
 		SearchManager.highlight(null);
 		pnlSuggestions.removeAll();
