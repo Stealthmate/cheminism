@@ -15,8 +15,9 @@ import gui.mainscreen.searchbar.SearchPanel;
 import logic.Substance;
 
 public class GlobalPanel extends JPanel {
-	
-	private static final float LEFTBAR_PORTION = 1.0f/4.0f;
+
+	private static final float TOPBAR_PORTION = 1.0f / 4.0f;
+	private static final float SEARCHPANEL_PORTION = 1.0f/7.0f;
 	
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPanel pnlSubstanceInfo;
@@ -27,11 +28,14 @@ public class GlobalPanel extends JPanel {
 
 	private void updatePreferredSize(int width, int height) {
 		topbar.setPreferredSize(
-				new Dimension(width, height/4));
+				new Dimension(width, (int) (height*TOPBAR_PORTION)));
 		
-		pnlSearch.setPreferredSize(new Dimension(width/5, height/4));
-		pnlSubstanceInfo.setPreferredSize(new Dimension(width*4/5, height/4));
-		pnlEquation.setPreferredSize(new Dimension(width, height*3/4));
+		pnlSearch.setPreferredSize(
+				new Dimension((int)(width*SEARCHPANEL_PORTION), (int)(height*TOPBAR_PORTION)));
+		pnlSubstanceInfo.setPreferredSize(
+				new Dimension((int)(width*(1 - SEARCHPANEL_PORTION)), (int)(height*TOPBAR_PORTION)));
+		pnlEquation.setPreferredSize(
+				new Dimension(width, (int)(height * (1-TOPBAR_PORTION))));
 		
 		invalidate();
 	}

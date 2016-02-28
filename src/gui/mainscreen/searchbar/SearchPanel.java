@@ -11,11 +11,12 @@ import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
 
+import gui.FontManager;
 import gui.MainFrame;
 
 public class SearchPanel extends JPanel {
 
-	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
+	private static final int QUERY_WIDTH = 10;
 	
 	private static final float SEARCHBAR_PORTION = 1.0f/6.0f;
 	private static final float SUGGESTIONS_PORTION = 1.0f - SEARCHBAR_PORTION;
@@ -60,6 +61,10 @@ public class SearchPanel extends JPanel {
 				new Dimension(
 						size.width, 
 						(int) (size.height*SEARCHBAR_PORTION)));
+		
+		txtSearch.setFont(
+				FontManager.calculateFont(MainFrame.MAIN_FONT, txtSearch.getPreferredSize(), QUERY_WIDTH));
+		
 		pnlSuggestions.setPreferredSize(
 				new Dimension(
 						size.width, 

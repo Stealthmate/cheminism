@@ -23,7 +23,7 @@ public class MainFrame extends JFrame {
 	private static GlobalPanel pnlGlobal;
 
 	public static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 15);
-	public static final Dimension DEFAULT_SIZE = new Dimension(800, 600);
+	public static final Dimension DEFAULT_SIZE = new Dimension(1024, 600);
 
 	public static int getFrameWidth() {
 		return WIDTH;

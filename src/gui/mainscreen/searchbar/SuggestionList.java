@@ -18,7 +18,7 @@ public class SuggestionList extends JPanel {
 
 	private static final int INDEX_FIRST_ENTRY = 1;
 	
-	private static final float ENTRY_PORTION = 1.0f/6.0f;
+	private static final float ENTRY_PORTION = 1.0f/5.001f;
 	
 	private static final JPanel dummy = new JPanel();
 	
@@ -37,6 +37,7 @@ public class SuggestionList extends JPanel {
 		
 		dummy.setOpaque(true);
 		dummy.setBackground(Color.WHITE);
+		dummy.setPreferredSize(new Dimension(1, 1));
 		
 		entries = new ArrayList<>(5);
 		n_entries = 0;
@@ -57,7 +58,7 @@ public class SuggestionList extends JPanel {
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.weighty = 1.0;
-		c.gridy = 100;
+		c.gridy = 6;
 		c.fill = GridBagConstraints.VERTICAL;
 		this.add(dummy, c);
 		
