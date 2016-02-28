@@ -26,7 +26,6 @@ public class GlobalPanel extends JPanel {
 	
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPane pnlSubstanceInfo;
-	private MetroButton btnOrganicBuilder;
 
 	private JPanel topbar;
 	private JPanel pnlAction;
@@ -35,11 +34,7 @@ public class GlobalPanel extends JPanel {
 	private void updatePreferredSize(int width, int height) {
 		topbar.setPreferredSize(
 				new Dimension(width, (int) (height*TOPBAR_PORTION_H)));
-		
-		btnOrganicBuilder.setPreferredSize(new Dimension(
-				(int) (width * SEARCHPANEL_PORTION_W),
-				(int) (height * TOPBAR_PORTION_H * (1-SEARCHPANEL_PORTION_H))));
-		
+
 		
 		pnlSearch.setPreferredSize(
 				new Dimension(
@@ -86,24 +81,7 @@ public class GlobalPanel extends JPanel {
 		pnlSubstanceInfo = new SubstanceInfoPane();
 		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
 		
-		btnOrganicBuilder = new MetroButton("Organic builder");
-		btnOrganicBuilder.addMouseListener(new MouseAdapter() {
-			
-			@Override
-			public void mouseClicked(MouseEvent me) {
-				if(SwingUtilities.isLeftMouseButton(me)) {
-					System.out.println("Organic Builder");
-				}
-			}
-			
-		});
-		JPanel dummy = new JPanel();
-		dummy.setLayout(new BorderLayout());
-		dummy.add(btnOrganicBuilder, BorderLayout.NORTH);
-		dummy.add(pnlSearch, BorderLayout.CENTER);
-		dummy.setBorder(new EmptyBorder(2, 2, 2, 2));
-		
-		topbar.add(dummy, BorderLayout.WEST);
+		topbar.add(pnlSearch, BorderLayout.WEST);
 		topbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
 		
 		pnlEquation = new ReactionPanel(width, 3*height/4);
