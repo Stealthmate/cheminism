@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
+import java.net.SocketTimeoutException;
 import java.util.ArrayList;
 
 import javax.swing.JPanel;
@@ -17,6 +18,8 @@ public class SuggestionList extends JPanel {
 
 	private static final int INDEX_FIRST_ENTRY = 1;
 	
+	private static final float ENTRY_PORTION = 1.0f/6.0f;
+	
 	private static final JPanel dummy = new JPanel();
 	
 	private ArrayList<SuggestionEntry> entries;
@@ -28,10 +31,6 @@ public class SuggestionList extends JPanel {
 	public SuggestionList() {
 		super();
 		this.setLayout(new GridBagLayout());
-		
-		//Compute height of single suggestion
-		int height = (int) new SuggestionEntry(new Substance(), 1).getPreferredSize().getHeight();
-		this.setPreferredSize(new Dimension(0, height * 6));//6 because of dummy tablet
 
 		this.setBackground(Color.WHITE);
 		this.invalidate();
@@ -41,6 +40,14 @@ public class SuggestionList extends JPanel {
 		
 		entries = new ArrayList<>(5);
 		n_entries = 0;
+	}
+	
+	@Override
+	public void setPreferredSize(Dimension size) {
+		super.setPreferredSize(size);
+		for(SuggestionEntry entry : entries) {
+			entry.setPreferredSize(new Dimension(size.width, (int) (size.height*ENTRY_PORTION)));
+		}
 	}
 	
 	private void showPage(int pg) {
@@ -103,6 +110,7 @@ public class SuggestionList extends JPanel {
 
 		for(int i=0; i<=substances.size()-1;i++) {
 			SuggestionEntry entry = new SuggestionEntry(substances.get(i), i+1);
+			entry.setPreferredSize(new Dimension(getWidth(), (int) (getHeight()*ENTRY_PORTION)));
 			entries.add(entry);
 		}
 		
@@ -123,9 +131,9 @@ public class SuggestionList extends JPanel {
 		}
 	
 		//Else cycle to the next one
-		for(int i=0;i <= n_entries - 1; i++) {
+		for(int i=INDEX_FIRST_ENTRY;i <= n_entries; i++) {
 			if(this.getComponent(i) == SearchManager.getHighlighted()) {
-				if(i < n_entries - 1) {
+				if(i < n_entries) {
 					SearchManager.highlight((SuggestionEntry) this.getComponent(i+1));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
@@ -143,22 +151,22 @@ public class SuggestionList extends JPanel {
 	/*package-private*/ String highlightPrev() {
 		
 		//If nothing is highlighted and there are suggestions, select last one
-		if(SearchManager.getHighlighted() == null && n_entries > 0) {
+		if(SearchManager.getHighlighted() == null && n_entries > INDEX_FIRST_ENTRY) {
 			SearchManager.highlight((SuggestionEntry)this.getComponent(
 							n_entries-1));
 			return SearchManager.getHighlighted().getSubstance().getFormula();
 		}
 		
 		//Else cycle to previous one
-		for(int i=0;i<=n_entries - 1;i++) {
+		for(int i=INDEX_FIRST_ENTRY;i<=n_entries;i++) {
 			if(this.getComponent(i) == SearchManager.getHighlighted()) {
 				if(i > INDEX_FIRST_ENTRY) {
 					SearchManager.highlight((SuggestionEntry)this.getComponent(i-1));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
-				else if (i == INDEX_FIRST_ENTRY && this.getComponentCount() > 0) {
+				else if (i == INDEX_FIRST_ENTRY && this.getComponentCount() > INDEX_FIRST_ENTRY) {
 					showPreviousPage();
-					SearchManager.highlight((SuggestionEntry)this.getComponent(n_entries - 1));
+					SearchManager.highlight((SuggestionEntry)this.getComponent(n_entries));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 			}
@@ -167,4 +175,9 @@ public class SuggestionList extends JPanel {
 		return "";
 	}
 
+	/*package-private*/ void reset() {
+		this.removeAll();
+		SearchManager.highlight(null);
+	}
+	
 }

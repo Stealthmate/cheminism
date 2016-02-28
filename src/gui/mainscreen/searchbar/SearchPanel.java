@@ -17,6 +17,9 @@ public class SearchPanel extends JPanel {
 
 	private static final int TEXT_SEEK_QUERY_HEIGHT = 35;
 	
+	private static final float SEARCHBAR_PORTION = 1.0f/6.0f;
+	private static final float SUGGESTIONS_PORTION = 1.0f - SEARCHBAR_PORTION;
+	
 	private JTextField txtSearch;
 	private SuggestionList pnlSuggestions;
 	
@@ -50,6 +53,19 @@ public class SearchPanel extends JPanel {
 	
 	private SearchListener SUGGESTIONS_LISTENER;
 
+	@Override
+	public void setPreferredSize(Dimension size) {
+		super.setPreferredSize(size);
+		txtSearch.setPreferredSize(
+				new Dimension(
+						size.width, 
+						(int) (size.height*SEARCHBAR_PORTION)));
+		pnlSuggestions.setPreferredSize(
+				new Dimension(
+						size.width, 
+						(int) (size.height*SUGGESTIONS_PORTION)));
+	}
+	
 	public SearchPanel(int width, int height) {
 
 		//Register with manager
@@ -60,8 +76,7 @@ public class SearchPanel extends JPanel {
 		//Init searchbox
 		txtSearch = new JTextField();
 		
-		txtSearch.setMaximumSize(new Dimension(10000, TEXT_SEEK_QUERY_HEIGHT));
-		txtSearch.setPreferredSize(new Dimension(width/5, TEXT_SEEK_QUERY_HEIGHT));
+		txtSearch.setPreferredSize(new Dimension(width, (int) (height * SEARCHBAR_PORTION)));
 		txtSearch.setFont(MainFrame.MAIN_FONT);
 		SUGGESTIONS_LISTENER = new SearchListener();
 		
@@ -73,7 +88,11 @@ public class SearchPanel extends JPanel {
 			public void keyPressed(KeyEvent e) {
 				switch(e.getKeyCode()) {
 				//On Enter execute a search
-				case KeyEvent.VK_ENTER : SearchManager.executeQuery(txtSearch.getText()); break;
+				case KeyEvent.VK_ENTER : {
+					SearchManager.executeQuery(txtSearch.getText());
+					reset();
+					break;
+				}
 				//Up/Down cycle suggestions
 				case KeyEvent.VK_DOWN : updateText(pnlSuggestions.highlightNext()); break;
 				case KeyEvent.VK_UP : updateText(pnlSuggestions.highlightPrev()); break;
@@ -111,5 +130,12 @@ public class SearchPanel extends JPanel {
 	
 	/*package-private*/ void highlight(SuggestionEntry se) {
 		updateText(pnlSuggestions.highlightMe(se));
+	}
+	
+	private void reset() {
+		SearchManager.highlight(null);
+		pnlSuggestions.removeAll();
+		pnlSuggestions.revalidate();
+		pnlSuggestions.repaint();
 	}
 }

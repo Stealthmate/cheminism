@@ -28,6 +28,11 @@ public class GlobalPanel extends JPanel {
 	private void updatePreferredSize(int width, int height) {
 		topbar.setPreferredSize(
 				new Dimension(width, height/4));
+		
+		pnlSearch.setPreferredSize(new Dimension(width/5, height/4));
+		pnlSubstanceInfo.setPreferredSize(new Dimension(width*4/5, height/4));
+		pnlEquation.setPreferredSize(new Dimension(width, height*3/4));
+		
 		invalidate();
 	}
 	

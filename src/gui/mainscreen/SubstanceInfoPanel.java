@@ -2,6 +2,7 @@ package gui.mainscreen;
 
 import java.awt.Color;
 import java.awt.Component;
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
@@ -19,16 +20,13 @@ import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 
+import gui.FontManager;
+import gui.MainFrame;
 import gui.structuredrawer.StructureImageBuilder;
 import logic.Substance;
 
 public class SubstanceInfoPanel extends JPanel {
 
-	private static final float WIDTH_TO_FONT_RATIO_LETTER = 0.69125f;
-	private static final float WIDTH_TO_FONT_RATIO_INDEX  = 0.37875f;
-	private static final float HEIGHT_TO_FONT_RATIO = 1.185f;
-	private static final float HEIGHT_TO_FONT_RATIO_SUBSCRIPT = 0.37f;
-	
 	private static final int WIDTH_FORMULA = 40;
 	private static final int WIDTH_FULLNAME = 50;
 	
@@ -99,7 +97,7 @@ public class SubstanceInfoPanel extends JPanel {
 		int y = 5;
 		
 		g.setColor(Color.BLACK);
-		g.setFont(FONT_FORMULA.deriveFont( getWidth() / (WIDTH_FORMULA*WIDTH_TO_FONT_RATIO_LETTER)));
+		g.setFont(FontManager.calculateFont(FONT_FORMULA, new Dimension(100, 50), WIDTH_FORMULA));
 			
 		AttributedString formula = substance.getIndexedFormula();
 		formula.addAttribute(TextAttribute.SIZE, g.getFont().getSize());
@@ -114,7 +112,7 @@ public class SubstanceInfoPanel extends JPanel {
 		
 		x = 5;
 		y += g.getFontMetrics().getHeight() + 5;
-		g.setFont(FONT_FULLNAME.deriveFont( getWidth() / (WIDTH_FULLNAME*WIDTH_TO_FONT_RATIO_LETTER)));
+		g.setFont(FontManager.calculateFont(FONT_FULLNAME, new Dimension(300,  100), WIDTH_FULLNAME));
 		g.drawString("Full name: ", x, y);
 		x += g.getFontMetrics().stringWidth("Full name: ");
 		g.drawString(substance.getFullName(), x, y);

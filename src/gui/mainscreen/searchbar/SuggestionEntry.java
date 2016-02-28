@@ -15,11 +15,13 @@ import java.text.AttributedString;
 
 import javax.swing.JLabel;
 
+import gui.FontManager;
 import logic.Substance;
 
 public class SuggestionEntry extends JLabel {
 	
-	private static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 14);
+	private static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 1);
+	private static final int STRING_WIDTH = 10;
 	
 	private Substance substance;
 	
@@ -77,19 +79,36 @@ public class SuggestionEntry extends JLabel {
 		this.setPreferredSize(new Dimension(min_w, min_h+7));
 	}
 	
+	@Override
+	public void setPreferredSize(Dimension size) {
+		super.setPreferredSize(size);
+	}
+	
 	public Substance getSubstance() {
 		return this.substance;
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
+	protected void paintComponent(Graphics graphics) {
+		
+		Graphics2D g = (Graphics2D) graphics;
 		
 		//Turn on AA
-		((Graphics2D)g).setRenderingHint(
+		g.setRenderingHint(
 				RenderingHints.KEY_ANTIALIASING, 
 				RenderingHints.VALUE_ANTIALIAS_ON);
 		//Set Font
-		g.setFont(MAIN_FONT);
+		
+		float margin_bot = 
+				(float) 
+				(FontManager.HEIGHT_TO_FONT_RATIO_SUBSCRIPT * getPreferredSize().getHeight());
+		
+		Dimension d = 
+				new Dimension(
+						getPreferredSize().width, 
+						(int) 
+						(getPreferredSize().height * FontManager.HEIGHT_TO_FONT_RATIO_LETTER));
+		g.setFont(FontManager.calculateFont(MAIN_FONT, d, STRING_WIDTH));
 		
 		//Draw bg
 		g.setColor(Color.WHITE);
@@ -99,12 +118,15 @@ public class SuggestionEntry extends JLabel {
 		g.setColor(Color.BLACK);
 		String numstr = Integer.toString(number) + ". ";
 		int width = ((Graphics2D) g).getFontMetrics().stringWidth(numstr);
-		g.drawString(numstr, 1, g.getFontMetrics().getHeight());
+		g.drawString(numstr, 1, getHeight() - margin_bot);
 		
 		//Draw formatted formula
 		AttributedString formula = this.substance.getIndexedFormula();
 		formula.addAttribute(TextAttribute.SIZE, g.getFont().getSize());
-		g.drawString(formula.getIterator(), 1+width, g.getFontMetrics().getHeight());		
+		
+		TextLayout tl = new TextLayout(formula.getIterator(), g.getFontRenderContext());
+		
+		g.drawString(formula.getIterator(), 1+width, getHeight() - margin_bot);
 		
 		//If highlighted, draw highlight
 		if(isHighlighted) {
