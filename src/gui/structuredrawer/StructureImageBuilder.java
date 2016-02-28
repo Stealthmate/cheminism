@@ -15,6 +15,8 @@ import java.net.SocketTimeoutException;
 import java.text.AttributedString;
 
 import gui.MainFrame;
+import logic.CarbonChain;
+import logic.OrganicSubstance;
 import logic.Substance;
 
 public class StructureImageBuilder {
@@ -74,7 +76,9 @@ public class StructureImageBuilder {
 		
 		
 		if(s.isOrganic()) {
-			return null;
+			
+			return buildOrganicImg((OrganicSubstance) s);
+			
 		}
 		//If the compound i inorganic, draw its formula
 		else {
@@ -112,7 +116,7 @@ public class StructureImageBuilder {
 		}
 	}
 	
-	public static BufferedImage buildOrganicImg() {
+	public static BufferedImage buildOrganicImg(OrganicSubstance s) {
 
 		canvas.setFont(MAIN_FONT_DRAW);
 		canvas.setColor(Color.BLACK);

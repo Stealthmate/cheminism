@@ -7,6 +7,7 @@ import java.awt.event.KeyEvent;
 import javax.swing.BoxLayout;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.border.EmptyBorder;
 import javax.swing.event.DocumentEvent;
 import javax.swing.event.DocumentListener;
 import javax.swing.text.BadLocationException;
@@ -77,7 +78,7 @@ public class SearchPanel extends JPanel {
 		SearchManager.registerSearchPanel(this);
 		
 		this.setLayout(new BoxLayout(this, BoxLayout.PAGE_AXIS));
-		
+		this.setBorder(new EmptyBorder(3, 0, 2, 0));
 		//Init searchbox
 		txtSearch = new JTextField();
 		

@@ -18,7 +18,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.SwingUtilities;
 
-import gui.mainscreen.ReactButton;
+import gui.mainscreen.MetroButton;
 import gui.mainscreen.SelectObserver;
 
 public class ReactionPanel extends JPanel {
@@ -31,12 +31,13 @@ public class ReactionPanel extends JPanel {
 	private static final Dimension REACT_BUTTON_MINIMUM_SIZE = new Dimension(100, 30);
 	
 	private JPanel pnlReactants;
-	private ReactButton btnReact;
+	private MetroButton btnReact;
 	private JPanel pnlProducts;
 	
-	public void resizeLayout(Dimension d) {
+	@Override
+	public void setPreferredSize(Dimension d) {
 		
-	    int btnw = (int) d.width/10;
+		int btnw = (int) d.width/10;
 	    if (btnw < REACT_BUTTON_MINIMUM_SIZE.width) btnw = REACT_BUTTON_MINIMUM_SIZE.width;
 	    int btnh = (int) d.height/20;
 	    if (btnh < REACT_BUTTON_MINIMUM_SIZE.height) btnh = REACT_BUTTON_MINIMUM_SIZE.height;
@@ -62,10 +63,6 @@ public class ReactionPanel extends JPanel {
 			pnlReactants.getComponent(i).setPreferredSize(new Dimension(
 					rect_w - 2*PADDING_X, 
 					(rect_h - 6*PADDING_Y)/3));
-		pnlReactants.revalidate();
-		
-		
-		revalidate();
 	}
 	
 	public ReactionPanel(int parent_width, int parent_height) {
@@ -105,19 +102,14 @@ public class ReactionPanel extends JPanel {
 		pnlReactants.setOpaque(true);
 		//pnlReactants.setBackground(Color.RED);
 		
-		btnReact = new ReactButton(REACT_BUTTON_NAME);
+		btnReact = new MetroButton(REACT_BUTTON_NAME);
 		
 		btnReact.addMouseListener(new MouseAdapter() {
 			@Override
-			public void mouseEntered(MouseEvent me) {
-				btnReact.isSelected = true;
-				btnReact.repaint();
-			}
-			
-			@Override
-			public void mouseExited(MouseEvent me) {
-				btnReact.isSelected = false;
-				btnReact.repaint();
+			public void mouseClicked(MouseEvent me) {
+				if(SwingUtilities.isLeftMouseButton(me)) {
+					System.out.println("Not yet implemented");
+				}
 			}
 		});
 		
@@ -125,7 +117,7 @@ public class ReactionPanel extends JPanel {
 		pnlProducts.setOpaque(true);
 		pnlProducts.setBackground(Color.MAGENTA);
 		
-		resizeLayout(new Dimension(parent_width, parent_height));
+		setPreferredSize(new Dimension(parent_width, parent_height));
 		
 		this.add(pnlReactants);
 		this.add(btnReact);
