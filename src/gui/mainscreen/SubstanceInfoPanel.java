@@ -1,31 +1,21 @@
 package gui.mainscreen;
 
 import java.awt.Color;
-import java.awt.Component;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.GridBagConstraints;
-import java.awt.GridBagLayout;
-import java.awt.RenderingHints;
-import java.awt.font.TextAttribute;
-import java.awt.font.TextLayout;
-import java.awt.image.BufferedImage;
-import java.net.SocketTimeoutException;
-import java.text.AttributedString;
-import java.util.List;
+import java.awt.Insets;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-import javax.swing.BoxLayout;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
+import javax.swing.BorderFactory;
+import javax.swing.JTextPane;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.LineBorder;
 
-import gui.FontManager;
-import gui.MainFrame;
-import gui.structuredrawer.StructureImageBuilder;
 import logic.Substance;
 
-public class SubstanceInfoPanel extends JPanel {
+public class SubstanceInfoPanel extends JTextPane {
 
 	private static final int WIDTH_FORMULA = 40;
 	private static final int WIDTH_FULLNAME = 50;
@@ -34,57 +24,94 @@ public class SubstanceInfoPanel extends JPanel {
 	private static final Font FONT_FULLNAME = new Font("Arial", Font.PLAIN, 20);
 	private static final Font FONT_TRIVIALNAME = new Font("Arial", Font.PLAIN, 17);
 	
+	private static final String FORMULA_PREFIX = 
+			"<div style=\""
+			+ "font-family: \'Arial\';"
+			+ "font-size: 20px;"
+			+ "\">";
+	private static final String FORMULA_SUFFIX = "</div>";
+	
+	private static final String FULLNAME_PREFIX = 
+			"<div style=\""
+			+ "font-family: \'Arial\';"
+			+ "font-size: 15px;"
+			+ "\">";
+	private static final String FULLNAME_SUFFIX = "</div>";
+	
+	private static final String AKA_PREFIX = 
+			"<div style=\""
+			+ "font-family: \'Arial\';"
+			+ "font-size: 12px;"
+			+ "\">"
+			+ "Also known as: ";
+	
+	private static final String AKA_SUFFIX = "</div>";
 	
 	private Substance substance;
 	
-	private JLabel lblFormula;
-	private JLabel lblFullName;
-	private JLabel lblTrivialNames;
-	private JLabel info;
-	
 	public SubstanceInfoPanel() {
 		super();
+		this.setEditable(false);
 		this.substance = new Substance();
-		//this.setBackground(Color.CYAN);
-		this.setLayout(new GridBagLayout());
+		this.setContentType("text/html");
+		CompoundBorder cb = 
+				BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1c),
+                BorderFactory.createEmptyBorder(10, 10, 10, 10));
+		this.setBorder(cb);
 		this.setOpaque(true);
+		
 		this.invalidate();
 	}
 	
+	@Override
+	public void setPreferredSize(Dimension d) {
+		super.setPreferredSize(d);
+	}
+	
+	private String htmlFormula() {
+		String formula = substance.getFormula();
+		
+		Pattern index = Pattern.compile("[^>][0-9]+");
+		Matcher m = index.matcher(formula);
+		String result = formula;
+		String match;
+		while(m.find()) {
+			
+			match = m.group(0);
+			match = m.replaceFirst(
+					match.charAt(0)
+					+ "<sub>" 
+					+ match.substring(1)
+					+ "</sub>");
+			formula = match;
+			m = index.matcher(match);
+		}
+		
+		return FORMULA_PREFIX + formula + FORMULA_SUFFIX;
+	}
+	
 	public void setSubstance(Substance s) {
-		this.removeAll();
+		this.setText("");
 		this.substance = s;
-		/*lblFormula = new JLabel("Formula: " + s.getFormula());
-		lblFormula.setAlignmentX(Component.LEFT_ALIGNMENT);
-		lblFullName = new JLabel("Full name: " + s.getFullName());
-		lblFullName.setAlignmentX(Component.LEFT_ALIGNMENT);
-		lblTrivialNames = new JLabel("Also known as: " + s.getTrivialNames());
 		
-		JPanel topleft = new JPanel();
-		topleft.setLayout(new BoxLayout(topleft, BoxLayout.Y_AXIS));
-		topleft.add(lblFormula);
-		topleft.add(lblFullName);
+		StringBuilder stb = new StringBuilder("<html>");
 		
-		GridBagConstraints c = new GridBagConstraints();
+		stb.append(htmlFormula());
+		stb.append("\n");
+		stb.append(FULLNAME_PREFIX + substance.getFullName() + FULLNAME_SUFFIX);
 		
-		c.gridx = 0;
-		c.gridy = 0;
-		c.weightx = 1.0;
-		c.weighty = 1.0;
-		this.add(topleft, c);
+		stb.append(AKA_PREFIX + substance.getTrivialNames() + AKA_SUFFIX);
 		
-		System.out.println(lblTrivialNames.getText());
-		
-		c.gridx = 1;
-		this.add(lblTrivialNames, c);
-		this.revalidate();*/
+		stb.append("</html>");
+		this.setText(stb.toString());
+		this.revalidate();
 		repaint();
 	}
 	
 	@Override
 	protected void paintComponent(Graphics graphics) {
 		super.paintComponent(graphics);
-		Graphics2D g = (Graphics2D) graphics;
+		/*Graphics2D g = (Graphics2D) graphics;
 		
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
@@ -123,7 +150,7 @@ public class SubstanceInfoPanel extends JPanel {
 		g.drawString("Also known as: ", x, y);
 		y += g.getFontMetrics().getHeight();
 		x = getWidth() - g.getFontMetrics().stringWidth(substance.getTrivialNames());
-		g.drawString(substance.getTrivialNames(), x, y);
+		g.drawString(substance.getTrivialNames(), x, y);*/
 	}
 	
 
