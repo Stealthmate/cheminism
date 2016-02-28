@@ -70,7 +70,8 @@ public class Substance {
 	public String getTrivialNames() {
 		String result = "";
 		for(String s : trivial_names)
-			result += s + " ";
+			result += s + ", ";
+		if(result.contains(", ")) result = result.substring(0,  result.indexOf(", "));
 		return result;
 	}
 	

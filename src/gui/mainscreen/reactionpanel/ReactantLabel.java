@@ -12,11 +12,13 @@ import java.awt.event.MouseEvent;
 import java.awt.font.TextAttribute;
 import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
+import java.net.SocketTimeoutException;
 import java.text.AttributedString;
 
 import javax.swing.JLabel;
 import javax.swing.SwingUtilities;
 
+import gui.FontManager;
 import gui.MainFrame;
 import gui.mainscreen.SelectObserver;
 import gui.structuredrawer.StructureImageBuilder;
@@ -27,7 +29,7 @@ public class ReactantLabel extends JLabel {
 	private static final String DEFAULT_NAME = "Reactant";
 	private static final Font FONT_LABEL_NAME = new Font("Arial", Font.BOLD, 30);
 	private static final Color HIGHLIGHT_COLOR = new Color(0x3300AFFF, true);
-	private static final float DEFAULT_SCALE = 2.3f;
+	private static final int DEFAULT_WIDTH = 30;
 	
 	private Substance substance;
 	private boolean isSelected;
@@ -95,7 +97,7 @@ public class ReactantLabel extends JLabel {
 	
 	public ReactantLabel() {
 		super();
-		this.substance = null;
+		this.substance = new Substance();
 		setup(null);
 		invalidate();
 	}
@@ -103,7 +105,7 @@ public class ReactantLabel extends JLabel {
 	public ReactantLabel(Dimension d) {
 		super();
 		setup(d);
-		this.substance = null;
+		this.substance = new Substance();
 	    invalidate();
 	}
 	
@@ -112,28 +114,25 @@ public class ReactantLabel extends JLabel {
 		
 		Graphics2D g = (Graphics2D) graphics;
 		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-		
-		float scale = DEFAULT_SCALE *
-				(float) Math.sqrt(
-						Math.pow(getPreferredSize().width, 2) + Math.pow(getPreferredSize().height, 2))
-				/ (float) Math.sqrt(
-						Math.pow(
-								MainFrame.DEFAULT_SIZE.width, 2) + Math.pow(MainFrame.DEFAULT_SIZE.height, 2));
-		
+
 		//Fill white
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		//Draw text
 		g.setColor(Color.BLACK);
-		g.setFont(FONT_LABEL_NAME.deriveFont(
-				(float) (FONT_LABEL_NAME.getSize() * scale)));
+		
+		g.setFont(FontManager.calculateFont(
+				FONT_LABEL_NAME, 
+				getPreferredSize(), 
+				DEFAULT_WIDTH, 
+				substance.getFormula().length()));
 		
 		int text_x = g.getFontMetrics().stringWidth("i");
 		int text_y = g.getFontMetrics().getHeight();
 		
 		//If empty, draw name and image
-		if(this.substance != null) {
+		if(this.substance.getFullName().length() > 0) {
 			
 			//Get Image from SIB
 			BufferedImage structureImage = 
@@ -152,11 +151,13 @@ public class ReactantLabel extends JLabel {
 			g.drawString(this.substance.getFullName(), text_x, text_y);
 		}
 		//Else draw dummy name
-		else g.drawString(DEFAULT_NAME, text_x, text_y);
+		else {
+			g.drawString(DEFAULT_NAME, text_x, text_y);
+		}
 		
 		//Draw Border
 		g.setColor(Color.BLACK);
-		g.draw(new Rectangle2D.Double(0, 0, getBounds().getWidth() - 1, getBounds().getHeight() - 1));
+		g.drawRect(0, 0, (int) getBounds().getWidth() - 1, (int) getBounds().getHeight() - 1);
 		
 		//If selected, draw highlight
 		if(isSelected) {

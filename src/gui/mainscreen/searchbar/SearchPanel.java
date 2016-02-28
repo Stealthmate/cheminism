@@ -63,7 +63,7 @@ public class SearchPanel extends JPanel {
 						(int) (size.height*SEARCHBAR_PORTION)));
 		
 		txtSearch.setFont(
-				FontManager.calculateFont(MainFrame.MAIN_FONT, txtSearch.getPreferredSize(), QUERY_WIDTH));
+				FontManager.calculateFont(MainFrame.MAIN_FONT, txtSearch.getPreferredSize(), QUERY_WIDTH, 0));
 		
 		pnlSuggestions.setPreferredSize(
 				new Dimension(

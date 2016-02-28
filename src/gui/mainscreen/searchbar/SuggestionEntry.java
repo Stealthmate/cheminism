@@ -109,7 +109,7 @@ public class SuggestionEntry extends JLabel {
 						getPreferredSize().width, 
 						(int) 
 						(getPreferredSize().height * FontManager.HEIGHT_TO_FONT_RATIO_LETTER));
-		g.setFont(FontManager.calculateFont(MAIN_FONT, d, STRING_WIDTH));
+		g.setFont(FontManager.calculateFont(MAIN_FONT, d, STRING_WIDTH, substance.getFormula().length()));
 		
 		//Draw bg
 		g.setColor(Color.WHITE);

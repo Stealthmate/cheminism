@@ -78,7 +78,7 @@ public class StructureImageBuilder {
 		}
 		//If the compound i inorganic, draw its formula
 		else {
-			
+			if(s.getFormula().length() < 1) return canvasimg;
 			//Get and prepare formula as AttributedString
 			AttributedString formula = s.getIndexedFormula();
 			formula.addAttribute(TextAttribute.SIZE, canvas.getFont().getSize());
