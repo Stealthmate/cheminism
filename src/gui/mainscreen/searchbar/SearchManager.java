@@ -40,6 +40,7 @@ public class SearchManager {
 			highlighted_entry.highlight();
 
 			searchpanel.updateText(highlighted_entry.getSubstance().getFormula());
+			SelectObserver.updateSubstanceInfo(se.getSubstance());
 		}
 	}
 	

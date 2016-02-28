@@ -29,10 +29,14 @@ public class SelectObserver {
 		reactants.add(rl);
 	}
 	
+	public static void updateSubstanceInfo(Substance s) {
+		subinfo.setSubstance(s);
+	}
+	
 	public static void setActiveReactantSubstance(Substance s) {
 		if(selected_reactant != null) {
 			selected_reactant.setSubstance(s);
-			subinfo.setSubstance(s);
+			updateSubstanceInfo(s);
 		}
 	}
 	
@@ -44,7 +48,7 @@ public class SelectObserver {
 		selected_reactant = rl;
 		if(selected_reactant != null) {
 			selected_reactant.select(l);
-			subinfo.setSubstance(selected_reactant.getSubstance());
+			updateSubstanceInfo(selected_reactant.getSubstance());
 		}
 	}
 	
