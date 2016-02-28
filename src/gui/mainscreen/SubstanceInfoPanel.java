@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
+import java.awt.RenderingHints;
 import java.awt.image.BufferedImage;
 
 import javax.swing.JPanel;
@@ -13,35 +14,57 @@ import logic.Substance;
 
 public class SubstanceInfoPanel extends JPanel {
 	
-	private String name;
-	private BufferedImage structure;
-	private String info;
+	private static final Font FONT_FORMULA = new Font("Arial", Font.PLAIN, 25);
+	private static final Font FONT_FULLNAME = new Font("Arial", Font.PLAIN, 20);
+	private static final Font FONT_TRIVIALNAME = new Font("Arial", Font.PLAIN, 17);
+	
+	
+	private Substance substance;
 	
 	public SubstanceInfoPanel() {
 		super();
-		this.name = "";
-		this.structure = new BufferedImage(1, 1, BufferedImage.TYPE_INT_RGB);
-		this.info = "";
+		this.substance = new Substance();
 		//this.setBackground(Color.CYAN);
 		this.setOpaque(true);
 		this.invalidate();
 	}
 	
 	public void setSubstance(Substance s) {
-		name = s.getFormula();
-		structure = StructureImageBuilder.buildFormulaImage(s, getWidth(), getHeight());
+		this.substance = s;
 		repaint();
 	}
 	
 	@Override
-	protected void paintComponent(Graphics g) {
-		super.paintComponent(g);
+	protected void paintComponent(Graphics graphics) {
+		super.paintComponent(graphics);
+		Graphics2D g = (Graphics2D) graphics;
+		
+		g.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+		
 		g.setColor(Color.WHITE);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		g.setColor(Color.BLACK);
-		g.setFont(new Font("Arial", Font.PLAIN, 20));
-		g.drawString(name, 50, 50);
-		g.drawImage(structure, 5, 10, null);
+
+		g.setFont(FONT_FORMULA);
+		int x = 5;
+		int y = g.getFontMetrics().getHeight();
+		
+		g.drawString(substance.getFormula(), x, y);
+		y += g.getFontMetrics().getHeight() + 5;
+		g.setFont(FONT_FULLNAME);
+		g.drawString(substance.getFullName(), x, y);
+		y += g.getFontMetrics().getHeight() + 5;
+		g.setFont(FONT_TRIVIALNAME);
+		
+		
+		
+		/*g.drawImage(
+				StructureImageBuilder.buildFormulaImage(
+						substance, 
+						getWidth(), 
+						getHeight()), 
+				5, 10, null);
+		g.drawString(substance.getFullName(), 0, 30);*/
 	}
 	
 

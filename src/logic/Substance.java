@@ -18,8 +18,8 @@ public class Substance {
 	
 	
 	public Substance() {
-		formula = "Null";
-		fullname = "Null";
+		formula = "";
+		fullname = "";
 		trivial_names = new ArrayList<>();
 		ID = -1;
 		isOrganic = false;

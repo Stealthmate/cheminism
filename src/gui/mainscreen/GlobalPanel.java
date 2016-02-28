@@ -16,6 +16,8 @@ import logic.Substance;
 
 public class GlobalPanel extends JPanel {
 	
+	private static final float LEFTBAR_PORTION = 1.0f/4.0f;
+	
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPanel pnlSubstanceInfo;
 
@@ -26,8 +28,9 @@ public class GlobalPanel extends JPanel {
 
 	private void updatePreferredSize(int width, int height) {
 		leftbar.setPreferredSize(
-				new Dimension(width/5, height));
+				new Dimension((int) (width*LEFTBAR_PORTION), height));
 		pnlViewCompoundBar.setPreferredSize(new Dimension(4*width/5, height/4));
+		invalidate();
 	}
 	
 	public void resizeLayout(Dimension d) {
@@ -62,7 +65,7 @@ public class GlobalPanel extends JPanel {
 		pnlViewCompoundBar.setBackground(Color.BLUE);
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 
-		pnlEquation = new ReactionPanel(4*width/5, 3*height/4);
+		pnlEquation = new ReactionPanel((int) ((1-LEFTBAR_PORTION)*width), 3*height/4);
 		
 		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
