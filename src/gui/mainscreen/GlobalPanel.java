@@ -21,16 +21,13 @@ public class GlobalPanel extends JPanel {
 	private SearchPanel pnlSearch;
 	private SubstanceInfoPanel pnlSubstanceInfo;
 
-	private JPanel leftbar;
+	private JPanel topbar;
 	private JPanel pnlAction;
-	private JPanel pnlViewCompoundBar;
 	private ReactionPanel pnlEquation;
 
 	private void updatePreferredSize(int width, int height) {
-		leftbar.setPreferredSize(
-				new Dimension((int) (width*LEFTBAR_PORTION), height));
-		pnlSubstanceInfo.setPreferredSize(
-				new Dimension((int) ((1-LEFTBAR_PORTION) * width), height/4));
+		topbar.setPreferredSize(
+				new Dimension(width, height/4));
 		invalidate();
 	}
 	
@@ -57,33 +54,23 @@ public class GlobalPanel extends JPanel {
 		this.setLayout(new BorderLayout());
 		
 		pnlSearch = new SearchPanel(width, height);
-		
-		pnlAction = new JPanel();
-		pnlAction.setLayout(new BorderLayout());
-		
-		pnlViewCompoundBar = new JPanel();
-		pnlViewCompoundBar.setOpaque(true);
-		pnlViewCompoundBar.setBackground(Color.BLUE);
-		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 
-		pnlEquation = new ReactionPanel((int) ((1-LEFTBAR_PORTION)*width), 3*height/4);
+		topbar = new JPanel();
+		topbar.setOpaque(true);
+		topbar.setBackground(Color.BLUE);
+		topbar.setPreferredSize(new Dimension(width, height/4));
+		topbar.setLayout(new BorderLayout());
 
 		pnlSubstanceInfo = new SubstanceInfoPanel();
-		
 		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
 		
-		pnlAction.add(pnlSubstanceInfo, BorderLayout.NORTH);
-		pnlAction.add(pnlEquation, BorderLayout.CENTER);
-		pnlAction.add(pnlEquation, BorderLayout.CENTER);
-		leftbar = new JPanel();
-		leftbar.setBackground(Color.RED);
-		leftbar.setOpaque(true);
-		leftbar.setLayout(new BorderLayout());
-		leftbar.add(pnlSearch, BorderLayout.NORTH);
+		topbar.add(pnlSearch, BorderLayout.WEST);
+		topbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
 		
-		//leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
-		this.add(leftbar, BorderLayout.WEST);
-		this.add(pnlAction, BorderLayout.CENTER);
+		pnlEquation = new ReactionPanel(width, 3*height/4);
+
+		this.add(topbar, BorderLayout.NORTH);
+		this.add(pnlEquation, BorderLayout.CENTER);
 		updatePreferredSize(width, height);
 		this.invalidate();
 	}
