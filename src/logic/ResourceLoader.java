@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.SocketTimeoutException;
 import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -38,12 +39,8 @@ public class ResourceLoader {
 			line = "";
 		}
 		Substance s = new Substance(id, formula.replace("_", " "), fullname.replace("_", " "), false);
-		
-		delim = line.indexOf(SUBSTANCES_DELIMITER);
-		while(delim > 0) {
-			s.addTrivialName(line.substring(0, delim).replace("_", " "));
-			line = line.substring(delim+1);
-		}
+
+		s.addTrivialName(line.replace('_', ' '));
 		
 		return s;
 	}

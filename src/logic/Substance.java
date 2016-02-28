@@ -29,6 +29,7 @@ public class Substance {
 		this.ID = ID; 
 		this.formula = formula;
 		this.fullname = fullname;
+		this.trivial_names = new ArrayList<>();
 		this.isOrganic = isOrganic;
 	}
 	
@@ -64,6 +65,13 @@ public class Substance {
 			}
 		}
 		return formattedname;
+	}
+	
+	public String getTrivialNames() {
+		String result = "";
+		for(String s : trivial_names)
+			result += s + " ";
+		return result;
 	}
 	
 	public static Substance querySubstance(String name) {

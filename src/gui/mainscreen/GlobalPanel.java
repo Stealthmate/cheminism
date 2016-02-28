@@ -29,7 +29,8 @@ public class GlobalPanel extends JPanel {
 	private void updatePreferredSize(int width, int height) {
 		leftbar.setPreferredSize(
 				new Dimension((int) (width*LEFTBAR_PORTION), height));
-		pnlViewCompoundBar.setPreferredSize(new Dimension(4*width/5, height/4));
+		pnlSubstanceInfo.setPreferredSize(
+				new Dimension((int) ((1-LEFTBAR_PORTION) * width), height/4));
 		invalidate();
 	}
 	
@@ -66,8 +67,12 @@ public class GlobalPanel extends JPanel {
 		pnlViewCompoundBar.setPreferredSize(new Dimension(width, height/4));
 
 		pnlEquation = new ReactionPanel((int) ((1-LEFTBAR_PORTION)*width), 3*height/4);
+
+		pnlSubstanceInfo = new SubstanceInfoPanel();
 		
-		pnlAction.add(pnlViewCompoundBar, BorderLayout.NORTH);
+		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
+		
+		pnlAction.add(pnlSubstanceInfo, BorderLayout.NORTH);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		pnlAction.add(pnlEquation, BorderLayout.CENTER);
 		leftbar = new JPanel();
@@ -75,11 +80,8 @@ public class GlobalPanel extends JPanel {
 		leftbar.setOpaque(true);
 		leftbar.setLayout(new BorderLayout());
 		leftbar.add(pnlSearch, BorderLayout.NORTH);
-		pnlSubstanceInfo = new SubstanceInfoPanel();
 		
-		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
-		
-		leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
+		//leftbar.add(pnlSubstanceInfo, BorderLayout.CENTER);
 		this.add(leftbar, BorderLayout.WEST);
 		this.add(pnlAction, BorderLayout.CENTER);
 		updatePreferredSize(width, height);
