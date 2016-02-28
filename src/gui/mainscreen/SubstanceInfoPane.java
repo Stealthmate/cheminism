@@ -94,7 +94,12 @@ public class SubstanceInfoPane extends JTextPane {
 		this.setText("");
 		this.substance = s;
 		
-		StringBuilder stb = new StringBuilder("<html>");
+		StringBuilder stb = new StringBuilder("<html><head>"
+				+ "<style>"
+				+ "sub {"
+				+ "font-size: 13px;"
+				+ "}"
+				+ "</style></head>");
 		
 		stb.append(htmlFormula());
 		stb.append("\n");
