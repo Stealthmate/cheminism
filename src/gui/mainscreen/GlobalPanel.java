@@ -20,7 +20,7 @@ public class GlobalPanel extends JPanel {
 	private static final float SEARCHPANEL_PORTION = 1.0f/7.0f;
 	
 	private SearchPanel pnlSearch;
-	private SubstanceInfoPanel pnlSubstanceInfo;
+	private SubstanceInfoPane pnlSubstanceInfo;
 
 	private JPanel topbar;
 	private JPanel pnlAction;
@@ -70,7 +70,7 @@ public class GlobalPanel extends JPanel {
 		topbar.setPreferredSize(new Dimension(width, height/4));
 		topbar.setLayout(new BorderLayout());
 
-		pnlSubstanceInfo = new SubstanceInfoPanel();
+		pnlSubstanceInfo = new SubstanceInfoPane();
 		SelectObserver.registerSubstanceInfoPanel(pnlSubstanceInfo);
 		
 		topbar.add(pnlSearch, BorderLayout.WEST);

@@ -15,7 +15,7 @@ import javax.swing.border.LineBorder;
 
 import logic.Substance;
 
-public class SubstanceInfoPanel extends JTextPane {
+public class SubstanceInfoPane extends JTextPane {
 
 	private static final int WIDTH_FORMULA = 40;
 	private static final int WIDTH_FULLNAME = 50;
@@ -49,13 +49,13 @@ public class SubstanceInfoPanel extends JTextPane {
 	
 	private Substance substance;
 	
-	public SubstanceInfoPanel() {
+	public SubstanceInfoPane() {
 		super();
 		this.setEditable(false);
 		this.substance = new Substance();
 		this.setContentType("text/html");
 		CompoundBorder cb = 
-				BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1c),
+				BorderFactory.createCompoundBorder(BorderFactory.createLineBorder(Color.BLACK, 1),
                 BorderFactory.createEmptyBorder(10, 10, 10, 10));
 		this.setBorder(cb);
 		this.setOpaque(true);

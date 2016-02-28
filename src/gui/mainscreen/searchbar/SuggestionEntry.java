@@ -16,6 +16,7 @@ import java.text.AttributedString;
 import javax.swing.JLabel;
 
 import gui.FontManager;
+import gui.MainFrame;
 import logic.Substance;
 
 public class SuggestionEntry extends JLabel {
@@ -130,7 +131,7 @@ public class SuggestionEntry extends JLabel {
 		
 		//If highlighted, draw highlight
 		if(isHighlighted) {
-			g.setColor(new Color(0x3300AFFF, true));
+			g.setColor(MainFrame.HIGHLIGHT_COLOR);
 			g.fillRect(0,  0,  getWidth(), getHeight());
 		}
 	}

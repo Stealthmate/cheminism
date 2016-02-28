@@ -2,16 +2,23 @@ package gui.mainscreen.reactionpanel;
 
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.Insets;
 import java.awt.Rectangle;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JButton;
+import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.SwingUtilities;
 
+import gui.mainscreen.ReactButton;
 import gui.mainscreen.SelectObserver;
 
 public class ReactionPanel extends JPanel {
@@ -24,7 +31,7 @@ public class ReactionPanel extends JPanel {
 	private static final Dimension REACT_BUTTON_MINIMUM_SIZE = new Dimension(100, 30);
 	
 	private JPanel pnlReactants;
-	private JButton btnReact;
+	private ReactButton btnReact;
 	private JPanel pnlProducts;
 	
 	public void resizeLayout(Dimension d) {
@@ -65,7 +72,7 @@ public class ReactionPanel extends JPanel {
 		super();
 		
 		this.setOpaque(true);
-		
+		this.setBackground(Color.WHITE);
 		this.setLayout(null);
 		
 		pnlReactants = new JPanel();
@@ -98,7 +105,21 @@ public class ReactionPanel extends JPanel {
 		pnlReactants.setOpaque(true);
 		//pnlReactants.setBackground(Color.RED);
 		
-		btnReact = new JButton(REACT_BUTTON_NAME);
+		btnReact = new ReactButton(REACT_BUTTON_NAME);
+		
+		btnReact.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseEntered(MouseEvent me) {
+				btnReact.isSelected = true;
+				btnReact.repaint();
+			}
+			
+			@Override
+			public void mouseExited(MouseEvent me) {
+				btnReact.isSelected = false;
+				btnReact.repaint();
+			}
+		});
 		
 		pnlProducts = new JPanel();
 		pnlProducts.setOpaque(true);

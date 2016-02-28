@@ -1,5 +1,6 @@
 package gui;
 
+import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.KeyboardFocusManager;
@@ -23,6 +24,7 @@ public class MainFrame extends JFrame {
 	private static GlobalPanel pnlGlobal;
 
 	public static final Font MAIN_FONT = new Font("Arial", Font.PLAIN, 15);
+	public static final Color HIGHLIGHT_COLOR = new Color(0x2000AFFF, true);
 	public static final Dimension DEFAULT_SIZE = new Dimension(1024, 600);
 
 	public static int getFrameWidth() {
