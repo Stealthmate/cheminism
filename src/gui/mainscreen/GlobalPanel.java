@@ -83,9 +83,4 @@ public class GlobalPanel extends JPanel {
 		updatePreferredSize(width, height);
 		this.invalidate();
 	}
-	
-	public void selectReactant(int i) {
-		ReactantLabel.selectMe(pnlEquation.getReactant(i));
-		pnlSubstanceInfo.setSubstance(new Substance());
-	}
 }

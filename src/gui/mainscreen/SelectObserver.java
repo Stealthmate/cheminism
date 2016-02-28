@@ -42,7 +42,10 @@ public class SelectObserver {
 		}
 		
 		selected_reactant = rl;
-		if(selected_reactant != null) selected_reactant.select(l);
+		if(selected_reactant != null) {
+			selected_reactant.select(l);
+			subinfo.setSubstance(selected_reactant.getSubstance());
+		}
 	}
 	
 	public static void selectReactant(ReactantLabel rl) {

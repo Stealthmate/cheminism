@@ -143,8 +143,6 @@ public class SearchPanel extends JPanel {
 	
 	private void reset() {
 		SearchManager.highlight(null);
-		pnlSuggestions.removeAll();
-		pnlSuggestions.revalidate();
-		pnlSuggestions.repaint();
+		pnlSuggestions.reset();
 	}
 }

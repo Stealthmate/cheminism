@@ -34,25 +34,6 @@ public class ReactantLabel extends JLabel {
 	private Substance substance;
 	private boolean isSelected;
 	
-	private static ReactantLabel now_selected = null;
-	
-	public static ReactantLabel getSelected() {
-		return now_selected;
-	}
-	
-	public static void selectMe(ReactantLabel me) {
-		if(now_selected != null) {
-			now_selected.isSelected = false;
-			now_selected.repaint();
-		}
-		
-		now_selected = me;
-		if(me != null) {
-			me.isSelected = true;
-			me.repaint();
-		}
-	}
-	
 	public void select(SelectObserver.Lock l) {
 		if(l == null) {
 			System.out.println("DO NOT CALL THIS IF YOU'RE NOT SELECTOBSERVER!!!!");
@@ -173,5 +154,9 @@ public class ReactantLabel extends JLabel {
 	public void setSubstance(Substance s) {
 		this.substance = s;
 		this.repaint();
+	}
+	
+	public Substance getSubstance() {
+		return this.substance;
 	}
 }

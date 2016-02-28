@@ -177,7 +177,9 @@ public class SuggestionList extends JPanel {
 	}
 
 	/*package-private*/ void reset() {
+		n_entries = 0;
 		this.removeAll();
+		repaint();
 		SearchManager.highlight(null);
 	}
 	
