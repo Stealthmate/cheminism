@@ -13,12 +13,25 @@ import java.awt.geom.Rectangle2D;
 import java.awt.image.BufferedImage;
 import java.net.SocketTimeoutException;
 import java.text.AttributedString;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import gui.MainFrame;
 import logic.Substance;
 
 public class StructureImageBuilder {
 
+	private static final char SINGLE_BOND = '-';
+	private static final char DOUBLE_BOND = '=';
+	private static final char TRIPLE_BOND = '#';
+	
+	private static final char OPEN_SUB = '[';
+	private static final char CLOSE_SUB = ']';
+	
+	private static final char OPEN_DOUBLE_SUB = '(';
+	private static final char CLOSE_DOUBLE_SUB = ')';
+	
+	
 	private static final float WIDTH_TO_FONT_RATIO_LETTER = 0.69125f;
 	private static final float WIDTH_TO_FONT_RATIO_INDEX  = 0.37875f;
 	private static final float HEIGHT_TO_FONT_RATIO = 1.185f;
@@ -74,7 +87,7 @@ public class StructureImageBuilder {
 		
 		
 		if(s.isOrganic()) {
-			return null;
+			return buildOrganicImg(s.getFormula());
 		}
 		//If the compound i inorganic, draw its formula
 		else {
@@ -112,22 +125,82 @@ public class StructureImageBuilder {
 		}
 	}
 	
-	public static BufferedImage buildOrganicImg() {
+	public static void drawSimpleChain(String struct, Point2D start, Bond.Direction d) {
+		String ptr = struct;
+		Bond.Direction dir = d;
+		Pattern patka = Pattern.compile("^[A-Za-z0-9]+");
+		Matcher match = patka.matcher(ptr);
+
+		Atom previous = null;
+		
+		while(match.find()) {
+			Atom current = new Atom(match.group(0));
+			
+			current.draw(canvas, start);
+			
+			if(match.group(0).length() >= ptr.length()) break;
+			
+			previous = current;
+			int b;
+			switch(ptr.charAt(match.group(0).length())) {
+			case SINGLE_BOND : b = Bond.SINGLE; break;
+			case DOUBLE_BOND: b = Bond.DOUBLE; break;
+			case TRIPLE_BOND: b = Bond.TRIPLE; break;
+			default: b = -1;
+			}
+			start = Bond.draw(canvas, start, previous, current, dir, b);
+			dir = dir.reverse();
+
+			ptr = ptr.substring(match.group(0).length()+1);
+			match = patka.matcher(ptr);
+		}
+	}
+	
+	public static void drawSubChain(String struct, Point2D start, Atom startatom) {
+
+		drawSimpleChain(struct, start, Bond.Direction.NE);
+		
+	}
+	
+	public static BufferedImage buildOrganicImg(String struct) {
 
 		canvas.setFont(MAIN_FONT_DRAW);
 		canvas.setColor(Color.BLACK);
 		canvas.setStroke(new BasicStroke(STROKE_WIDTH));
 		
-		Point2D start = new Point2D.Double(MARGIN_L, canvasimg.getHeight() - MARGIN_T);
+		Point2D start = new Point2D.Double(MARGIN_L, (canvasimg.getHeight() - MARGIN_T)/2);
 		Point2D bond = start;
-
+		
+		String ptr = struct;
+		
+		Pattern mainChainPat = Pattern.compile("[^\\[]+");
+		Pattern subChainPat = Pattern.compile("\\[(.+)\\]");
+		Matcher match = mainChainPat.matcher(struct);
+		match.find();
+		ptr = match.group(0);
+		drawSimpleChain(ptr, start, Bond.Direction.NE);
+		
+		/*while(ptr.length() > 0) {
+			if(ptr.charAt(0) == 'C') {
+				Atom.C.draw(canvas, start);
+				if(ptr.charAt(1) == '-') {
+					start = Bond.draw(canvas, start, Atom.C, Atom.C, Bond.Direction.NE, Bond.SINGLE);
+				}
+				else if(ptr.charAt(1) == '[') {
+					drawSimpleChain(ptr.substring(2, ptr.indexOf(']')), start);
+				}
+			}
+		}*/
+		
+		
+		/*
 		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.NE, Bond.SINGLE);
 		bond = Bond.draw(canvas, start, Atom.EMPTY, Atom.O, Bond.Direction.N, Bond.DOUBLE);
 		Atom.O.draw(canvas, bond);
 		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.O, Bond.Direction.SE, Bond.SINGLE);
 		Atom.O.draw(canvas, start);
 		start = Bond.draw(canvas, start, Atom.O, Atom.EMPTY, Bond.Direction.NE, Bond.SINGLE);
-		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.SE, Bond.SINGLE);
+		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.SE, Bond.SINGLE);*/
 
 		return canvasimg;
 	}

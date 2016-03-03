@@ -23,13 +23,15 @@ public class ResourceLoader {
 	private static Substance parseSubstance(String str, int id) {
 		
 		String line = str;
-		
 		int delim = str.indexOf(SUBSTANCES_DELIMITER);
 		String formula = line.substring(0, delim);
 		line = line.substring(delim + 1);
 		
 		delim = line.indexOf(" / ");
 		String fullname;
+		
+		boolean isOrganic = false;
+		
 		if(delim > 0) {
 			fullname = line.substring(0, delim);
 			line = line.substring(delim+3);
@@ -38,7 +40,10 @@ public class ResourceLoader {
 			fullname = line.substring(0);
 			line = "";
 		}
-		Substance s = new Substance(id, formula.replace("_", " "), fullname.replace("_", " "), false);
+		if(formula.contains("-") || formula.contains("=") || formula.contains("#") || fullname.equals("Benzene") || fullname.equals("Methane")) 
+			isOrganic = true;
+		
+		Substance s = new Substance(id, formula.replace("_", " "), fullname.replace("_", " "), isOrganic);
 
 		s.addTrivialName(line.replace('_', ' '));
 		

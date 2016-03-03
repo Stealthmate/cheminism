@@ -18,6 +18,16 @@ public class Bond {
 		
 		private Direction(double x, double y) {
 			direction = new Point2D.Double(x, y);
+		}	
+		
+		public Direction reverse() {
+			switch(this) {
+			case NE: return Direction.SE;
+			case SE: return Direction.NE;
+			case NW: return Direction.SW;
+			case SW: return Direction.NW;
+			default: return null;
+			}
 		}
 	}
 	
@@ -143,5 +153,6 @@ public class Bond {
 						d.direction, 
 						a2.getSize(canvas.getFontMetrics())));
 	}
+
 	
 }

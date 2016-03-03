@@ -90,7 +90,7 @@ B[1-OH,2-NO2] 2-Nitrophenol
 B[1-OH,4-NO2] 4-Nitrophenol
 B[1-OH,2-NO2,4-NO2,6-NO2] 2,4,6-Trinitrophenol
 B[1-SO3H,2-OH] 2-Hydroxybenzenesulfonic_Acid
-B[1-SO3H,4-OH]4-Hydroxybenzenesulfonic_Acid
+B[1-SO3H,4-OH] 4-Hydroxybenzenesulfonic_Acid
 C=O Methanal / Formaledehyde
 C-C=O Ethanal / Acetaldehyde
 C-C-C=O Propanal / Propionaldehyde
