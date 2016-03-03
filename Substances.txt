@@ -284,8 +284,8 @@ C-C#C-C-C 2-Pentyne
 C#C-C[1-C]-C 3-Methyl-1-Butyne
 B Benzene
 B[1-C] Methylbenzene / Toluene
-B[1-(C-C)] Ethylbenzene
-B[1-(C=C)] Phenylethene / Styrene
+B[1-[C-C]] Ethylbenzene
+B[1-[C=C]] Phenylethene / Styrene
 B[1-Br] Bromobenzene
 B[1-Cl] Chlorobenzene
 B[1-NO2] Nitrobenzene
@@ -373,4 +373,4 @@ C-C-C-C-C[1=O,2-OH] Pentanoic_Acid
 C-C[1-C]-C-C[1=O,2-OH] 2-Methylbutanoic_Acid
 C-C-C[1-C]-C[1=O,2-OH] 3-Methylbutanoic_Acid
 C-C[1-C,2-C]-C[1=O,2-OH] 2,2-Dimethylpropanoic_Acid
-B[1-C(1=O,2-OH)] Benzoic_Acid
+B[1-C[1=O,2-OH]] Benzoic_Acid

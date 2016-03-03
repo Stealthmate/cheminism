@@ -31,6 +31,9 @@ public class StructureImageBuilder {
 	private static final char OPEN_DOUBLE_SUB = '(';
 	private static final char CLOSE_DOUBLE_SUB = ')';
 	
+	private static final Pattern atom = Pattern.compile("^[A-Za-z]+");
+	private static final Pattern bond = Pattern.compile("^[\\-=#]");
+	private static final Pattern subchain = Pattern.compile("^\\[(.*)\\]");
 	
 	private static final float WIDTH_TO_FONT_RATIO_LETTER = 0.69125f;
 	private static final float WIDTH_TO_FONT_RATIO_INDEX  = 0.37875f;
@@ -158,9 +161,96 @@ public class StructureImageBuilder {
 		}
 	}
 	
-	public static void drawSubChain(String struct, Point2D start, Atom startatom) {
+	public static String drawSubChain(String struct, Point2D start, Atom startatom) {
 
-		drawSimpleChain(struct, start, Bond.Direction.NE);
+		Matcher matchAtom = atom.matcher(struct);
+		
+		Pattern pos1 = Pattern.compile("^1([\\-=#])");
+		Matcher m1 = pos1.matcher(struct);
+		String ptr = struct;
+		Bond.Direction d = Bond.Direction.N;
+		
+		if(m1.find()) {
+			Point2D bondend = start;
+
+			ptr = ptr.substring(m1.group(0).length());
+
+			matchAtom = atom.matcher(ptr);
+			matchAtom.find();
+			
+			switch(m1.group(1).charAt(0)) {
+			case SINGLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.SINGLE);break;
+			case DOUBLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.DOUBLE);break;
+			case TRIPLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.TRIPLE);break;
+			}
+			
+			new Atom(matchAtom.group(0)).draw(canvas, bondend);
+			
+			ptr = ptr.substring(matchAtom.group(0).length());
+			
+			Matcher sub = subchain.matcher(ptr);
+
+			if(sub.find()) {
+				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)));
+				ptr = ptr.substring(sub.group(1).length() + 2);
+			}
+			
+			
+		}
+		
+		Pattern pos2 = Pattern.compile(",2([\\-=#])");
+		Matcher m2 = pos2.matcher(struct);
+		ptr = struct;
+		d = Bond.Direction.SE;
+		
+		if(m2.find()) {
+			ptr = ptr.substring(ptr.indexOf("2-"));
+			
+			Point2D bondend = start;
+
+			ptr = ptr.substring(m2.group(0).length()-1);
+
+			matchAtom = atom.matcher(ptr);
+			matchAtom.find();
+			
+			switch(m2.group(1).charAt(0)) {
+			case SINGLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.SINGLE);break;
+			case DOUBLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.DOUBLE);break;
+			case TRIPLE_BOND:
+				bondend = Bond.draw(
+						canvas, start, startatom, new Atom(
+								matchAtom.group(0)), d, Bond.TRIPLE);break;
+			}
+			
+			new Atom(matchAtom.group(0)).draw(canvas, bondend);
+			
+			ptr = ptr.substring(matchAtom.group(0).length());
+			Matcher sub = subchain.matcher(ptr);
+
+			if(sub.find()) {
+				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)));
+				ptr = ptr.substring(sub.group(1).length() + 2);
+			}
+			
+			
+		}
+		
+		return ptr;
 		
 	}
 	
@@ -174,29 +264,29 @@ public class StructureImageBuilder {
 		canvas.setColor(Color.BLACK);
 		canvas.setStroke(new BasicStroke(STROKE_WIDTH));
 		
-		Point2D start = new Point2D.Double(MARGIN_L, (canvasimg.getHeight() - MARGIN_T)/2);
+		Point2D start = new Point2D.Double(MARGIN_L + 100, (canvasimg.getHeight() - MARGIN_T)/2 + 40);
 		//Point2D bond = start;
 		
-		Pattern atom = Pattern.compile("[A-Z]+");
-		Pattern bond = Pattern.compile("[^\\[]*([\\-=#])");
-		//Pattern 
 		
-		Pattern subChain1 = Pattern.compile("[^\\[]*1");
-		Pattern subChain2 = Pattern.compile("[^\\[]*2");
 		
 		String ptr = struct;
 		Matcher matchAtom = atom.matcher(ptr);
 		Matcher matchBond = bond.matcher(ptr);
+		Matcher matchSub = subchain.matcher(ptr);
 		
 		Bond.Direction d = Bond.Direction.NE;
-		
-		while(matchAtom.find()) {
-			Atom thisatom = new Atom(matchAtom.group(0));
-			thisatom.draw(canvas, start);
-			System.out.println(thisatom.name);
+		Atom thisatom = null;
+		while(ptr.length() > 0) {
+			
+			if(matchSub.find()) {
+				drawSubChain(matchSub.group(1), start, thisatom);
+				ptr = ptr.substring(matchSub.group(1).length() + 2);
+			}
 			if(matchBond.find()) {
+				
+				matchAtom = atom.matcher(ptr.substring(1));
 				matchAtom.find();
-				switch(matchBond.group(1).charAt(0)) {
+				switch(matchBond.group(0).charAt(0)) {
 				case SINGLE_BOND: 
 					start = Bond.draw(canvas, start, thisatom, new Atom(matchAtom.group(0)), d, Bond.SINGLE);break;
 				case DOUBLE_BOND: 
@@ -204,14 +294,26 @@ public class StructureImageBuilder {
 				case TRIPLE_BOND: 
 					start = Bond.draw(canvas, start, thisatom, new Atom(matchAtom.group(0)), d, Bond.TRIPLE);break;
 				}
+				
 				d = d.reverse();
-				ptr = ptr.substring(thisatom.name.length() + matchBond.group(1).length());
-				matchAtom = atom.matcher(ptr);
-				matchBond = bond.matcher(ptr);
-			}
-			else {
+				int incr = matchBond.group(0).length();
+
+				if(ptr.charAt(incr - 1) == '[') incr -= 1;
+				ptr = ptr.substring(incr);
 				
 			}
+			
+			if(matchAtom.find()) {
+				thisatom = new Atom(matchAtom.group(0));
+				thisatom.draw(canvas, start);
+				
+				ptr = ptr.substring(thisatom.name.length());
+			}
+			
+			matchAtom = atom.matcher(ptr);
+			matchBond = bond.matcher(ptr);
+			matchSub = subchain.matcher(ptr);
+			
 			
 		}	
 		
