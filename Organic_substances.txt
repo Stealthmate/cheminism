@@ -63,36 +63,36 @@ C[1-Cl]-C-C[1-C]-C 1-Chloro-3-Methylbutane
 C-C[1-Cl,2-C]-C-C 2-Chloro-2-Methylbutane
 C-C[1-Cl]-C[1-C]-C 2-Chloro-3-Methylbutane
 C[1-Cl]-C[1-C,2-C]-C 1-Chloro-2,2-Dimethylpropane
-Methanol
-Ethanol
-1-propanol
-2-propanol
-1-butanol
-2-butanol
-2-methyl-1-propanol
-2-methyl-2-propanol
-1-pentanol
-2-pentanol
-3-pentanol
-2-methyl-1-butanol
-3-methyl-1-butanol
-2-methyl-2-butanol
-3-methyl-2-butanol
-2,2-dimethylpropanol
-Phenol
-2-bromophenol
-4-bromophenol
-2,4,6-tribromophenol
-2-chlorophenol
-4-chlorophenol
-2,4,6-trichlorophenol
-2-nitrophenol
-4-nitrophenol
-2,4,6-trinitrophenol
-2-hydroxybenzenesulfonic_acid
-4-hydroxybenzenesulfonic_acid
-Methanal / Formaledehyde
-Ethanal / Acetaldehyde
-Propanal / Propionaldehyde
-Butanal / Butyraldehyde
-2-methylpropanal
+C[1-OH] Methanol
+C[1-OH]-C Ethanol
+C[1-OH]-C-C 1-Propanol
+C-C[1-OH]-C 2-Propanol
+C[1-OH]-C-C-C 1-Butanol
+C-C[1-OH]-C-C 2-Butanol
+C[1-OH]-C[1-C]-C 2-Methyl-1-Propanol
+C-C[1-OH,2-C]-C 2-Methyl-2-Propanol
+C[1-OH]-C-C-C-C 1-Pentanol
+C-C[1-OH]-C-C-C 2-Pentanol
+C-C-C[1-OH]-C-C 3-Pentanol
+C[1-OH]-C[1-C]-C-C 2-Methyl-1-Butanol
+C[1-OH]-C-C[1-C]-C 3-Methyl-1-Butanol
+C-C[1-C,2-OH]-C-C 2-Methyl-2-Butanol
+C-C[1-OH]-C[1-C]-C 3-Methyl-2-Butanol
+C[1-OH]-C[1-C,2-C]-C 2,2-Dimethylpropanol
+B[1-OH] Phenol
+B[1-OH,2-Br] 2-Bromophenol
+B[1-OH,4-Br] 4-Bromophenol
+B[1-OH,2-Br,4-Br,6-Br] 2,4,6-Tribromophenol
+B[1-OH,2-Cl] 2-Chlorophenol
+B[1-OH,2-Cl] 4-Chlorophenol
+B[1-OH,2-Cl,4-Cl,6-Cl] 2,4,6-Trichlorophenol
+B[1-OH,2-NO2] 2-Nitrophenol
+B[1-OH,4-NO2] 4-Nitrophenol
+B[1-OH,2-NO2,4-NO2,6-NO2] 2,4,6-Trinitrophenol
+B[1-SO3H,2-OH] 2-Hydroxybenzenesulfonic_Acid
+B[1-SO3H,4-OH]4-Hydroxybenzenesulfonic_Acid
+C=O Methanal / Formaledehyde
+C-C=O Ethanal / Acetaldehyde
+C-C-C=O Propanal / Propionaldehyde
+C-C-C-C=O Butanal / Butyraldehyde
+C-C[1-C]-C=O 2-Methylpropanal
