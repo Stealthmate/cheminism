@@ -184,7 +184,9 @@ SO2 Sulfur_Dioxide
 SO3 Sulfur_Trioxide
 H2S Hydrogen_Sulfide
 H2SO3 Sulfurous_Acid
-H2SO4 Sulfuric_Acid
+H2SO4 SUlfuric_Acid
+cH2SO4 Concentrated_Sulfuric_Acid
+dH2SO4 Dilated_Sulfuric_Acid
 F2 Fluorine
 HF Hydroden_Fluoride_/_Hydrofluoric_Acid(aq)
 HFO Hypofluorous_Acid
