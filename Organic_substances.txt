@@ -22,15 +22,29 @@ Propyne
 2-Butyne
 1-Pentyne
 2-Pentyne
-3-Methyl-1-Pentyne
+3-Methyl-1-Butyne
 Benzene
-Methylbenzene / Toluene
-Ethylbenzene
 Phenylethene / Styrene
 Bromobenzene
 Chlorobenzene
 Nitrobenzene
 Benzenesulfonic_Acid
+Methylbenzene / Toluene
+Ethylbenzene
+Propylbenzene
+(1-Methylethyl)benzene / Cumene
+Butylbenzene
+(1-Methylpropyl)benzene
+(2-Methylpropyl)benzene
+(1,1-Dimethylethyl)benzene
+Pentylbenzene
+(1-Methylbutyl)benzene
+(1-Ethylpropyl)benzene
+(2-Methylbutyl)benzene
+(3-Methylbutyl)benzene
+(1,1-Dimethylpropyl)benzene
+(1,2-Dimethylpropyl)benzene
+(2,2-Dimethylpropyl)benzene
 Bromomethane
 Bromoethane
 1-Bromopropane
@@ -65,34 +79,53 @@ Chloroethane
 1-Chloro-2,2-Dimethylpropane
 Methanol
 Ethanol
-1-propanol
-2-propanol
-1-butanol
-2-butanol
-2-methyl-1-propanol
-2-methyl-2-propanol
-1-pentanol
-2-pentanol
-3-pentanol
-2-methyl-1-butanol
-3-methyl-1-butanol
-2-methyl-2-butanol
-3-methyl-2-butanol
-2,2-dimethylpropanol
+1-Propanol
+2-Propanol
+1-Butanol
+2-Butanol
+2-Methyl-1-Propanol
+2-Methyl-2-Propanol
+1-Pentanol
+2-Pentanol
+3-Pentanol
+2-Methyl-1-Butanol
+3-Methyl-1-Butanol
+2-Methyl-2-Butanol
+3-Methyl-2-Butanol
+2,2-Dimethylpropanol
 Phenol
-2-bromophenol
-4-bromophenol
-2,4,6-tribromophenol
-2-chlorophenol
-4-chlorophenol
-2,4,6-trichlorophenol
-2-nitrophenol
-4-nitrophenol
-2,4,6-trinitrophenol
-2-hydroxybenzenesulfonic_acid
-4-hydroxybenzenesulfonic_acid
-Methanal / Formaledehyde
+2-Bromophenol
+4-Bromophenol
+2,4,6-Tribromophenol
+2-Chlorophenol
+4-Chlorophenol
+2,4,6-Trichlorophenol
+2-Nitrophenol
+4-Nitrophenol
+2,4,6-Trinitrophenol
+2-Hydroxybenzenesulfonic_Acid
+4-Hydroxybenzenesulfonic_Acid
+Methanal / Formaldehyde
 Ethanal / Acetaldehyde
 Propanal / Propionaldehyde
 Butanal / Butyraldehyde
-2-methylpropanal
+2-Methylpropanal
+Pentanal
+2-Methylbutanal
+3-Methylbutanal
+2,2-Dimethylpropanal
+Propanone / Acetone
+Butanone
+2-Pentanone
+3-Pentanone
+3-Methyl-2-Pentanone
+Methanoic_Acid / Formic_Acid
+Ethanoic_Acid / Acetic_Acid
+Propanoic_Acid
+Butanoic_Acid
+2-Methylpropanoic_Acid
+Pentanoic_Acid
+2-Methylbutanoic_Acid
+3-Methylbutanoic_Acid
+2,2-Dimethylpropanoic_Acid
+Benzoic_Acid
