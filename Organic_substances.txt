@@ -1,115 +1,101 @@
-Methane
-Ethane
-Propane
-N-Butane
-2-Methylpropane
-N-Pentane
-2-Methylbutane
-2,2-Dimethylpropane
-Ethene
-Propene
-1-Butene
-2-Butene
-Methylpropene
-1-Pentene
-2-Pentene
-2-Methyl-1-Butene
-3-Methyl-1-Butene
-2-Methyl-2-Butene
-Ethyne
-Propyne
-1-Butyne
-2-Butyne
-1-Pentyne
-2-Pentyne
-3-Methyl-1-Butyne
-Benzene
-Phenylethene / Styrene
-Bromobenzene
-Chlorobenzene
-Nitrobenzene
-Benzenesulfonic_Acid
-Methylbenzene / Toluene
-Ethylbenzene
-Propylbenzene
-(1-Methylethyl)benzene / Cumene
-Butylbenzene
-(1-Methylpropyl)benzene
-(2-Methylpropyl)benzene
-(1,1-Dimethylethyl)benzene
-Pentylbenzene
-(1-Methylbutyl)benzene
-(1-Ethylpropyl)benzene
-(2-Methylbutyl)benzene
-(3-Methylbutyl)benzene
-(1,1-Dimethylpropyl)benzene
-(1,2-Dimethylpropyl)benzene
-(2,2-Dimethylpropyl)benzene
-Bromomethane
-Bromoethane
-1-Bromopropane
-2-Bromopropane
-1-Bromobutane
-2-Bromobutane
-1-Bromo-2-Methylpropane
-2-Bromo-2-Methylpropane
-1-Bromopentane
-2-Bromopentane
-3-Bromopentane
-1-Bromo-2-Methylbutane
-1-Bromo-3-Methylbutane
-2-Bromo-2-Methylbutane
-2-Bromo-3-Methylbutane
-1-Bromo-2,2-Dimethylpropane
-Chloromethane
-Chloroethane
-1-Chloropropane
-2-Chloropropane
-1-Chlorobutane
-2-Chlorobutane
-1-Chloro-2-Methylpropane
-2-Chloro-2-Methylpropane
-1-Chloropentane
-2-Chloropentane
-3-Chloropentane
-1-Chloro-2-Methylbutane
-1-Chloro-3-Methylbutane
-2-Chloro-2-Methylbutane
-2-Chloro-3-Methylbutane
-1-Chloro-2,2-Dimethylpropane
-Methanol
-Ethanol
-1-Propanol
-2-Propanol
-1-Butanol
-2-Butanol
-2-Methyl-1-Propanol
-2-Methyl-2-Propanol
-1-Pentanol
-2-Pentanol
-3-Pentanol
-2-Methyl-1-Butanol
-3-Methyl-1-Butanol
-2-Methyl-2-Butanol
-3-Methyl-2-Butanol
-2,2-Dimethylpropanol
-Phenol
-2-Bromophenol
-4-Bromophenol
-2,4,6-Tribromophenol
-2-Chlorophenol
-4-Chlorophenol
-2,4,6-Trichlorophenol
-2-Nitrophenol
-4-Nitrophenol
-2,4,6-Trinitrophenol
-2-Hydroxybenzenesulfonic_Acid
-4-Hydroxybenzenesulfonic_Acid
-Methanal / Formaldehyde
-Ethanal / Acetaldehyde
-Propanal / Propionaldehyde
-Butanal / Butyraldehyde
-2-Methylpropanal
+C Methane
+C-C Ethane
+C-C-C Propane
+C-C-C-C N-Butane
+C-C[1-C]-C 2-Methylpropane
+C-C-C-C-C N-Pentane
+C-C[1-C]-C-C 2-Methylbutane
+C-C[1-C,2-C]-C 2,2-Dimethylpropane
+C=C Ethene
+C=C-C Propene
+C=C-C-C 1-Butene
+C-C=C-C 2-Butene
+C=C[1-C]-C Methylpropene
+C=C-C-C-C 1-Pentene
+C-C=C-C-C 2-Pentene
+C=C[1-C]-C-C 2-Methyl-1-Butene
+C=C-C[1-C]-C 3-Methyl-1-Butene
+C-C[1-C]=C-C-C 2-Methyl-2-Butene
+C#C Ethyne
+C#C-C Propyne
+C#C-C-C 1-Butyne
+C-C#C-C 2-Butyne
+C#C-C-C-C 1-Pentyne
+C-C#C-C-C 2-Pentyne
+C#C-C[1-C]-C 3-Methyl-1-Butyne
+B Benzene
+B[1-C] Methylbenzene / Toluene
+B[1-(C-C)] Ethylbenzene
+B[1-(C=C)] Phenylethene / Styrene
+B[1-Br] Bromobenzene
+B[1-Cl] Chlorobenzene
+B[1-NO2] Nitrobenzene
+B[1-SO3H] Benzenesulfonic_Acid
+C[1-Br] Bromomethane
+C[1-Br]-C Bromoethane
+C[1-Br]-C-C 1-Bromopropane
+C-C[1-Br]-C 2-Bromopropane
+C[1-Br]-C-C-C 1-Bromobutane
+C-C[1-Br]-C-C 2-Bromobutane
+C[1-Br]-C[1-C]-C 1-Bromo-2-Methylpropane
+C-C[1-Br,2-C]-C-C 2-Bromo-2-Methylpropane
+C[1-Br]-C-C-C-C 1-Bromopentane
+C-C[1-Br]-C-C-C 2-Bromopentane
+C-C-C[1-Br]-C-C 3-Bromopentane
+C[1-Br]-C[1-C]-C-C 1-Bromo-2-Methylbutane
+C[1-Br]-C-C[1-C]-C 1-Bromo-3-Methylbutane
+C-C[1-Br,2-C]-C-C 2-Bromo-2-Methylbutane
+C-C[1-Br]-C[1-C]-C 2-Bromo-3-Methylbutane
+C[1-Br]-C[1-C,2-C]-C 1-Bromo-2,2-Dimethylpropane
+C[1-Cl] Chloromethane
+C[1-Cl]-C Chloroethane
+C[1-Cl]-C-C 1-Chloropropane
+C-C[1-Cl]-C 2-Chloropropane
+C[1-Cl]-C-C-C 1-Chlorobutane
+C-C[1-Cl]-C-C 2-Chlorobutane
+C[1-Cl]-C[1-C]-C 1-Chloro-2-Methylpropane
+C-C[1-Cl,2-C]-C 2-Chloro-2-Methylpropane
+C[1-Cl]-C-C-C-C 1-Chloropentane
+C-C[1-Cl]-C-C-C 2-Chloropentane
+C-C-C[1-Cl]-C-C 3-Chloropentane
+C[1-Cl]-C[1-C]-C-C 1-Chloro-2-Methylbutane
+C[1-Cl]-C-C[1-C]-C 1-Chloro-3-Methylbutane
+C-C[1-Cl,2-C]-C-C 2-Chloro-2-Methylbutane
+C-C[1-Cl]-C[1-C]-C 2-Chloro-3-Methylbutane
+C[1-Cl]-C[1-C,2-C]-C 1-Chloro-2,2-Dimethylpropane
+C[1-OH] Methanol
+C[1-OH]-C Ethanol
+C[1-OH]-C-C 1-Propanol
+C-C[1-OH]-C 2-Propanol
+C[1-OH]-C-C-C 1-Butanol
+C-C[1-OH]-C-C 2-Butanol
+C[1-OH]-C[1-C]-C 2-Methyl-1-Propanol
+C-C[1-OH,2-C]-C 2-Methyl-2-Propanol
+C[1-OH]-C-C-C-C 1-Pentanol
+C-C[1-OH]-C-C-C 2-Pentanol
+C-C-C[1-OH]-C-C 3-Pentanol
+C[1-OH]-C[1-C]-C-C 2-Methyl-1-Butanol
+C[1-OH]-C-C[1-C]-C 3-Methyl-1-Butanol
+C-C[1-C,2-OH]-C-C 2-Methyl-2-Butanol
+C-C[1-OH]-C[1-C]-C 3-Methyl-2-Butanol
+C[1-OH]-C[1-C,2-C]-C 2,2-Dimethylpropanol
+B[1-OH] Phenol
+B[1-OH,2-Br] 2-Bromophenol
+B[1-OH,4-Br] 4-Bromophenol
+B[1-OH,2-Br,4-Br,6-Br] 2,4,6-Tribromophenol
+B[1-OH,2-Cl] 2-Chlorophenol
+B[1-OH,2-Cl] 4-Chlorophenol
+B[1-OH,2-Cl,4-Cl,6-Cl] 2,4,6-Trichlorophenol
+B[1-OH,2-NO2] 2-Nitrophenol
+B[1-OH,4-NO2] 4-Nitrophenol
+B[1-OH,2-NO2,4-NO2,6-NO2] 2,4,6-Trinitrophenol
+B[1-SO3H,2-OH] 2-Hydroxybenzenesulfonic_Acid
+B[1-SO3H,4-OH]4-Hydroxybenzenesulfonic_Acid
+C=O Methanal / Formaledehyde
+C-C=O Ethanal / Acetaldehyde
+C-C-C=O Propanal / Propionaldehyde
+C-C-C-C=O Butanal / Butyraldehyde
+C-C[1-C]-C=O 2-Methylpropanal
 Pentanal
 2-Methylbutanal
 3-Methylbutanal
