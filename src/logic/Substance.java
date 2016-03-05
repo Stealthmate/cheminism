@@ -5,6 +5,8 @@ import java.text.AttributedString;
 import java.util.ArrayList;
 import java.util.List;
 
+import resources.Resources;
+
 public class Substance {	
 
 	public static final String STATE_ARBITRARY = "";
@@ -12,8 +14,6 @@ public class Substance {
 	public static final String STATE_SOLID = "s";
 	public static final String STATE_CONCENTRATED = "c";
 	public static final String STATE_DILUTED = "d";
-	
-	public static ArrayList<Substance> substances = new ArrayList<>();
 	
 	private int ID;
 	private String formula;
@@ -104,10 +104,12 @@ public class Substance {
 		return result;
 	}
 	
-	public static Substance querySubstance(String name) {
-		for (Substance s : substances) {
-			if(s.getFormula().equals(name)) return s;
-		}
-		return null;
+	@Override
+	public String toString() {
+		String res = "";
+		
+		res+=formula;
+		
+		return res;
 	}
 }

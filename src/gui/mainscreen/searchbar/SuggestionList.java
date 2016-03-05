@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import javax.swing.JPanel;
 
 import logic.Substance;
-import resources.ResourceLoader;
+import resources.Resources;
 
 public class SuggestionList extends JPanel {
 	
@@ -107,7 +107,7 @@ public class SuggestionList extends JPanel {
 		
 		if(query.length() == 0) return;
 		
-		ArrayList<Substance> substances = ResourceLoader.getSubstanceListMatching(query);
+		ArrayList<Substance> substances = Resources.getSubstanceListMatching(query);
 
 		for(int i=0; i<=substances.size()-1;i++) {
 			SuggestionEntry entry = new SuggestionEntry(substances.get(i), i+1);

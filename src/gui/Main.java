@@ -1,6 +1,6 @@
 package gui;
 
-import resources.ResourceLoader;
+import resources.Resources;
 
 public class Main {
 	
@@ -10,6 +10,6 @@ public class Main {
 				MainFrame.DEFAULT_SIZE.width,
 				MainFrame.DEFAULT_SIZE.height, 
 				"Cheminism").setVisible(true);
-		ResourceLoader.load();
+		Resources.load();
 	}
 }

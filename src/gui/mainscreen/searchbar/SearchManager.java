@@ -2,6 +2,7 @@ package gui.mainscreen.searchbar;
 
 import gui.mainscreen.SelectObserver;
 import logic.Substance;
+import resources.Resources;
 
 public class SearchManager {
 
@@ -46,7 +47,7 @@ public class SearchManager {
 	
 	/*package-private*/ static void executeQuery(String query) {
 		
-		Substance s = Substance.querySubstance(query);
+		Substance s = Resources.querySubstance(query);
 		
 		if(s!=null) {
 			SelectObserver.setActiveReactantSubstance(s);

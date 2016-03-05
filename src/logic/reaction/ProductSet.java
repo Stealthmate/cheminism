@@ -26,4 +26,16 @@ public class ProductSet {
 		else flags = new ArrayList<>();
 	}
 	
+	@Override
+	public String toString() {
+		String res = "";
+		
+		res+= "Products:\n";
+		for(int i=0;i<=products.size()-1;i++) {
+			res += "    " + products.get(i).toString() + " flagged as " + flags.get(i).toString();
+		}
+		
+		return res;
+	}
+	
 }

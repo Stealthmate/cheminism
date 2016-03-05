@@ -56,4 +56,16 @@ public class ReactantSet {
 		
 		return true;
 	}
+	
+	@Override
+	public String toString() {
+		String res = "";
+		
+		res+= "Reactants:\n";
+		for(Substance s : reactants) {
+			res += "    " + s.toString();
+		}
+		
+		return res;
+	}
 }
