@@ -24,11 +24,32 @@ public class ResourceLoader {
 		
 		String line = str;
 		int delim = str.indexOf(SUBSTANCES_DELIMITER);
+		
 		String formula = line.substring(0, delim);
+		String state = Substance.STATE_ARBITRARY;
+		if(formula.startsWith(Substance.STATE_AQUEOUS)) {
+			state = Substance.STATE_AQUEOUS;
+		}
+		else if(formula.startsWith(Substance.STATE_SOLID)) {
+			state = Substance.STATE_SOLID;
+		}
+		else if(formula.startsWith(Substance.STATE_CONCENTRATED)) {
+			state = Substance.STATE_CONCENTRATED;
+		}
+		else if(formula.startsWith(Substance.STATE_DILUTED)) {
+			state = Substance.STATE_DILUTED;
+		}
+		
+		if(!state.equals(Substance.STATE_ARBITRARY)) {
+			formula = formula.substring(state.length());
+		}
+		
 		line = line.substring(delim + 1);
 		
 		delim = line.indexOf(" / ");
+		
 		String fullname;
+		
 		
 		boolean isOrganic = false;
 		
@@ -43,7 +64,16 @@ public class ResourceLoader {
 		if(formula.contains("-") || formula.contains("=") || formula.contains("#") || fullname.equals("Benzene") || fullname.equals("Methane")) 
 			isOrganic = true;
 		
-		Substance s = new Substance(id, formula.replace("_", " "), fullname.replace("_", " "), isOrganic);
+		ArrayList<String> trivial_names = new ArrayList<>();
+		
+		Substance s = 
+				new Substance(
+						id, 
+						formula.replace("_", " "), 
+						fullname.replace("_", " "), 
+						"TO_DO_IMPLEMENT_STATE_PARSE",
+						trivial_names, 
+						isOrganic);
 
 		s.addTrivialName(line.replace('_', ' '));
 		

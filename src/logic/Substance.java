@@ -7,29 +7,44 @@ import java.util.List;
 
 public class Substance {	
 
+	public static final String STATE_ARBITRARY = "";
+	public static final String STATE_AQUEOUS = "aq";
+	public static final String STATE_SOLID = "s";
+	public static final String STATE_CONCENTRATED = "c";
+	public static final String STATE_DILUTED = "d";
+	
 	public static ArrayList<Substance> substances = new ArrayList<>();
-
+	
 	private int ID;
 	private String formula;
 	private String fullname;
+	private String state;
 	private ArrayList<String> trivial_names;
-	
 	private boolean isOrganic;
 	
 	
 	public Substance() {
+		ID = -1;
 		formula = "";
 		fullname = "";
+		state = STATE_ARBITRARY;
 		trivial_names = new ArrayList<>();
-		ID = -1;
 		isOrganic = false;
 	}
 	
-	Substance(int ID, String formula, String fullname, boolean isOrganic) {
+	Substance(
+			int ID, 
+			String formula, 
+			String fullname, 
+			String state, 
+			ArrayList<String> trivial_names, 
+			boolean isOrganic) {
 		this.ID = ID; 
 		this.formula = formula;
 		this.fullname = fullname;
-		this.trivial_names = new ArrayList<>();
+		this.state = state;
+		if(trivial_names != null) this.trivial_names = trivial_names;
+		else this.trivial_names = new ArrayList<>();
 		this.isOrganic = isOrganic;
 	}
 	
