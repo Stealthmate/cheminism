@@ -32,7 +32,7 @@ public class Substance {
 		isOrganic = false;
 	}
 	
-	Substance(
+	public Substance(
 			int ID, 
 			String formula, 
 			String fullname, 

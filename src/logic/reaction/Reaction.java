@@ -6,14 +6,26 @@ import logic.Substance;
 
 public class Reaction {
 	
-	private class SimpleReaction {
-		private ReactantSet reactants;
-		private ConditionSet conditions;
-		private ProductSet products;
-		
-		private SimpleReaction(ReactantSet reactants, ConditionSet conditions, ArrayList<Substance> products) {
-			
-		}
+	private ReactantSet reactants;
+	private ConditionSet conditions;
+	private ProductSet products;
+	
+	public Reaction(ReactantSet reactants, ConditionSet conditions, ProductSet products) {
+		this.reactants = reactants;
+		this.conditions = conditions;
+		this.products = products;
+	}
+	
+	public ReactantSet getReactants() {
+		return this.reactants;
+	}
+	
+	public ConditionSet getConditions() {
+		return this.conditions;
+	}
+	
+	public ProductSet getProducts() {
+		return this.products;
 	}
 	
 }

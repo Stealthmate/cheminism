@@ -1,15 +1,27 @@
-package logic;
+package resources;
 
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.net.SocketTimeoutException;
+import java.net.URISyntaxException;
 import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Scanner;
+
+import javax.imageio.stream.ImageOutputStreamImpl;
+
+import logic.Reaction;
+import logic.Substance;
 
 public class ResourceLoader {
 
@@ -81,38 +93,50 @@ public class ResourceLoader {
 	}
 	
 	private static void loadSubstances() {
-		try {
-			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
+		
+		try(InputStream is = ResourceLoader.class.getResourceAsStream(FILENAME_SUBSTANCES)) {
+		
+			Scanner s = new Scanner(is).useDelimiter("\\A");
+			String result = s.hasNext() ? s.next() : "";
+	
+			List<String> lines = Arrays.asList(result.split("\n"));
 			int i = 0;
 			for(String line : lines) {
 				Substance.substances.add(parseSubstance(line, i));
 				i++;
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("God bless us");
 			e.printStackTrace();
+		} finally {
+			System.out.println("All seems well");
 		}
 	}
 	
 	private static void loadReactions() {
-		try {
-			List<String> lines = Files.readAllLines(new File(FILENAME_SUBSTANCES).toPath());
+		
+		try(InputStream is = ResourceLoader.class.getResourceAsStream(FILENAME_REACTIONS)) {
+		
+			Scanner s = new Scanner(is).useDelimiter("\\A");
+			String result = s.hasNext() ? s.next() : "";
+	
+			List<String> lines = Arrays.asList(result.split("\n"));
+			
 			for(String line : lines) {
-				
+				/*TO DO IMPLEMENT*/
 			}
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			
 		} catch (IOException e) {
-			// TODO Auto-generated catch block
+			System.out.println("God bless us");
 			e.printStackTrace();
+		} finally {
+			System.out.println("All seems well");
 		}
 	}
 	
 	public static void load() {
+		
 		loadSubstances();
 		loadReactions();
 	}

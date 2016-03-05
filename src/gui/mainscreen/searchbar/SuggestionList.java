@@ -9,8 +9,8 @@ import java.util.ArrayList;
 
 import javax.swing.JPanel;
 
-import logic.ResourceLoader;
 import logic.Substance;
+import resources.ResourceLoader;
 
 public class SuggestionList extends JPanel {
 	
