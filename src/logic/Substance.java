@@ -61,7 +61,7 @@ public class Substance {
 	}
 	
 	public String getFormula() {
-		return this.formula;
+		return this.state + " " + this.formula;
 	}
 	
 	public String getFullName() {
@@ -69,9 +69,14 @@ public class Substance {
 	}
 	
 	public AttributedString getIndexedFormula() {
-		AttributedString formattedname = new AttributedString(formula);
-		for(int i=0;i<=formula.length()-1;i++) {
-			if(formula.charAt(i) >= '0' && formula.charAt(i) <= '9') {
+		
+		String fullformula = state + " " + formula;
+		
+		AttributedString formattedname = new AttributedString(fullformula);
+		
+		
+		for(int i=0;i<=fullformula.length()-1;i++) {
+			if(fullformula.charAt(i) >= '0' && fullformula.charAt(i) <= '9') {
 				formattedname.addAttribute(
 						TextAttribute.SUPERSCRIPT, 
 						TextAttribute.SUPERSCRIPT_SUB, 
@@ -79,7 +84,16 @@ public class Substance {
 						i+1);
 			}
 		}
+		
+		if(!state.equals(STATE_ARBITRARY)) {
+			formattedname.addAttribute(TextAttribute.POSTURE, TextAttribute.POSTURE_OBLIQUE, 0, state.length());
+		}
+		
 		return formattedname;
+	}
+	
+	public String getState() {
+		return this.state;
 	}
 	
 	public String getTrivialNames() {

@@ -71,7 +71,7 @@ public class ResourceLoader {
 						id, 
 						formula.replace("_", " "), 
 						fullname.replace("_", " "), 
-						"TO_DO_IMPLEMENT_STATE_PARSE",
+						state,
 						trivial_names, 
 						isOrganic);
 
@@ -121,7 +121,7 @@ public class ResourceLoader {
 		ArrayList<Substance> matches = new ArrayList<>();
 		
 		for(Substance s : Substance.substances) {
-			if(s.getFormula().toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
+			if(s.getFormula().substring(s.getState().length() + 1).toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
 		}
 		
 		return matches;

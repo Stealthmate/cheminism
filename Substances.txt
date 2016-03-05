@@ -238,7 +238,7 @@ SO2 Sulfur_Dioxide
 SO3 Sulfur_Trioxide
 H2S Hydrogen_Sulfide
 H2SO3 Sulfurous_Acid
-H2SO4 SUlfuric_Acid
+H2SO4 Sulfuric_Acid
 cH2SO4 Concentrated_Sulfuric_Acid
 dH2SO4 Diluted_Sulfuric_Acid
 F2 Fluorine
