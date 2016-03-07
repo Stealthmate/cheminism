@@ -17,6 +17,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import gui.MainFrame;
+import gui.structuredrawer.StructureModel.Carbon;
 import logic.Substance;
 
 public class StructureImageBuilder {
@@ -42,7 +43,7 @@ public class StructureImageBuilder {
 	
 	private static final int MAX_FORMULA_LENGTH = 10;
 	
-	private static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 20);
+	private static final Font MAIN_FONT_DRAW = new Font("Arial", Font.PLAIN, 12);
 	private static final Font MAIN_FONT_INORGANIC = new Font("Arial", Font.PLAIN, 36);
 	
 	private static final int IMAGE_TYPE = BufferedImage.TYPE_INT_RGB;
@@ -161,14 +162,13 @@ public class StructureImageBuilder {
 		}
 	}
 	
-	public static String drawSubChain(String struct, Point2D start, Atom startatom) {
+	public static String drawSubChain(String struct, Point2D start, Atom startatom, Bond.Direction d) {
 
 		Matcher matchAtom = PATTERN_ATOM.matcher(struct);
 		
 		Pattern pos1 = Pattern.compile("^1([\\-=#])");
 		Matcher m1 = pos1.matcher(struct);
 		String ptr = struct;
-		Bond.Direction d = Bond.Direction.N;
 		
 		if(m1.find()) {
 			Point2D bondend = start;
@@ -200,7 +200,7 @@ public class StructureImageBuilder {
 			Matcher sub = PATTERN_SUBCHAIN.matcher(ptr);
 
 			if(sub.find()) {
-				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)));
+				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)), d);
 				ptr = ptr.substring(sub.group(1).length() + 2);
 			}
 			
@@ -243,7 +243,7 @@ public class StructureImageBuilder {
 			Matcher sub = PATTERN_SUBCHAIN.matcher(ptr);
 
 			if(sub.find()) {
-				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)));
+				drawSubChain(sub.group(1), bondend, new Atom(matchAtom.group(0)), d);
 				ptr = ptr.substring(sub.group(1).length() + 2);
 			}
 			
@@ -260,16 +260,43 @@ public class StructureImageBuilder {
 	
 	public static BufferedImage buildOrganicImg(String struct) {
 
+		StructureModel structmodel = StructureModelBuilder.buildModel(struct);
+		
+		
 		canvas.setFont(MAIN_FONT_DRAW);
 		canvas.setColor(Color.BLACK);
 		canvas.setStroke(new BasicStroke(STROKE_WIDTH));
+
+		Point2D start = new Point2D.Double(MARGIN_L + 10, (canvasimg.getHeight() - MARGIN_T)/2 + 10);
 		
-		Point2D start = new Point2D.Double(MARGIN_L + 100, (canvasimg.getHeight() - MARGIN_T)/2 + 40);
-		//Point2D bond = start;
+		Carbon carbi = structmodel.root;
+		//System.out.println(structmodel.getLength());
+		do {
+			System.out.println("Draw carbi");
+			carbi.draw(canvas, start);
+			if(carbi.upatom != null) {
+				System.out.println("Draw upchain");
+				Point2D bond = Bond.draw(canvas, start, carbi, carbi.upatom, carbi.upbond.d, carbi.upbond.type);
+				carbi.upatom.draw(canvas, bond);
+			}
+			if(carbi.downatom != null) {
+				System.out.println("Draw downchain");
+				Point2D bond = Bond.draw(canvas, start, carbi, carbi.downatom, carbi.downbond.d, carbi.downbond.type);
+				carbi.downatom.draw(canvas, bond);
+			}
+		
+			System.out.println("Draw next");
+			if(carbi.nextatom != null) start = Bond.draw(canvas, start, carbi, carbi.nextatom, carbi.nextbond.d, carbi.nextbond.type);
+			carbi = carbi.nextatom;
+		}
+		while(carbi!=null);
 		
 		
 		
-		String ptr = struct;
+		return canvasimg;
+		
+		
+		/*String ptr = struct;
 		Matcher matchAtom = PATTERN_ATOM.matcher(ptr);
 		Matcher matchBond = PATTERN_BOND.matcher(ptr);
 		Matcher matchSub = PATTERN_SUBCHAIN.matcher(ptr);
@@ -279,12 +306,15 @@ public class StructureImageBuilder {
 		while(ptr.length() > 0) {
 			
 			if(matchSub.find()) {
-				System.out.println("Sub");
-				drawSubChain(matchSub.group(1), start, thisatom);
+				//System.out.println("Sub");
+				if(d.equals(Bond.Direction.NE)) drawSubChain(matchSub.group(1), start, thisatom, Bond.Direction.S);
+				else drawSubChain(matchSub.group(1), start, thisatom, Bond.Direction.N);
+				//System.out.println(ptr);
 				ptr = ptr.substring(matchSub.group(1).length() + 2);
+				//System.out.println(ptr);
 			}
 			if(matchBond.find()) {
-				System.out.println("Bond");
+				//System.out.println("Bond");
 				matchAtom = PATTERN_ATOM.matcher(ptr.substring(1));
 				matchAtom.find();
 				switch(matchBond.group(0).charAt(0)) {
@@ -305,7 +335,7 @@ public class StructureImageBuilder {
 			}
 			
 			if(matchAtom.find()) {
-				System.out.println("Atom");
+				//System.out.println("Atom");
 				thisatom = new Atom(matchAtom.group(0));
 				thisatom.draw(canvas, start);
 				
@@ -319,6 +349,6 @@ public class StructureImageBuilder {
 			
 		}
 
-		return canvasimg;
+		return canvasimg;*/
 	}
 }

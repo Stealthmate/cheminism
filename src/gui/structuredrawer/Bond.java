@@ -35,10 +35,13 @@ public class Bond {
 	public static final int DOUBLE = 2;
 	public static final int TRIPLE = 3;
 	
-	public static final int LENGTH = 20;
 	public static final float MULTI_LINE_OFFSET = 2;
 	
+	private static float LENGTH;
+	
 	public static Point2D draw(Graphics2D canvas, Point2D pos, Atom a1, Atom a2, Direction d, int type) {
+		
+		LENGTH = canvas.getFont().getSize() * 1f;
 		
 		switch(type) {
 		case 1: return drawSingle(canvas, pos, a1, a2, d);
@@ -154,5 +157,20 @@ public class Bond {
 						a2.getSize(canvas.getFontMetrics())));
 	}
 
+	Direction d;
+	int type;
+	
+	public Bond(Direction d, String type) {
+		this.d = d;
+		switch(type.charAt(0)) {
+		case '-': this.type = SINGLE; break;
+		case '=': this.type = DOUBLE; break;
+		case '#': this.type = TRIPLE; break;
+		default: {
+			System.out.println("Invalid bond");
+		}
+		}
+	}
+	
 	
 }

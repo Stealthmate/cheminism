@@ -408,15 +408,15 @@ B[1-OH,4-NO2] 4-Nitrophenol
 B[1-OH,2-NO2,4-NO2,6-NO2] 2,4,6-Trinitrophenol
 B[1-SO3H,2-OH] 2-Hydroxybenzenesulfonic_Acid
 B[1-SO3H,4-OH] 4-Hydroxybenzenesulfonic_Acid
-C=O Methanal Formaledehyde
-C-C=O Ethanal Acetaldehyde
-C-C-C=O Propanal Propionaldehyde
-C-C-C-C=O Butanal Butyraldehyde
-C-C[1-C]-C=O 2-Methylpropanal
-C-C-C-C-C=O Pentanal
-C-C[1-C]-C-C=O 2-Methylbutanal
-C-C-C[1-C]-C=O 3-Methylbutanal
-C-C[1-C,2-C]-C=O 2,2-Dimethylpropanal
+C[1=O] Methanal Formaledehyde
+C-C[1=O] Ethanal Acetaldehyde
+C-C-C[1=O] Propanal Propionaldehyde
+C-C-C-C[1=O] Butanal Butyraldehyde
+C-C[1-C]-C[1=O] 2-Methylpropanal
+C-C-C-C-C[1=O] Pentanal
+C-C-C[1-C]-C[1=O] 2-Methylbutanal
+C-C[1-C]-C-C[1=O] 3-Methylbutanal
+C-C[1-C,2-C]-C[1=O] 2,2-Dimethylpropanal
 C-C[1=O]-C Propanone Acetone
 C-C[1=O]-C-C Butanone
 C-C[1=O]-C-C-C 2-Pentanone
@@ -428,7 +428,7 @@ C-C-C[1=O,2-OH] Propanoic_Acid
 C-C-C-C[1=O,2-OH] Butanoic_Acid
 C-C[1-C]-C[1=O,2-OH] 2-Methylpropanoic_Acid
 C-C-C-C-C[1=O,2-OH] Pentanoic_Acid
-C-C[1-C]-C-C[1=O,2-OH] 2-Methylbutanoic_Acid
-C-C-C[1-C]-C[1=O,2-OH] 3-Methylbutanoic_Acid
+C-C-C[1-C]-C[1=O,2-OH] 2-Methylbutanoic_Acid
+C-C[1-C]-C-C[1=O,2-OH] 3-Methylbutanoic_Acid
 C-C[1-C,2-C]-C[1=O,2-OH] 2,2-Dimethylpropanoic_Acid
 B[1-C[1=O,2-OH]] Benzoic_Acid
