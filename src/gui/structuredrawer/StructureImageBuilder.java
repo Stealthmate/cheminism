@@ -315,16 +315,7 @@ public class StructureImageBuilder {
 			matchSub = subchain.matcher(ptr);
 			
 			
-		}	
-		
-		/*
-		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.NE, Bond.SINGLE);
-		bond = Bond.draw(canvas, start, Atom.EMPTY, Atom.O, Bond.Direction.N, Bond.DOUBLE);
-		Atom.O.draw(canvas, bond);
-		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.O, Bond.Direction.SE, Bond.SINGLE);
-		Atom.O.draw(canvas, start);
-		start = Bond.draw(canvas, start, Atom.O, Atom.EMPTY, Bond.Direction.NE, Bond.SINGLE);
-		start = Bond.draw(canvas, start, Atom.EMPTY, Atom.EMPTY, Bond.Direction.SE, Bond.SINGLE);*/
+		}
 
 		return canvasimg;
 	}

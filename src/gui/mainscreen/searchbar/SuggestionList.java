@@ -54,7 +54,6 @@ public class SuggestionList extends JPanel {
 	private void showPage(int pg) {
 		this.removeAll();
 		n_entries = 0;
-		
 		GridBagConstraints c = new GridBagConstraints();
 		
 		c.weighty = 1.0;
@@ -90,9 +89,9 @@ public class SuggestionList extends JPanel {
 	
 	private void showPreviousPage() {
 		if(current_page == 0) {
-			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE) + 1;
+			current_page = (int) Math.ceil(entries.size() / ENTRIES_PER_PAGE);
 		}
-		current_page -= 1;		
+		current_page -= 1;
 		showPage(current_page);
 	}
 	
@@ -166,7 +165,10 @@ public class SuggestionList extends JPanel {
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
 				else if (i == INDEX_FIRST_ENTRY && this.getComponentCount() > INDEX_FIRST_ENTRY) {
+					System.out.println(this.current_page);
 					showPreviousPage();
+					System.out.println(this.current_page);
+					System.out.println(n_entries);
 					SearchManager.highlight((SuggestionEntry)this.getComponent(n_entries));
 					return SearchManager.getHighlighted().getSubstance().getFormula();
 				}
