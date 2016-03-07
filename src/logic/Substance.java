@@ -61,7 +61,12 @@ public class Substance {
 	}
 	
 	public String getFormula() {
-		return this.state + " " + this.formula;
+		String result = this.formula;
+		
+		if(this.state != Substance.STATE_ARBITRARY)
+			result = this.state + this.formula;
+		
+		return result;
 	}
 	
 	public String getFullName() {

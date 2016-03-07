@@ -32,6 +32,12 @@ public class ReactionParser {
 	private static final Pattern PATTERN_REACTANTS = 
 			Pattern.compile("(.+?)" + REACTANT_PRODUCT_DELIM);
 	
+	private static final Pattern PATTERN_ORGANIC_SUBSTANCE = 
+			Pattern.compile("\\{(.+)\\}");
+	
+	private static final Pattern PATTERN_MOL = 
+			Pattern.compile("^[0-9]+");
+	
 	private static final Pattern PATTERN_CONDITIONS = 
 			Pattern.compile(REACTANT_PRODUCT_DELIM + "(.*)" + REACTANT_PRODUCT_DELIM);
 	
@@ -51,15 +57,38 @@ public class ReactionParser {
 		String[] reactants_arr = reactants.split(splitdelim);
 		
 		ArrayList<Substance> substReactants = new ArrayList<>(3);
+		ArrayList<Integer> mols = new ArrayList<>(3);
+		
 		
 		for(String s : reactants_arr) {
+
+			String str = s;
 			
-			Substance sub = Resources.querySubstance(s);
+			match = PATTERN_MOL.matcher(str);
+			if(match.find()) {
+				mols.add(Integer.parseInt(match.group(0)));
+				str = s.substring(match.group(0).length());
+			}
+			else mols.add(1);
+			
+			match = PATTERN_ORGANIC_SUBSTANCE.matcher(s);
+			if(match.find()) {
+				Substance sub = Resources.queryOrganicSubstanceByName(match.group(1));
+				if(sub != null) str = sub.getFormula();
+				else {
+					System.out.println("INVALID ORGANIC SUBSTANCE " + match.group(1) + " IN " + input);
+				}
+			}
+			
+			Substance sub = Resources.querySubstance(str);
 			if(sub!=null) substReactants.add(sub);
+			else {
+				System.out.println("INVALID SUBSTANCE " + input);
+			}
 		}
 		
-		ReactantSet reactset = new ReactantSet(substReactants);
-		System.out.println(reactset.toString());
+		ReactantSet reactset = new ReactantSet(substReactants, mols);
+		//System.out.println(reactset.toString());
 		
 		//Parse conditions
 		match = PATTERN_CONDITIONS.matcher(input);
@@ -83,7 +112,7 @@ public class ReactionParser {
 			temp = ConditionSet.TEMPERATURE_ARBITRARY;
 			conditions = conditions.substring(CONDITION_TEMPERATURE.length());
 			if(conditions.startsWith(CONDITIONS_VALUE_DELIM)) {
-				System.out.println(conditions);
+				//System.out.println(conditions);
 				
 				int endindex = conditions.indexOf(CONDITIONS_DELIM);
 				if(endindex < 0) endindex = conditions.length();
@@ -123,8 +152,16 @@ public class ReactionParser {
 		
 		ArrayList<Substance> substProducts = new ArrayList<>(3);
 		ArrayList<ProductSet.ProductFlags> flags = new ArrayList<>(3);
+		mols = new ArrayList<>(3);
+		
 		
 		for(String s : products_arr) {
+			
+			match = PATTERN_MOL.matcher(s);
+			if(match.find()) {
+				mols.add(Integer.parseInt(match.group(0)));
+			}
+			else mols.add(1);
 			
 			int endindex = s.length();
 			
@@ -143,7 +180,7 @@ public class ReactionParser {
 			if(sub!=null) substProducts.add(sub);
 		}
 		
-		ProductSet productset = new ProductSet(substProducts, flags);
+		ProductSet productset = new ProductSet(substProducts, flags, mols);
 		
 		Reaction reaction = new Reaction(reactset, condset, productset, reversable);
 		//System.out.println(reaction.toString());

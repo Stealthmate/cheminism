@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.nio.charset.Charset;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -26,10 +27,10 @@ public class Resources {
 		
 		try(InputStream is = Resources.class.getResourceAsStream(FILENAME_SUBSTANCES)) {
 		
-			Scanner s = new Scanner(is).useDelimiter("\\n");
-			String result = s.hasNext() ? s.next() : "";
+			byte [] buff = new byte[is.available()];
+			is.read(buff);
 			
-			SubstanceParser.parseSubstances(result);
+			SubstanceParser.parseSubstances(new String(buff, Charset.forName("UTF-8")).substring(1));
 			
 		} catch (IOException e) {
 			System.out.println("God bless us");
@@ -73,7 +74,7 @@ public class Resources {
 		ArrayList<Substance> matches = new ArrayList<>();
 		
 		for(Substance s : substances) {
-			if(s.getFormula().substring(s.getState().length() + 1).toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
+			if(s.getFormula().substring(s.getState().length()).toLowerCase().startsWith(query.toLowerCase())) matches.add(s);
 		}
 		
 		return matches;
@@ -83,6 +84,13 @@ public class Resources {
 	public static Substance querySubstance(String name) {
 		for (Substance s : substances) {
 			if(s.getFormula().equals(name)) return s;
+		}
+		return null;
+	}
+
+	public static Substance queryOrganicSubstanceByName(String name) {
+		for (Substance s : substances) {
+			if(s.isOrganic() && s.getFullName().equals(name)) return s;
 		}
 		return null;
 	}

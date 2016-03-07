@@ -7,20 +7,24 @@ import logic.Substance;
 public class ReactantSet {
 	
 	private ArrayList<Substance> reactants;
+	private ArrayList<Integer> mols;
 	
-	public ReactantSet(ArrayList<Substance> reactants) {
+	public ReactantSet(ArrayList<Substance> reactants, ArrayList<Integer> mols) {
 		
 		this.reactants = reactants;
+		this.mols = mols;
 		this.sort();
 	}
 	
 	private void swapReactants(int i, int j) {
 
-		Substance s = reactants.get(0);
-		
-		s = reactants.get(i);
+		Substance s = reactants.get(i);
 		reactants.set(i, reactants.get(j));
 		reactants.set(j, s);
+		
+		int m = mols.get(i);
+		mols.set(i, mols.get(j));
+		mols.set(j, m);
 	}
 	
 	public void sort() {
@@ -39,6 +43,8 @@ public class ReactantSet {
 	private boolean matchesReactant(int i, ReactantSet rs) {
 		
 		boolean match_subst = reactants.get(i).equals(rs.reactants.get(i));
+		
+		boolean match_mol = mols.get(i).equals(rs.mols.get(i));
 		
 		return match_subst;
 		
@@ -63,7 +69,7 @@ public class ReactantSet {
 		
 		res+= "Reactants:\n";
 		for(Substance s : reactants) {
-			res += "    " + s.toString();
+			res += "    " + s.toString() + "\n";
 		}
 		
 		return res;

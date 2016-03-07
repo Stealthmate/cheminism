@@ -46,7 +46,7 @@ public class SubstanceParser {
 			fullname = line.substring(0, delim);
 			line = line.substring(delim + TRIVIAL_NAMES_DELIMITER.length());
 		} else {
-			fullname = line.substring(0);
+			fullname = line.substring(0, line.length()-1);//Ignore endline
 			line = "";
 		}
 		
@@ -70,13 +70,14 @@ public class SubstanceParser {
 						isOrganic);
 
 		s.addTrivialName(line.replace(SPACE_NAME, " "));
-
+		
 		return s;
 	}
 
 	public static boolean parseSubstances(String input) {
-
+		
 		List<String> lines = Arrays.asList(input.split("\n"));
+		
 		int i = 0;
 		for (String line : lines) {
 			Resources.substances.add(parseSubstance(line, i));
